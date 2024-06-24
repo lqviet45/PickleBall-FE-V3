@@ -1,0 +1,9 @@
+{
+  "name": "pickleball-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/pickleball-e2e/src",
+  "implicitDependencies": ["pickleball"],
+  "// targets": "to see all targets run: nx show project pickleball-e2e --web",
+  "targets": {}
+}
