@@ -1,0 +1,28 @@
+<!--
+<div class="search-bar">
+  <input class="search-input" matInput placeholder="Nhập tên sân" [(ngModel)]="searchQuery">
+
+  <mat-form-field>
+    <mat-select placeholder="Tỉnh/Thành" [(value)]="selectedCity">
+      <input matInput placeholder="">
+      <mat-option *ngFor="let option of cities$ | async" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Số người chơi" [(value)]="selectedNop">
+      <input matInput placeholder="">
+      <mat-option *ngFor="let option of nop" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" value="" type="date" [(ngModel)]="selectedDate">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+
+  <button (click)="onSearch()" class="btn-search">Tìm kiếm</button>
+</div>
+-->
