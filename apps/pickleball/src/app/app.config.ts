@@ -7,6 +7,7 @@ import { StoreModule } from '@ngrx/store';
 import { courtGroupReducer } from '../../../../libs/store/src/lib/store/court-group/court-group.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CourtGroupEffects } from '../../../../libs/store/src/lib/store/court-group/court-group.effects';
+import { CourtYardEffects, courtYardReducer } from '@org/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,9 +21,11 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([
       StoreModule.forRoot({
         courtGroups: courtGroupReducer,
+        courtYard: courtYardReducer
       }),
       EffectsModule.forRoot([
-        CourtGroupEffects
+        CourtGroupEffects,
+        CourtYardEffects
       ])
     ])
   ],
