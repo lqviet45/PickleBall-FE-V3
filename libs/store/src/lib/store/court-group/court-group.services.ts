@@ -8,13 +8,18 @@ import { CourtGroup } from './court-group.model';
   providedIn: 'root'
 })
 export class CourtGroupService {
-  private apiUrl = 'https://pickleballapp.azurewebsites.net/api/users/2053852A-E44F-483E-E323-08DC913FE63F/court-groups';
+  private apiUrl = 'https://pickleballapp.azurewebsites.net/api/users';
 
   constructor(private http: HttpClient) {}
 
   getCourtGroups(): Observable<CourtGroup[]> {
-    return this.http.get<{ value: CourtGroup[] }>(this.apiUrl).pipe(
-      map(response => response.value)
-    );
+    return this.http.get<{ value: CourtGroup[] }>(`${this.apiUrl}/2053852A-E44F-483E-E323-08DC913FE63F/court-groups`)
+      .pipe(map(response => response.value));
   }
+
+  getCourtsByOwnerId(userId: string): Observable<CourtGroup[]> {
+    return this.http.get<{ value: CourtGroup[] }>(`${this.apiUrl}/${userId}/court-groups`)
+      .pipe(map(response => response.value));
+  }
+
 }

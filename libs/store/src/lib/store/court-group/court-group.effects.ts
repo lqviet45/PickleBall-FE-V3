@@ -23,4 +23,18 @@ export class CourtGroupEffects {
       )
     )
   );
+
+
+  loadCourtGroupByOwnerId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourtGroupActions.loadCourtGroupByOwnerId),
+      mergeMap(action =>
+        this.courtGroupService.getCourtsByOwnerId(action.ownerId).pipe(
+          map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ courtGroups })),
+          catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
+        )
+      )
+    )
+  );
+
 }
