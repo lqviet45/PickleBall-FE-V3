@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@org/guest": ["libs/guest/src/index.ts"],
+      "@org/owner": ["libs/owner/src/index.ts"],
       "@org/store": ["libs/store/src/index.ts"]
     }
   },

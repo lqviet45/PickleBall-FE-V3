@@ -1,0 +1,73 @@
+<mat-toolbar>
+  <mat-toolbar-row class="justify-content-between">
+    <!--    Toggle sidebar-->
+
+    <button mat-icon-button (click)="ToggleSideBar()">
+      <mat-icon class="menu-icon">menu</mat-icon>
+    </button>
+
+    <!--    Username-->
+<!--    <div class="user-name mr-2" *ngIf="user$ | async as user">Xin chào {{user.fullName}}</div>-->
+
+    <!--    Search Bar-->
+    <div class="search-bar ml-2 mr-2">
+      <input class="search-input" matInput placeholder="Search" />
+      <button mat-icon-button class="search-icon-button">
+        <mat-icon class="search-icon">search</mat-icon>
+      </button>
+    </div>
+
+    <!--    Mail-->
+
+    <div class="mail-box ml-2">
+      <button mat-icon-button>
+        <mat-icon class="mail-icon">mail</mat-icon>
+      </button>
+    </div>
+
+    <!--    Notification-->
+    <div class="notification-box ml-2">
+      <button mat-icon-button>
+        <mat-icon class="notify-icon">notifications</mat-icon>
+      </button>
+    </div>
+
+    <!--    User Image-->
+    <div class="user-info ml-auto">
+      <ul>
+        <li>
+          <button
+            mat-button
+            [matMenuTriggerFor]="menu"
+            class="user mt-2 d-flex align-items-center"
+          >
+            <img
+              alt=""
+              ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274567126?alt=media&token=e8094bc2-2b84-46b0-ab6f-d4f4429c8832"
+              class="user-image mr-1 p-2"
+              height="1080"
+              width="1080"
+            />
+            <mat-icon class="user-image-icon ml-1"
+            >keyboard_arrow_down</mat-icon
+            >
+          </button>
+
+          <mat-menu class="mat-menu-content" #menu="matMenu">
+            <button mat-menu-item (click)="Profile()">
+              <mat-icon>person</mat-icon>
+              Profile
+            </button>
+            <button mat-menu-item (click)="LogOut()">
+              <mat-icon>exit_to_app</mat-icon>
+              Logout
+            </button>
+
+          </mat-menu>
+        </li>
+      </ul>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+

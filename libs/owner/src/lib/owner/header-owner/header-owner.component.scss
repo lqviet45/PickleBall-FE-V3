@@ -1,0 +1,153 @@
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  padding: 0 16px; /* Add some padding for better spacing */
+
+  .mat-toolbar-row {
+    display: flex;
+    align-items: center;
+  }
+}
+
+ul {
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+button {
+  outline: none;
+  border: 0;
+  background: transparent;
+}
+
+.user {
+  font-size: 14px;
+}
+
+.user-name {
+  font-size: 1rem; /* Adjust font size as needed */
+  margin-right: auto; /* Pushes search bar and user info to the right */
+  color: #000;
+}
+
+.search-bar {
+  flex: 1;
+  max-width: 30vw; /* Adjust max width as needed */
+  margin: 0 16px;
+  display: flex; /* Add display flex to ensure the input fills the container */
+  align-items: center; /* Center items vertically */
+  position: relative; /* Make sure the search icon can be positioned absolutely */
+}
+
+.search-input {
+  border-radius: 10px; /* Add border radius */
+  flex: 1; /* Make the input take all available space */
+  padding-right: 36px; /* Add padding to the right to make space for the icon */
+  font-size: 1rem;
+}
+
+.search-icon-button {
+  position: absolute;
+  right: 0; /* Align the button to the right inside the search bar */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mail-box, .notification-box {
+  margin-left: 16px; /* Add spacing between these icons and other elements */
+}
+
+.mail-icon, .notify-icon, .search-icon, .menu-icon {
+  color: #000;
+}
+
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}
+
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Aligns the user info to the right */
+  margin-top: 16px;
+}
+
+.user-image {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin-right: 8px;
+
+  &-icon {
+    height: 18px;
+    font-size: 16px;
+    position: absolute;
+    left: 85%; /* Adjust as needed */
+    top: 20%;
+    transform: translateY(-50%);
+    color: #000;
+    font-weight: 900;
+  }
+}
+
+::ng-deep {
+  .mat-menu-content {
+    width: 160px;
+  }
+}
+
+li {
+  display: flex;
+  align-items: center;
+}
+.mat-menu.content{
+  background-color: white;
+  color: black;
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 100%; /* Full width for smaller screens */
+    margin: 8px 0; /* Adjust margin for better spacing */
+  }
+
+  .user-info {
+    margin-top: 8px; /* Adjust margin for smaller screens */
+  }
+
+  .mail-box, .notification-box {
+    margin-left: 8px; /* Reduce spacing for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .user-name {
+    font-size: 1rem; /* Smaller font size for very small screens */
+  }
+
+  .search-bar {
+    flex-direction: column; /* Stack input and icon vertically */
+    align-items: stretch; /* Stretch to full width */
+  }
+
+  .search-input {
+    width: 100%; /* Full width input */
+    padding-right: 0; /* No extra padding */
+    margin-bottom: 8px; /* Spacing below the input */
+  }
+
+  .search-icon-button {
+    position: static; /* Static positioning for stacking */
+    transform: none; /* Remove transform */
+    align-self: flex-end; /* Align button to the right */
+  }
+}
