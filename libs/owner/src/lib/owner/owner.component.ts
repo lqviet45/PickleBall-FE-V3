@@ -4,11 +4,12 @@ import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/materi
 import { SidenavOwnerComponent } from './sidenav-owner/sidenav-owner.component';
 import { HeaderOwnerComponent } from './header-owner/header-owner.component';
 import { OverviewOwnerComponent } from './overview-owner/overview-owner.component';
+import { CourtManagementOwnerComponent } from './court-management-owner/court-management-owner.component';
 
 @Component({
   selector: 'lib-owner',
   standalone: true,
-  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent],
+  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent],
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss',
 })
