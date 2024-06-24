@@ -4,9 +4,12 @@ import { appRoutes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { StoreModule } from '@ngrx/store';
-import { courtGroupReducer } from '../../../../libs/store/src/lib/store/court-group/court-group.reducer';
+import { courtGroupReducer } from '@org/store';
 import { EffectsModule } from '@ngrx/effects';
-import { CourtGroupEffects } from '../../../../libs/store/src/lib/store/court-group/court-group.effects';
+import { CourtGroupEffects } from '@org/store';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { CityReducer } from '../../../../libs/store/src/lib/store/city/city.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,10 +23,12 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([
       StoreModule.forRoot({
         courtGroups: courtGroupReducer,
+        city: CityReducer,
       }),
       EffectsModule.forRoot([
         CourtGroupEffects
-      ])
+      ]),
+      StoreDevtoolsModule.instrument({ maxAge: 25, }),
     ])
   ],
 };

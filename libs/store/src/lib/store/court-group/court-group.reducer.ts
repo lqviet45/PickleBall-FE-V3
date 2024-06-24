@@ -9,13 +9,13 @@ export interface CourtGroupState {
   error: string | null;
 }
 
-export const initialState: CourtGroupState = {
+export const initialCourtGroupState: CourtGroupState = {
   courtGroups: [],
   error: null
 };
 
 export const courtGroupReducer = createReducer(
-  initialState,
+  initialCourtGroupState,
   on(CourtGroupActions.loadCourtGroupsSuccess, (state, { courtGroups }) => ({
     ...state,
     courtGroups: courtGroups
