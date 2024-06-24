@@ -8,19 +8,26 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/pickleball",
         "index": "apps/pickleball/src/index.html",
         "browser": "apps/pickleball/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "apps/pickleball/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
           "apps/pickleball/src/favicon.ico",
           "apps/pickleball/src/assets"
         ],
-        "styles": ["apps/pickleball/src/styles.scss"],
+        "styles": [
+          "@angular/material/prebuilt-themes/pink-bluegrey.css",
+          "apps/pickleball/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -70,7 +77,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/pickleball/jest.config.ts"
       }
