@@ -1,0 +1,62 @@
+.court-list {
+  width: 100%;
+}
+
+.court-list-header {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between; /* Aligns items to the start and end of the flex container */
+  align-items: center;
+  background-color: white;
+}
+
+.start-content {
+  flex: 1; /* Takes up available space, pushing end-content to the end */
+}
+
+.end-content {
+  display: flex;
+  align-items: center;
+}
+
+.mat-form-field {
+  margin-right: 10px; /* Adjust spacing between form fields */
+  background-color: white;
+}
+
+.court-list-label {
+  padding: 0.75em 1em; /* Consistent padding */
+  background-color: white;
+  border: 1px solid #ccc; /* Add border around form fields */
+  border-radius: 1em;
+  color: black;
+  margin-right: 10px; /* Adjust spacing between form fields */
+  display: flex;
+  align-items: center;
+}
+
+.btn-add {
+  height: 2.5em; /* Adjust the height to match other elements */
+  margin: 0 10px; /* Ensure consistent spacing */
+  background-color: #08222F;
+  color: white;
+  padding: 1em;
+}
+.court-select{
+  width: 10vw;
+}
+.court-yard-content{
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.court-yard-item{
+  color: black;
+  max-width: 10vw;
+}
+.court-card{
+  background-color: white;
+  margin-bottom: 1em;
+}

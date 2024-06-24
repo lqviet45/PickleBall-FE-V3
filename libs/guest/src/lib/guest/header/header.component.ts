@@ -29,6 +29,6 @@ export class HeaderComponent {
   }
   onLogin() {
     // Logic for login button click
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 }

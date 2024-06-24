@@ -4,12 +4,27 @@ import { appRoutes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { StoreModule } from '@ngrx/store';
-import { courtGroupReducer } from '@org/store';
-import { EffectsModule } from '@ngrx/effects';
-import { CourtYardEffects, courtYardReducer, CityReducer } from '@org/store';
-import { CourtGroupEffects } from '@org/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { CityEffects, CityReducer,
+  CourtGroupEffects, courtGroupReducer,
+  UserEffects, userReducer,
+  CourtYardEffects, courtYardReducer,
+  BookingsEffects, bookingsReducer
+} from '@org/store';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBOsfGWAtEPdrofxFEgGekQldqw7BK0OhU",
+  authDomain: "pickleball-fe.firebaseapp.com",
+  projectId: "pickleball-fe",
+  storageBucket: "pickleball-fe.appspot.com",
+  messagingSenderId: "313812647101",
+  appId: "1:313812647101:web:490f9f59e506bb6d994bd4",
+  measurementId: "G-GZ4XZGCLSD"
+};
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(
@@ -20,14 +35,21 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     importProvidersFrom([
+      provideFirebaseApp(() => initializeApp(firebaseConfig)),
+      provideAuth(() => getAuth()),
       StoreModule.forRoot({
         courtGroups: courtGroupReducer,
         courtYard: courtYardReducer,
         city: CityReducer,
+        user: userReducer,
+        bookings: bookingsReducer,
       }),
       EffectsModule.forRoot([
         CourtGroupEffects,
-        CourtYardEffects
+        CourtYardEffects,
+        CityEffects,
+        UserEffects,
+        BookingsEffects
       ]),
       StoreDevtoolsModule.instrument({ maxAge: 25, }),
     ])

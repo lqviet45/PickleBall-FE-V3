@@ -5,8 +5,7 @@ import {
   user
 } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { UserInterface } from '@org/store';
+import { UserInterface } from '../user/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';

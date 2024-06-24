@@ -1,0 +1,56 @@
+.booking-list {
+  width: 100%;
+  background-color: white;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: black;
+}
+
+.booking-row {
+  border-bottom: 1px solid #ccc; /* Add border between rows */
+}
+
+.booking-id-cell {
+  padding: 1em;
+  text-align: center;
+  vertical-align: middle;
+  background-color: yellow;
+  color: blue;
+}
+
+.booking-name-cell {
+  padding: 1em;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.booking-cell {
+  padding: 1em;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.booking-cell button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.booking-id{
+  font-size: 1em;
+  display: inline-block;
+  background-color: #E6F8B3;
+  color: #08222F;
+}
+.booking-name{
+  font-size: 1.5em;
+}
+.booking-time{
+  font-size: 0.5em;
+}
+.error{
+  color: black;
+}

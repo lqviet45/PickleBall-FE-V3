@@ -1,0 +1,41 @@
+<mat-card class="booking-list">
+  <mat-card-content>
+    <div *ngIf="error$ | async as error">
+      <div class="error">{{ error }}</div>
+    </div>
+
+    <table *ngIf="(bookings$ | async)?.length; else noBookings" class="booking-table">
+      <tbody>
+      <tr *ngFor="let booking of (bookings$ | async)" class="booking-row">
+        <!-- Display booking details -->
+        <td class="booking-cell">
+          <div class="booking-id">{{ booking.bookingId }}</div>
+          <div class="booking-user">{{ booking.userName}}</div>
+          <div class="booking-time">{{ booking.createdOnUtc }}</div>
+        </td>
+        <td class="booking-cell">{{ booking.courtYardName }}</td>
+        <td class="booking-cell">{{ booking.courtGroupName }}</td>
+        <td class="booking-cell">{{ booking.numberOfPlayers }}</td>
+        <td class="booking-cell">{{ booking.dateId }}</td>
+        <td class="booking-cell">{{ booking.bookingStatus }}</td>
+        <td class="booking-cell">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editBooking(booking.bookingId)">
+              Chỉnh sửa
+            </button>
+            <button mat-menu-item (click)="deleteBooking(booking.bookingId)">
+              Xóa
+            </button>
+          </mat-menu>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ng-template #noBookings>
+
+    </ng-template>
+  </mat-card-content>
+</mat-card>
