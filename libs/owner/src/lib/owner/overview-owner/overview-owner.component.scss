@@ -1,0 +1,153 @@
+.container {
+  max-width: 1200px; /* Maximum width for the container */
+  margin: 0 auto; /* Center the container */
+  padding: 16px; /* Padding for the container */
+}
+
+/* Statistic box */
+
+.statistic {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.statistic-box {
+  flex: 1;
+  min-width: 250px; /* Ensures boxes don't get too small */
+  min-height: 10vh;
+  margin: 8px;
+  padding: 16px;
+  background-color: var(--white-color); /* Background color */
+  border: 1px solid #ddd; /* Border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+  text-align: center; /* Center text */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.statistic-box-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.statistic-box-content_text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.statistic-box-content_money {
+  font-size: 1.5rem; /* Adjust font size as needed */
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.statistic-box-content_description {
+  font-size: 1rem; /* Adjust font size as needed */
+  font-weight: 400;
+}
+
+.statistic-box-content_money, .statistic-box-content_description {
+  color: var(--primary-color);
+}
+
+.statistic-box-img img {
+  width: 60px; /* Adjust size as needed */
+  height: 60px; /* Adjust size as needed */
+  border-radius: 50%;
+}
+
+.statistic-box:last-child {
+  background-color: #08222F;
+}
+
+.statistic-box:last-child .statistic-box-content_money,
+.statistic-box:last-child .statistic-box-content_description,
+.statistic-box:last-child .statistic-box-icon mat-icon {
+  color: var(--secondary-color);
+}
+
+//.statistic-box-icon {
+//  display: flex;
+//  align-items: center;
+//}
+
+.person-icon {
+  font-size: 2.4rem;
+}
+
+/* Dashboard */
+
+.card-header {
+  color: var(--primary-color);
+}
+
+
+/* Court Group */
+
+.court-group-header {
+  display: flex;
+  align-items: center; /* Aligns items vertically */
+  margin-bottom: 10px; /* Adjust as needed */
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.court-group-header img {
+  width: 60px; /* Adjust image size as needed */
+  height: 60px;
+  border-radius: 10px;
+  margin-right: 10px; /* Space between image and text */
+
+}
+
+.court-group-header_icon {
+  margin-left: auto;
+}
+
+.court-group-list {
+  list-style-type: none;
+  padding-left: 0;
+
+}
+
+.court-group-list li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.court-group-list_label {
+  flex: 1; /* Takes as much space as needed */
+  text-align: left; /* Aligns text to the left */
+  font-weight: 400;
+}
+
+.court-group-list_value {
+  flex: 1; /* Takes as much space as needed */
+  text-align: right; /* Aligns text to the right */
+  color: #cccccc;
+}
+
+.card-separator {
+  margin: 0; /* Ensure no default margin */
+  border-top: 1px solid #ccc; /* Solid line with gray color */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .statistic-box {
+    flex: 0 0 48%; /* Two boxes per row on small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .statistic-box {
+    flex: 0 0 100%; /* One box per row on very small screens */
+  }
+}

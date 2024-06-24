@@ -5,3 +5,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+
+:root {
+  --primary-color: #08222F;
+  --secondary-color: #ADE603;
+  --black-color: #000000;
+  --white-color: #FFFFFF;
+}
