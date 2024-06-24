@@ -15,5 +15,16 @@ export const loadCourtGroupByOwnerId = createAction(
   '[CourtGroup] Load CourtGroup By OwnerId',
   props<{ ownerId: string }>()
 );
-
+export const searchCourtGroups = createAction(
+  '[CourtGroup] Search CourtGroups',
+  props<{ name: string, cityName: string }>()
+);
+export const searchCourtGroupsSuccess = createAction(
+  '[CourtGroup] Search CourtGroups Success',
+  props<{ courtGroups: CourtGroup[] }>()
+);
+export const searchCourtGroupsFailure = createAction(
+  '[CourtGroup] Search CourtGroups Failure',
+  props<{ error: any }>()
+);
 

@@ -2,14 +2,13 @@
   <input class="search-input" matInput placeholder="Nhập tên sân" [(ngModel)]="searchQuery">
 
   <mat-form-field>
-    <mat-select placeholder="Tỉnh/Thành" [(value)]="selectedCity">
-      <input matInput placeholder="">
-      <mat-option *ngFor="let option of cities$ | async" [value]="option">{{ option }}</mat-option>
+    <mat-select placeholder="Tỉnh/Thành" [(ngModel)]="selectedCity">
+      <mat-option *ngFor="let option of (cities$ | async)" [value]="option">{{ option }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
-    <mat-select placeholder="Số người chơi" [(value)]="selectedNop">
+    <mat-select placeholder="Số người chơi">
       <input matInput placeholder="">
       <mat-option *ngFor="let option of nop" [value]="option">{{ option }}</mat-option>
     </mat-select>
@@ -20,7 +19,16 @@
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
-
-
   <button (click)="onSearch()" class="btn-search">Tìm kiếm</button>
 </div>
+<div *ngIf="(error$ | async) as error">
+  Error loading court groups: {{ error }}
+</div>
+<div class="result" *ngIf="(courtGroups$ | async) as courtGroups">
+  <div *ngFor="let courtGroup of courtGroups">
+    <div>{{ courtGroup.name }}</div>
+    <div>{{ courtGroup.price }}</div>
+    <!-- Display other properties as needed -->
+  </div>
+</div>
+
