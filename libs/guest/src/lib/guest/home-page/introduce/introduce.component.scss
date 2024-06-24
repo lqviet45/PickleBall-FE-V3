@@ -1,0 +1,39 @@
+.body {
+  height: 75vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/phat-469a1.appspot.com/o/introduce.png?alt=media&token=bee99a8f-0358-4286-8ef7-713626f3bde6");
+}
+
+.first-word, .second-word {
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Inter', sans-serif;
+  font-size: 5em;
+  margin: 0;
+}
+
+.first-word {
+  color: white;
+}
+
+.second-word {
+  color: #ADE603;
+}
+.third-sentence{
+  color: #08222F;
+  font-size: 1.5em;
+}
+.btn-signup{
+  padding: 10px 30px;
+  margin-top: 1.5em;
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  background-color: #08222F;
+  color: #ADE603;
+  font-size: 1.5em;
+}

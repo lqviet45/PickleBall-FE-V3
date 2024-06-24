@@ -1,0 +1,83 @@
+/* Base styles */
+.header {
+  height: 10vh;
+  background-color: white;
+}
+
+.secondary-header {
+  color: black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-button {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.login-button {
+  margin-left: auto;
+  color: black;
+}
+
+.logo-button mat-icon {
+  margin-right: 8px;
+}
+
+.nav-items {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-around;
+}
+
+.nav-items button {
+  color: black;
+  margin-top: 2.5em;
+}
+
+.nav-items button.active {
+  color: #ADE603; /* Change text color to yellow for active button */
+}
+
+.toolbar-section {
+  flex: 1; /* Each section will take up equal space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-section {
+  justify-content: flex-start;
+}
+
+.login-section {
+  flex: 1; /* Each section will take up equal space */
+}
+
+.login-button {
+  color: black!important;
+  border: 2px solid; /* Button border color */
+  border-radius: 10px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+  margin-right: 20px;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .nav-items {
+    flex-direction: column; /* Stack buttons vertically on small screens */
+    align-items: center;
+  }
+
+  .nav-items button {
+    margin-top: 0; /* Remove top margin for buttons */
+    margin-bottom: 1em; /* Add bottom margin for spacing */
+  }
+
+  .login-section {
+    display: none; /* Hide login section on small screens */
+  }
+}
