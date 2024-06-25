@@ -10,7 +10,7 @@ import {
   AuthService,
   CourtGroup, createCourtGroup,
   loadCourtGroupByOwnerId,
-  selectAllCourtGroups, selectCurrentUser,
+  selectAllCourtGroups,
   UserInterface
 } from '@org/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,7 +32,7 @@ export class CourtManagementSidenavComponent implements OnInit{
   courtsGroup$!: Observable<CourtGroup[]>;
 
 
-  constructor(private store: Store, public dialog: MatDialog, private authService: AuthService) {
+  constructor(private store: Store, public dialog: MatDialog) {
 
   }
 

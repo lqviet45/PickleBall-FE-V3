@@ -1,8 +1,8 @@
-import { Component, inject, OnInit, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CourtManagementContentComponent } from './court-management-content/court-management-content.component';
 import { CourtManagementSidenavComponent } from './court-management-sidenav/court-management-sidenav.component';
-import { Observable, tap } from 'rxjs';
+import { Observable} from 'rxjs';
 import {
   AuthService,
   CourtGroup,
@@ -12,7 +12,7 @@ import {
   UserInterface,
   selectCurrentUser
 } from '@org/store';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 
 @Component({
