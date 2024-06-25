@@ -17,7 +17,8 @@ jobs:
       - uses: pnpm/action-setup@v2
         with: 
           version: 8
-      - run: pnpm nx run build:development pickleball
+      - run: pnpm add --global nx@latest
+      - run: nx run pickleball:build:development
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
