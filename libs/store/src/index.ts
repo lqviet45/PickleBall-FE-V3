@@ -19,6 +19,7 @@ export * from './lib/store/user/user.effects';
 export * from './lib/store/user/user.interface';
 export * from './lib/store/user/user.reducer';
 export * from './lib/store/user/user.service';
+export * from './lib/store/user/user.selector';
 //City
 export * from './lib/store/city/city.actions';
 export * from './lib/store/city/city.effects';

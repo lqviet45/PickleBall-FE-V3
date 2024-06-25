@@ -1,7 +1,7 @@
 <div class="container pt-3">
   <div class="row">
     <div class="col-md-2">
-      <lib-court-management-sidenav (courtSelected)="onCourtGroupSelected($event)"></lib-court-management-sidenav>
+      <lib-court-management-sidenav [user]="user$ | async" (courtSelected)="onCourtGroupSelected($event)"></lib-court-management-sidenav>
     </div>
     <div class="col-md-10">
       <lib-court-management-content [courtGroupId] = 'selectedCourtGroupId'></lib-court-management-content>

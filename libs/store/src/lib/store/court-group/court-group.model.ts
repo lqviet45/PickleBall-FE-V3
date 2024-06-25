@@ -2,6 +2,7 @@ export interface CourtGroup {
   id: string;
   userId?: string; // Make optional if not always present
   wardId?: string;
+  wardName?: string;
   walletId?: string;
   name: string;
   price?: number;

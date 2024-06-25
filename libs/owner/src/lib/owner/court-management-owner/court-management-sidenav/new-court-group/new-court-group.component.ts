@@ -31,7 +31,7 @@ export class NewCourtGroupComponent {
   ) {
     this.courtGroupForm = this.fb.group({
       name: ['', Validators.required],
-      wardId: ['', Validators.required],
+      wardName: ['', Validators.required],
       walletId: ['', Validators.required],
       price: [0, Validators.required],
       minSlots: [1, Validators.required],

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
@@ -7,9 +7,10 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
+  AuthService,
   CourtGroup, createCourtGroup,
   loadCourtGroupByOwnerId,
-  selectAllCourtGroups,
+  selectAllCourtGroups, selectCurrentUser,
   UserInterface
 } from '@org/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,17 +27,21 @@ import { NewCourtGroupComponent } from './new-court-group/new-court-group.compon
 })
 export class CourtManagementSidenavComponent implements OnInit{
 
-  user$ = Observable<UserInterface>
-  private userId = 'b0d5db25-6d0f-43b8-5600-08dc94b9501f';
+  @Input() user?: UserInterface | null;
   @Output() courtSelected = new EventEmitter<string>();
   courtsGroup$!: Observable<CourtGroup[]>;
 
-  constructor(private store: Store, public dialog: MatDialog) {
+
+  constructor(private store: Store, public dialog: MatDialog, private authService: AuthService) {
 
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+
+    if (this.user && this.user.id) {
+      this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.user?.id }));
+    }
+
     this.courtsGroup$ = this.store.select(selectAllCourtGroups);
   }
 
@@ -50,11 +55,12 @@ export class CourtManagementSidenavComponent implements OnInit{
   openDialog() {
     const dialogRef = this.dialog.open(NewCourtGroupComponent, {
       width: '600px',
-      data: { userId: this.userId }
+      data: { userId: this.user?.id}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result);
         this.store.dispatch(createCourtGroup({ courtGroup: result }));
       }
     });

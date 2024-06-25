@@ -7,13 +7,13 @@ export interface UserState {
   error: any;
 }
 
-export const initialState: UserState = {
+export const userInitialState: UserState = {
   user: null,
   error: null,
 };
 
 const _userReducer = createReducer(
-  initialState,
+  userInitialState,
   on(loadUser, state => ({ ...state })),
   on(loadUserSuccess, (state, { user }) => ({ ...state, user })),
   on(loadUserFailure, (state, { error }) => ({ ...state, error }))
