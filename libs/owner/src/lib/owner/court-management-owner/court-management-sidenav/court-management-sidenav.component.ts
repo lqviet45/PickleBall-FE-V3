@@ -27,7 +27,7 @@ import { NewCourtGroupComponent } from './new-court-group/new-court-group.compon
 export class CourtManagementSidenavComponent implements OnInit{
 
   user$ = Observable<UserInterface>
-  private userId = '2053852a-e44f-483e-e323-08dc913fe63f';
+  private userId = 'b0d5db25-6d0f-43b8-5600-08dc94b9501f';
   @Output() courtSelected = new EventEmitter<string>();
   courtsGroup$!: Observable<CourtGroup[]>;
 

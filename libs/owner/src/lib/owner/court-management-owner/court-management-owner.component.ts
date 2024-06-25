@@ -23,7 +23,7 @@ export class CourtManagementOwnerComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    const userId = '2053852a-e44f-483e-e323-08dc913fe63f';
+    const userId = 'b0d5db25-6d0f-43b8-5600-08dc94b9501f';
     this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: userId }));
 
     // Subscribe to courtGroups$ to get the first court group ID
