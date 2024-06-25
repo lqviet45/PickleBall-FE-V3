@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: yarn global add nx@latest
       - run: yarn nx run pickleball:build:development
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
