@@ -32,3 +32,8 @@ export * from './lib/store/booking/booking.model';
 export * from './lib/store/booking/booking.reducer';
 export * from './lib/store/booking/booking.service';
 export * from './lib/store/booking/booking.selectors';
+//Register
+export * from './lib/store/register/register.actions';
+export * from './lib/store/register/register.effects';
+export * from './lib/store/register/register.reducer';
+export * from './lib/store/register/register.service';

@@ -19,13 +19,15 @@ export class AuthService {
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
   private registerApi = 'https://pickleballapp.azurewebsites.net/api/users';
   private userApi = `https://pickleballapp.azurewebsites.net/api/users`;
+  permissionError = signal<string | null>(null); // New property for permission error message
+
   constructor(
     private http: HttpClient,
     private router: Router // Inject Router for navigation
   ) {}
 
-  register(email: string, password: string, firstName: string, lastName: string, fullName: string, location: string): Observable<any> {
-    const body = { email, password, firstName, lastName, fullName, location };
+  register(email: string, password: string, firstName: string, lastName: string, fullName: string, location: string, role: number): Observable<any> {
+    const body = { email, password, firstName, lastName, fullName, location, role};
     return this.http.post<any>(this.registerApi, body);
   }
 
@@ -39,7 +41,6 @@ export class AuthService {
           email: currentUser.email!,
           username: currentUser.displayName || '',
         });
-
         // Call API to get user's role
         this.getUserProfile(currentUser.uid).subscribe(
           (userProfile: UserInterface) => {
@@ -54,9 +55,12 @@ export class AuthService {
               this.router.navigate(['/owner']);
             } else if (userProfile.role === "Manager") {
               this.router.navigate(['/staff']);
-            } else {
-              // Handle other roles if needed
-              console.log('Unknown role:', userProfile.role);
+            } else if (userProfile.role === "SystemAdmin") {
+              this.router.navigate(['/admin']);
+            }
+            else {
+              this.permissionError.set('You do not have permission to access this application.');
+              this.router.navigate(['/login']); // Redirect to login or another appropriate page
             }
           },
           (error) => {
