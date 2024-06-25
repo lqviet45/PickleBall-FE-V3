@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import { createAction, createActionGroup, props } from '@ngrx/store';
 import { CourtGroup } from './court-group.model';
 
 export const loadCourtGroups = createAction('[CourtGroup] Load CourtGroups');
@@ -30,4 +30,16 @@ export const createCourtGroupFailure = createAction(
   '[CourtGroup] Create CourtGroup Failure',
   props<{ error: any }>()
 )
+export const searchCourtGroups = createAction(
+  '[CourtGroup] Search CourtGroups',
+  props<{ name: string, cityName: string }>()
+);
+export const searchCourtGroupsSuccess = createAction(
+  '[CourtGroup] Search CourtGroups Success',
+  props<{ courtGroups: CourtGroup[] }>()
+);
+export const searchCourtGroupsFailure = createAction(
+  '[CourtGroup] Search CourtGroups Failure',
+  props<{ error: any }>()
+);
 

@@ -1,0 +1,10 @@
+<div *ngIf="user$ | async as user">
+  <h2>User Profile</h2>
+  <p>Name: {{ user.fullName }}</p>
+  <p>Email: {{ user.email }}</p>
+  <p>Location: {{ user.location }}</p>
+  <p>Role: {{ user.role }}</p>
+</div>
+<div *ngIf="error$ | async as error">
+  <p>Error loading user profile: {{ error }}</p>
+</div>

@@ -9,9 +9,6 @@
         </mat-select>
       </div>
     </div>
-    <div class="end-content">
-      <button mat-raised-button class="court-list-label btn-add" (click)="openAddDialog()">+   Thêm</button>
-    </div>
   </mat-card-content>
   <mat-card-content class="court-yard-content" fxLayout="row wrap" fxLayoutGap="30px">
     <div *ngFor="let court of courtYards$ | async" fxFlex="20%">

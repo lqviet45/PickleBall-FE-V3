@@ -11,6 +11,10 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@org/guest').then(m => m.GuestComponent)
   },
   {
+    path: 'admin',
+    loadComponent: () => import('@org/admin').then(m => m.AdminComponent),
+  },
+  {
     path: 'login',
     loadComponent: () => import('@org/login').then(m => m.LoginComponent)
   },
@@ -25,5 +29,9 @@ export const appRoutes: Route[] = [
   {
     path: 'staff',
     loadComponent: () => import('@org/staff').then(m => m.StaffComponent),
+  },
+  {
+    path: 'user/:firebaseId',
+    loadComponent: () => import('@org/user').then(m => m.UserComponent),
   },
 ];

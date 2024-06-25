@@ -13,7 +13,14 @@ import {
 } from '@angular/material/datepicker';
 import { Observable } from 'rxjs';
 import { Store} from '@ngrx/store';
-import { CityState, loadCities } from '@org/store';
+import {
+  CityState,
+  CourtGroup,
+  loadCities,
+  searchCourtGroups,
+  selectAllCourtGroups,
+  selectCourtGroupError
+} from '@org/store';
 import { provideNativeDateAdapter } from '@angular/material/core';
 @Component({
   selector: 'lib-search-court-group',
@@ -38,30 +45,33 @@ import { provideNativeDateAdapter } from '@angular/material/core';
   styleUrl: './search-court-group.component.scss',
 })
 export class SearchCourtGroupComponent implements OnInit{
+  courtGroups$: Observable<CourtGroup[]>;
+  error$: Observable<any>;
+
   searchQuery = '';
   selectedCity = '';
-  selectedNop = '';
   cities$: Observable<string[]>;
-
   nop: string[] = ['2', '3', '4'];
-
   selectedDate: string;
-  constructor(private store: Store<{ city: CityState }>) {
-    // Set the default date to today
+  constructor(private store: Store<{ city: CityState, courtGroups: { courtGroups: CourtGroup[], error: any } }>) {
     const today = new Date();
     this.selectedDate = today.toISOString().slice(0, 10);
     this.cities$ = this.store.select(state => state.city.cities);
+    this.courtGroups$ = this.store.select(selectAllCourtGroups);
+    this.error$ = this.store.select(selectCourtGroupError);
+    console.log(this.courtGroups$)
   }
+
   ngOnInit() {
     this.store.dispatch(loadCities());
   }
-  @ViewChild(MatDatepicker) datepicker?: MatDatepicker<Date>;
 
   onSearch() {
-    // Handle the search logic here
-    console.log('Search Query:', this.searchQuery);
-    console.log('Selected City:', this.cities$);
-    console.log('Selected Number of players:', this.nop);
+    console.log('Selected City:', this.selectedCity);
+    this.store.dispatch(searchCourtGroups({ name: this.searchQuery, cityName: this.selectedCity }));
+    this.courtGroups$.subscribe(courtGroups => {
+      console.log('Court Groups:', courtGroups);
+    });
   }
 }
 

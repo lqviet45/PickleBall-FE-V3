@@ -36,5 +36,14 @@ export const courtGroupReducer = createReducer(
   on(CourtGroupActions.createCourtGroupFailure, (state, { error }) => ({
     ...state,
     error
+  })),
+  on(CourtGroupActions.searchCourtGroupsSuccess, (state, { courtGroups }) => ({
+    ...state,
+    courtGroups,
+    error: null  // Reset the error on success
+  })),
+  on(CourtGroupActions.searchCourtGroupsFailure, (state, { error }) => ({
+    ...state,
+    error
   }))
 );

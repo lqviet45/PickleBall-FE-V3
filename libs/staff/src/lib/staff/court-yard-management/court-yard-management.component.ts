@@ -20,6 +20,7 @@ import {
 } from '@org/store';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'lib-court-yard-management',
@@ -51,7 +52,7 @@ export class CourtYardManagementComponent implements OnInit {
   courtYards$: Observable<CourtYard[]>;
   selectedCourtYard: CourtYard | null = null;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, public dialog: MatDialog) {
     this.courtGroups$ = this.store.select(selectAllCourtGroups);
     this.courtYards$ = this.store.select(selectAllCourtYards);
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups)
@@ -84,9 +85,5 @@ export class CourtYardManagementComponent implements OnInit {
     } else {
       this.selectedCourtYard = court; // Select the clicked court
     }
-  }
-
-  openAddDialog() {
-    // Implementation for opening add dialog
   }
 }
