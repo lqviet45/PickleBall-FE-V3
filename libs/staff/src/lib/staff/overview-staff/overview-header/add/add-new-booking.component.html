@@ -2,32 +2,22 @@
   <h1>Add New Booking</h1>
   <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
     <div class="form-group">
-      <label for="name">Name</label>
-      <input type="text" id="name" class="form-control" name="name" ngModel required>
-    </div>
-
-    <div class="form-group">
-      <label for="date">Date</label>
-      <input type="date" id="date" class="form-control" name="date" ngModel required>
-    </div>
-
-    <div class="form-group">
-      <label for="time">Time</label>
-      <input type="time" id="time" class="form-control" name="time" ngModel required>
-    </div>
-
-    <div class="form-group">
-      <label for="court">Court</label>
-      <select id="court" class="form-control" name="court" ngModel required>
-        <option value="">Select a court</option>
-        <option value="court1">Court 1</option>
-        <option value="court2">Court 2</option>
-        <!-- Add more options as needed -->
-      </select>
+      <div class="label-column">
+        <label class="add-label" for="name">M Khách Hàng</label>
+        <label class="add-label" for="date">Ngày đặt</label>
+        <label class="add-label" for="time">Khoảng thời gian</label>
+        <label class="add-label" for="nop">Số người chơi</label>
+      </div>
+      <div class="input-column">
+        <input type="text" id="name" class="form-control" name="name" ngModel required>
+        <input type="date" id="date" class="form-control" name="date" ngModel required>
+        <input id="time" class="form-control" name="time" ngModel required>
+        <input id="nop" class="form-control" name="nop" ngModel required>
+      </div>
     </div>
     <div class="btn-add-booking">
-      <button mat-button (click)="closeDialog()">Back</button>
-      <button type="submit" class="btn btn-primary" [disabled]="!bookingForm.form.valid">Book</button>
+      <button class="btn-back" mat-button (click)="closeDialog()">Back</button>
+      <button type="submit" class="btn btn-submit" [disabled]="!bookingForm.form.valid">Add</button>
     </div>
   </form>
 </div>
