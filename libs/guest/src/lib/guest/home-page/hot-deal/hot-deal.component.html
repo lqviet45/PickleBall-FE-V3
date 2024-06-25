@@ -10,13 +10,12 @@
   </h1>
   <div class="container card-container">
     <div class="card-list">
-      <!-- Use *ngFor to iterate over the courts array -->
-      <!--      <div class="card" *ngFor="let court of courts$ | async">
-              &lt;!&ndash; Display court details &ndash;&gt;
-              <img [src]="court.img" [alt]="court.name">
+         <div class="card" *ngFor="let court of courtGroup$ | async">-->
+              <!-- Display court details -->
+              <img [src]="court.medias" [alt]="court.name">
               <div class="card-content">
                 <h2>{{ court.name }}</h2>
-                <p>{{ court.location }}</p>
+                <p>{{ court.wardId }}</p>
                 <p>{{ court.price }}</p>
               </div>
               <div class="btn-booking-section">
@@ -25,7 +24,7 @@
             </div>
           </div>
           <div class="error-message" *ngIf="error$ | async">
-            Error loading courts: {{ error$ | async }}-->loading
+            Error loading courts: {{ error$ | async }}&ndash;&gt;-->loading
     </div>
   </div>
 </div>
