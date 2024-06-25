@@ -28,4 +28,13 @@ export const courtGroupReducer = createReducer(
     ...state,
     error: null,
   })),
+  on(CourtGroupActions.createCourtGroupSuccess, (state, { courtGroup }) => ({
+    ...state,
+    courtGroups: [...state.courtGroups, courtGroup],
+    error: null
+  })),
+  on(CourtGroupActions.createCourtGroupFailure, (state, { error }) => ({
+    ...state,
+    error
+  }))
 );

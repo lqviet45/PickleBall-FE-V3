@@ -22,4 +22,8 @@ export class CourtGroupService {
       .pipe(map(response => response.value));
   }
 
+  createCourtGroup(courtGroup: CourtGroup): Observable<CourtGroup> {
+    return this.http.post<CourtGroup>(`${this.apiUrl}/${courtGroup.userId}/court-groups`, courtGroup);
+  }
+
 }

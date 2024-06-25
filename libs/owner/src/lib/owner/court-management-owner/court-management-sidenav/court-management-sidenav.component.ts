@@ -6,7 +6,15 @@ import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { CourtGroup, loadCourtGroupByOwnerId, selectAllCourtGroups } from '@org/store';
+import {
+  CourtGroup, createCourtGroup,
+  loadCourtGroupByOwnerId,
+  selectAllCourtGroups,
+  UserInterface
+} from '@org/store';
+import { MatDialog } from '@angular/material/dialog';
+import { NewCourtGroupComponent } from './new-court-group/new-court-group.component';
+
 
 
 @Component({
@@ -18,12 +26,12 @@ import { CourtGroup, loadCourtGroupByOwnerId, selectAllCourtGroups } from '@org/
 })
 export class CourtManagementSidenavComponent implements OnInit{
 
+  user$ = Observable<UserInterface>
   private userId = '2053852a-e44f-483e-e323-08dc913fe63f';
   @Output() courtSelected = new EventEmitter<string>();
   courtsGroup$!: Observable<CourtGroup[]>;
 
-  constructor(private store: Store) {
-
+  constructor(private store: Store, public dialog: MatDialog) {
 
   }
 
@@ -38,4 +46,17 @@ export class CourtManagementSidenavComponent implements OnInit{
     console.log(court);
   }
 
+
+  openDialog() {
+    const dialogRef = this.dialog.open(NewCourtGroupComponent, {
+      width: '600px',
+      data: { userId: this.userId }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(createCourtGroup({ courtGroup: result }));
+      }
+    });
+  }
 }
