@@ -21,7 +21,8 @@
       "@org/owner": ["libs/owner/src/index.ts"],
       "@org/register": ["libs/register/src/index.ts"],
       "@org/staff": ["libs/staff/src/index.ts"],
-      "@org/store": ["libs/store/src/index.ts"]
+      "@org/store": ["libs/store/src/index.ts"],
+      "@org/user": ["libs/user/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
