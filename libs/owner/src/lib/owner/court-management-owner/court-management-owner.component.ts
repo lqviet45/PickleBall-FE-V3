@@ -47,7 +47,7 @@ export class CourtManagementOwnerComponent implements OnInit{
       //console.log('Current User:', user);
       if (user && user.id) {
         this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: user.id }));
-        //console.log('User ID:', user.id);
+        console.log('User ID:', user.id);
       }
     });
 

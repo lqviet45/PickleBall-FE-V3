@@ -9,6 +9,7 @@ import { CourtGroup } from './court-group.model';
 })
 export class CourtGroupService {
   private apiUrl = 'https://pickleballapp.azurewebsites.net/api/users';
+  private courtGrApiUrl = 'https://pickleballapp.azurewebsites.net/api/court-groups';
   private getCourtGroupsByNameAndCity = 'https://pickleballapp.azurewebsites.net/api'
   constructor(private http: HttpClient) {}
 
@@ -37,7 +38,8 @@ export class CourtGroupService {
   }
 
   createCourtGroup(courtGroup: CourtGroup): Observable<CourtGroup> {
-    return this.http.post<CourtGroup>(`${this.apiUrl}/${courtGroup.userId}/court-groups`, courtGroup);
+    console.log('user id', courtGroup);
+    return this.http.post<CourtGroup>(`${this.courtGrApiUrl}`, courtGroup);
   }
 
 }

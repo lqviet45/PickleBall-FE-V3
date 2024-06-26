@@ -10,6 +10,7 @@ export interface CourtGroup {
   createdOnUtc?: string;
   modifiedOnUtc?: string | null;
   medias?: any[];
+  mediaUrl?: string;
 }
 
 

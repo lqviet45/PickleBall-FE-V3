@@ -33,3 +33,6 @@ export * from './lib/store/booking/booking.model';
 export * from './lib/store/booking/booking.reducer';
 export * from './lib/store/booking/booking.service';
 export * from './lib/store/booking/booking.selectors';
+
+// Image Upload
+export * from './lib/store/uploadImage/image-upload.service';

@@ -13,7 +13,7 @@
   <mat-card-content class="court-yard-content" fxLayout="row wrap" fxLayoutGap="30px">
     <div *ngFor="let court of courtYards$ | async" fxFlex="20%">
       <div class="court-card" [class.selected]="selectedCourtYard === court" (click)="toggleDetails(court)">
-        @if(court.status==='Booked'){
+        @if(court.courtYardStatus==='Booked'){
           <svg width="189" height="97" viewBox="0 0 189 97" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="33.9221" width="121.155" height="96.924" rx="5" fill="#08222F"/>
             <rect x="92.0791" width="4.84615" height="96.9231" fill="white"/>
@@ -33,9 +33,9 @@
 
       </div>
       <div class="court-details" *ngIf="selectedCourtYard === court">
-        <p>Status: {{ court.status }}</p>
+        <p>Status: {{ court.courtYardStatus }}</p>
         <p>Type: {{ court.type }}</p>
-        <div *ngIf="court.status === 'Booked'">
+        <div *ngIf="court.courtYardStatus === 'Booked'">
           <p>Customer: </p>
           <p>Time: </p>
           <p>Number of Players: </p>

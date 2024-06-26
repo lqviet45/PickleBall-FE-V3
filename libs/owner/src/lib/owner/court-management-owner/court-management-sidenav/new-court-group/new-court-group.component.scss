@@ -1,14 +1,19 @@
-/* Style for the dialog title */
+/* Styles for the dialog form */
 .dialog-form {
   background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Adjust width as needed */
+
 }
 
-
+/* Style for the dialog title */
 .dialog-title {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: var(--primary-color);
+  color: var(--primary-color); /* Assuming --primary-color is defined */
 }
 
 /* Container for the dialog content */
@@ -18,12 +23,28 @@
   gap: 1rem;
 }
 
-/* Style for the form fields */
-.full-width {
-  width: 100%;
-  background-color: white;
+/* Style for form labels */
+.form-label {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333; /* Adjust color as needed */
 }
 
+/* Style for form inputs */
+.form-control {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc; /* Example border */
+  border-radius: 4px;
+}
+
+/* Error message style */
+.text-danger {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
 
 /* Dialog actions container */
 .dialog-actions {
@@ -34,13 +55,24 @@
 }
 
 /* Buttons styling */
-button[mat-button] {
-  min-width: 80px;
-  color: var(--secondary-color);
-  background-color: var(--primary-color);
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
-button[mat-button]:disabled {
+.btn-secondary {
+  color: var(--secondary-color); /* Assuming --secondary-color is defined */
+  background-color: #f0f0f0; /* Example background color */
+}
+
+.btn-primary {
+  color: white;
+  background-color: var(--primary-color); /* Assuming --primary-color is defined */
+}
+
+.btn-primary:disabled {
   background-color: rgba(0, 0, 0, 0.12);
   color: rgba(0, 0, 0, 0.26);
 }
