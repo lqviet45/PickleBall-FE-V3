@@ -21,14 +21,7 @@
   </mat-form-field>
   <button (click)="onSearch()" class="btn-search">Tìm kiếm</button>
 </div>
-<div *ngIf="(error$ | async) as error">
-  Error loading court groups: {{ error }}
-</div>
 <div class="result" *ngIf="(courtGroups$ | async) as courtGroups">
-  <div *ngFor="let courtGroup of courtGroups">
-    <div>{{ courtGroup.name }}</div>
-    <div>{{ courtGroup.price }}</div>
-    <!-- Display other properties as needed -->
-  </div>
+  <lib-hot-deal [courtGroups]="courtGroups$ | async" [error]="error$ | async"></lib-hot-deal>
 </div>
 

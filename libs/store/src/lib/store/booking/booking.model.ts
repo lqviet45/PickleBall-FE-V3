@@ -5,10 +5,10 @@ export interface Booking {
   courtGroupId: string;
   courtGroupName?:string;
   userId: string;
+  numberOfPlayers?: number;
+  timeRange?: string;
   userName?:string,
-  dateId: string;
-  dateWorking?: string;
-  numberOfPlayers: number,
+  date? : {dateId: string, dateWorking: string}[]
   bookingStatus: number,
   createdOnUtc: string;
 }

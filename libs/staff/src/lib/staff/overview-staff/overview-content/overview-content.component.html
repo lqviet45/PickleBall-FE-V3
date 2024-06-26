@@ -11,12 +11,11 @@
         <td class="booking-cell">
           <div class="booking-id">{{ booking.bookingId }}</div>
           <div class="booking-user">{{ booking.userName}}</div>
-          <div class="booking-time">{{ booking.createdOnUtc }}</div>
+          <div class="booking-time">{{ booking.timeRange }}</div>
         </td>
-        <td class="booking-cell">{{ booking.courtYardName }}</td>
-        <td class="booking-cell">{{ booking.courtGroupName }}</td>
+        <td class="booking-cell">{{ booking.date?.[0]?.dateWorking }}</td>
+        <td class="booking-cell">{{ booking.courtGroupId }}</td>
         <td class="booking-cell">{{ booking.numberOfPlayers }}</td>
-        <td class="booking-cell">{{ booking.dateId }}</td>
         <td class="booking-cell">{{ booking.bookingStatus }}</td>
         <td class="booking-cell">
           <button mat-icon-button [matMenuTriggerFor]="menu">

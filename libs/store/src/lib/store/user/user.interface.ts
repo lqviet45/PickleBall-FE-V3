@@ -10,4 +10,5 @@ export interface UserInterface{
   dayOfBirth?: string;
   location?: string;
   role?: string;
+  supervisorId? : string;
 }

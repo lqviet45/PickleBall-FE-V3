@@ -13,7 +13,7 @@ export class CourtGroupService {
   constructor(private http: HttpClient) {}
 
   getCourtGroups(): Observable<CourtGroup[]> {
-    return this.http.get<{ value: CourtGroup[] }>(`${this.apiUrl}/2053852A-E44F-483E-E323-08DC913FE63F/court-groups`)
+    return this.http.get<{ value: CourtGroup[] }>(`${this.apiUrl}/18e3a373-c160-4510-733e-08dc94fc4248/court-groups`)
       .pipe(map(response => response.value));
   }
 

@@ -7,8 +7,9 @@ export interface CourtGroup {
   price?: number;
   minSlots?: number;
   maxSlots?: number;
+  location?: string;
   createdOnUtc?: string;
   modifiedOnUtc?: string | null;
-  medias?: any[];
+  medias?: { id: string, mediaUrl: string }[]; // Adjusted to match your data structure
 }
 
