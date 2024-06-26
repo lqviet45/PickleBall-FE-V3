@@ -4,11 +4,11 @@ export interface Booking {
   courtYardName?: string;
   courtGroupId: string;
   courtGroupName?:string;
-  userId: string;
+  userId?: string;
   numberOfPlayers?: number;
   timeRange?: string;
   userName?:string,
   date? : {dateId: string, dateWorking: string}[]
-  bookingStatus: number,
+  bookingStatus?: number,
   createdOnUtc: string;
 }
