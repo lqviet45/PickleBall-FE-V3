@@ -26,7 +26,7 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
 
 
   @Input() courtGroupId!: string;
-  displayedColumns: string[] = ['stt', 'name', 'price', 'status', 'action'];
+  displayedColumns: string[] = ['stt', 'name', 'status', 'action'];
   dataSource: CourtYard[] = [];
   courtYards$: Observable<CourtYard[]>;
   private subscriptions: Subscription = new Subscription();

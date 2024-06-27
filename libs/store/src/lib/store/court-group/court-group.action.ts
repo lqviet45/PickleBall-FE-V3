@@ -16,4 +16,30 @@ export const loadCourtGroupByOwnerId = createAction(
   props<{ ownerId: string }>()
 );
 
+export const createCourtGroup = createAction(
+  '[CourtGroup] Create CourtGroup',
+  props<{ courtGroup: CourtGroup }>()
+);
+
+export const createCourtGroupSuccess = createAction(
+  '[CourtGroup] Create CourtGroup Success',
+  props<{ courtGroup: CourtGroup }>()
+);
+
+export const createCourtGroupFailure = createAction(
+  '[CourtGroup] Create CourtGroup Failure',
+  props<{ error: any }>()
+)
+export const searchCourtGroups = createAction(
+  '[CourtGroup] Search CourtGroups',
+  props<{ name: string, cityName: string }>()
+);
+export const searchCourtGroupsSuccess = createAction(
+  '[CourtGroup] Search CourtGroups Success',
+  props<{ courtGroups: CourtGroup[] }>()
+);
+export const searchCourtGroupsFailure = createAction(
+  '[CourtGroup] Search CourtGroups Failure',
+  props<{ error: any }>()
+);
 

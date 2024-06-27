@@ -29,7 +29,7 @@
   font-size: 1rem;
 }
 
-.court-group-status {
+.court-group-description {
   font-size: 0.7rem;
   color: #ccc;
 }
@@ -42,6 +42,11 @@
 
 .card-separator:last-child {
   padding-bottom: 0;
+}
+
+.selected-court {
+  background-color: lightblue; /* Change this to the desired color */
+
 }
 
 .add-court-group {

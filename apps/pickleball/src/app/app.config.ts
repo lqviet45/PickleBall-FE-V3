@@ -14,7 +14,7 @@ import { CityEffects, CityReducer,
 } from '@org/store';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOsfGWAtEPdrofxFEgGekQldqw7BK0OhU",
@@ -37,6 +37,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
       provideAuth(() => getAuth()),
+      provideStorage(() => getStorage()),
       StoreModule.forRoot({
         courtGroups: courtGroupReducer,
         courtYard: courtYardReducer,

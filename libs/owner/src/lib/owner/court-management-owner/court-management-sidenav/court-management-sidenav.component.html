@@ -1,5 +1,3 @@
-
-
 <div class="card">
   <div class="card-header">
     <h5>Cụm sân</h5>
@@ -12,7 +10,7 @@
 <!--    } @else {-->
       <div *ngIf="courtsGroup$ | async as courtGroups; else noCourtGroup">
         <div *ngFor="let courtGroup of courtGroups">
-          <div (click)="onCourtSelected(courtGroup.id)">
+          <div (click)="onCourtSelected(courtGroup.id)" [ngClass]="{'selected-court': courtGroup.id === selectedCourtId}">
             <div class="court-group-header">
               <!--              <img [src]="courtGroup.image"-->
               <!--                   alt="Image Description"-->
@@ -24,14 +22,11 @@
                    height="1080">
               <div class="court-group-content">
                 <h6 class="court-group-list-title">{{ courtGroup.name }}</h6>
-                <!--                <h6 class="court-group-status">{{ courtGroup.status }}</h6>-->
+                <h6 class="court-group-description">Giá {{ courtGroup.price  }} VNĐ</h6>
+                <h6 class="court-group-description">Min Slot:{{ courtGroup.minSlots }} - Max Slot: {{ courtGroup.maxSlots }}</h6>
               </div>
             </div>
 
-            <div class="progress-bar">
-              <!--              <mat-progress-bar mode="determinate" [value]="courtGroup.percent"></mat-progress-bar>-->
-              <mat-progress-bar mode="determinate" [value]="40"></mat-progress-bar>
-            </div>
           </div>
           <hr class="card-separator">
         </div>
@@ -46,11 +41,89 @@
 
     <div class="add-court-group">
       <div>
-        <button mat-button class="add-btn">+ Thêm cụm sân</button>
+        <button mat-button class="add-btn" (click)="openDialog()">+ Thêm cụm sân</button>
       </div>
     </div>
 
 
   </div>
 </div>
+
+
+<!--<div class="card">-->
+<!--  <div class="card-header">-->
+<!--    <h5>Cụm sân</h5>-->
+<!--  </div>-->
+<!--  <div class="card-body">-->
+<!--    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 court-table" >-->
+<!--      &lt;!&ndash; Index Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="stt">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> # </th>-->
+<!--        <td mat-cell *matCellDef="let element; let i = index" class="court-table-content"> {{ i + 1 }} </td>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Name Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="name">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> Tên Sân </th>-->
+<!--        <td mat-cell *matCellDef="let element" class="court-table-content"> {{ element.name }} </td>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Image Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="image">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> Hình ảnh </th>-->
+<!--        <td mat-cell *matCellDef="let element" class="court-table-content">-->
+<!--          <img ngSrc="element.mediaUrl" alt="Image Description" width="100" height="100">-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Price Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="price">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> Giá tiền </th>-->
+<!--        <td mat-cell *matCellDef="let element" class="court-table-content"> {{ element.price }} </td>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Min Slots Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="minSlots">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> Số chỗ tối thiểu </th>-->
+<!--        <td mat-cell *matCellDef="let element" class="court-table-content"> {{ element.minSlots }} </td>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Max Slots Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="maxSlots">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> Số chỗ tối đa </th>-->
+<!--        <td mat-cell *matCellDef="let element" class="court-table-content"> {{ element.maxSlots }} </td>-->
+<!--      </ng-container>-->
+
+<!--      &lt;!&ndash; Action Column &ndash;&gt;-->
+<!--      <ng-container matColumnDef="action">-->
+<!--        <th mat-header-cell *matHeaderCellDef class="court-table-header"> Thao tác </th>-->
+<!--        <td mat-cell *matCellDef="let element">-->
+<!--          <button mat-icon-button color="primary" (click)="onEditClick(element.id)">-->
+<!--            <mat-icon>edit</mat-icon>-->
+<!--          </button>-->
+<!--          <button mat-icon-button color="warn" (click)="onDeleteClick(element.id)">-->
+<!--            <mat-icon>delete</mat-icon>-->
+<!--          </button>-->
+<!--        </td>-->
+<!--      </ng-container>-->
+
+<!--      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+<!--      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
+<!--    </table>-->
+
+<!--    <ng-template #noCourtGroup>-->
+<!--      <div class="no-court-group">-->
+<!--        <p>Chưa có cụm sân nào</p>-->
+<!--      </div>-->
+<!--    </ng-template>-->
+
+<!--    <div class="add-court-group">-->
+<!--      <div>-->
+<!--        <button mat-button class="add-btn" (click)="openDialog()">+ Thêm cụm sân</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
 

@@ -19,3 +19,13 @@ export const selectCourtGroupById = (courtGroupId: string) => createSelector(
   selectAllCourtGroups,
   (courtGroups) => courtGroups.find(group => group.id === courtGroupId)
 );
+
+export const selectCourtGroupCreated = createSelector(
+  selectCourtGroupState,
+  (state: CourtGroupState) => state.courtGroupCreated
+);
+
+export const selectCourtGroupByOwnerId = (ownerId: string) => createSelector(
+  selectAllCourtGroups,
+  (courtGroups) => courtGroups.filter(group => group.userId === ownerId)
+);

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
 import { SidenavOwnerComponent } from './sidenav-owner/sidenav-owner.component';
 import { HeaderOwnerComponent } from './header-owner/header-owner.component';
 import { OverviewOwnerComponent } from './overview-owner/overview-owner.component';
 import { CourtManagementOwnerComponent } from './court-management-owner/court-management-owner.component';
+import { AuthService } from '@org/store';
 
 @Component({
   selector: 'lib-owner',
@@ -15,6 +16,7 @@ import { CourtManagementOwnerComponent } from './court-management-owner/court-ma
 })
 export class OwnerComponent implements OnInit{
 
+  authService = inject(AuthService);
   currentView = 'overview-owner';
   sideBarOpen = true;
 
@@ -27,7 +29,17 @@ export class OwnerComponent implements OnInit{
   }
 
   ngOnInit(): void {
-        console.log('OwnerComponent');
+      this.authService.user$.subscribe(user => {
+        if(user) {
+          this.authService.currentUserSig.set({
+            email: user.email!,
+            username: user.displayName!,
+            firebaseId: user.uid!,
+          });
+        } else {
+          this.authService.currentUserSig.set(null);
+        }
+      });
   }
 
   sideBarToggled() {

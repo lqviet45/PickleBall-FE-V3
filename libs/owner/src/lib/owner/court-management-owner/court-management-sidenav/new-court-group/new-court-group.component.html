@@ -1,0 +1,47 @@
+<div class="dialog-form">
+  <h1 class="dialog-title">Create New Court Group</h1>
+  <div class="dialog-content">
+    <form [formGroup]="courtGroupForm">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input id="name" type="text" class="form-control" formControlName="name" required>
+        <div *ngIf="courtGroupForm.get('name')?.hasError('required')" class="text-danger">
+          Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="wardName" class="form-label">Ward Name</label>
+        <input id="wardName" type="text" class="form-control" formControlName="wardName">
+      </div>
+
+      <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input id="price" type="number" class="form-control" formControlName="price">
+        <div *ngIf="courtGroupForm.get('price')?.hasError('required')" class="text-danger">
+          Price is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="minSlots" class="form-label">Min Slots</label>
+        <input id="minSlots" type="number" class="form-control" formControlName="minSlots">
+      </div>
+
+      <div class="mb-3">
+        <label for="maxSlots" class="form-label">Max Slots</label>
+        <input id="maxSlots" type="number" class="form-control" formControlName="maxSlots">
+      </div>
+
+      <div class="mb-3">
+        <label for="fileInput" class="form-label">Choose File</label>
+        <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)">
+      </div>
+
+    </form>
+  </div>
+  <div class="dialog-actions">
+    <button type="button" class="btn btn-secondary" (click)="onNoClick()">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="courtGroupForm.invalid" (click)="onSubmit()">Create</button>
+  </div>
+</div>

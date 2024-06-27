@@ -18,8 +18,9 @@ import {
   selectAllCourtGroups,
   selectAllCourtYards
 } from '@org/store';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'lib-court-yard-management',
@@ -45,48 +46,41 @@ import { Store } from '@ngrx/store';
   styleUrl: './court-yard-management.component.scss',
 })
 export class CourtYardManagementComponent implements OnInit {
-  selectedCourtGroup: CourtGroup | undefined; // Hold the selected court group
+  selectedCourtGroup: CourtGroup | undefined;
   courtGroupOptions$: Observable<CourtGroup[]>;
-  courtGroups$: Observable<CourtGroup[]>;
   courtYards$: Observable<CourtYard[]>;
   selectedCourtYard: CourtYard | null = null;
 
   constructor(private store: Store) {
-    this.courtGroups$ = this.store.select(selectAllCourtGroups);
+    this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
     this.courtYards$ = this.store.select(selectAllCourtYards);
-    this.courtGroupOptions$ = this.store.select(selectAllCourtGroups)
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroups()); // Dispatch action to load courts
+    this.store.dispatch(loadCourtGroups()); // Load court groups initially
+
+    // Select the first court group initially
     this.courtGroupOptions$.subscribe(courtGroups => {
       if (courtGroups.length > 0) {
-        this.selectedCourtGroup = courtGroups[0]; // Set the first item initially
+        this.selectedCourtGroup = courtGroups[0];
+        this.loadCourtYards(this.selectedCourtGroup.id); // Load court yards for the first group
       }
     });
-    /*this.courtYards$.pipe(
-      tap(courtGroups => {
-        if (courtGroups.length > 0) {
-          this.selectedCourtGroupId = courtGroups[0].id; // Select the first court group initially
-          this.store.dispatch(loadCourtYards({ courtGroupId: this.selectedCourtGroupId }));
-        }
-      })
-    ).subscribe();*/
-    // Example: Dispatch loadCourtYards action for a known courtGroupId
-    const courtGroupId = '28a0d866-0396-4449-a58d-088725977029';
+  }
+
+  // Method to load court yards for a given court group ID
+  loadCourtYards(courtGroupId: string): void {
     this.store.dispatch(loadCourtYards({ courtGroupId }));
   }
 
-
+  // Toggle details of the selected court yard
   toggleDetails(court: CourtYard) {
-    if (this.selectedCourtYard === court) {
-      this.selectedCourtYard = null; // Deselect if already selected
-    } else {
-      this.selectedCourtYard = court; // Select the clicked court
-    }
+    this.selectedCourtYard = (this.selectedCourtYard === court) ? null : court;
   }
 
-  openAddDialog() {
-    // Implementation for opening add dialog
+  // Handle change in selected court group
+  onCourtGroupChange(event: any): void {
+    const selectedGroupId = event.value.id;
+    this.loadCourtYards(selectedGroupId); // Load court yards when court group changes
   }
 }

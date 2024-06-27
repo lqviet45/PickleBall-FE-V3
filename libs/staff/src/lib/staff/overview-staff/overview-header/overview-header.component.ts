@@ -11,6 +11,8 @@ import { FormsModule } from '@angular/forms';
 import { CourtGroup, loadCourtGroups, selectAllCourtGroups } from '@org/store';
 import { Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { AddNewBookingComponent } from './add/add-new-booking.component';
 
 @Component({
   selector: 'lib-overview-header',
@@ -39,7 +41,7 @@ export class OverviewHeaderComponent implements OnInit{
 
   @Output() dateSelected: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private store: Store) {
+  constructor(private store: Store, public dialog: MatDialog) {
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups).pipe(
       tap(courts => console.log(courts, 'courtGroup')) // Log the court groups to check data
     );
@@ -72,5 +74,12 @@ export class OverviewHeaderComponent implements OnInit{
     const selectedDate = event.target.value; // Get the date from the input
     const formattedDate = this.formatDate(selectedDate); // Format it to 'yyyy-MM-dd'
     this.dateSelected.emit(formattedDate); // Emit the formatted date
+  }
+  openAddDialog() {
+    const dialogRef = this.dialog.open(AddNewBookingComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
