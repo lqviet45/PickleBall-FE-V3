@@ -1,9 +1,53 @@
-.btn-add-booking{
+.btn-add-booking {
   display: flex;
   justify-content: end;
+  margin-top: 2em;
 }
-.add-form{
+
+.add-form {
   background-color: white;
   padding: 2em;
-
+  width: 40vw;
+  height: 50vh;
 }
+
+.btn-submit {
+  color: white;
+  background-color: #08222F;
+}
+
+.btn-back {
+  color: #08222F;
+  background-color: white;
+  border: 1px solid #08222F;
+  margin-right: 1em;
+}
+
+.form-group {
+  display: flex;
+  margin-top: 1em;
+}
+
+.label-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin-left: 1em;
+}
+
+.add-label {
+  color: #141515;
+  font-weight: bold;
+}
+.add-label, .form-control{
+  margin-bottom: 2em;
+}
+

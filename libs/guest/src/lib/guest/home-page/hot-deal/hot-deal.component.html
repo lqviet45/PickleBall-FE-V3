@@ -1,30 +1,18 @@
 <div class="hot-deal">
-  <h1 class="hot-deal-title">
-    <svg width="56" height="40" viewBox="5 0 56 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0.206275 61.3564C-2.28093 41.1647 18.3252 2.43924 29.6493 0C25.3085 11.4457 27.1957 27.332 29.6493 34.1494C33.424 23.3417 38.2683 18.7634 40.2186 17.8252C37.954 25.143 48.3343 38.2774 49.2782 40.529C49.8893 41.9867 57.6114 51.2593 55.6953 62.1069C54.6517 68.0147 48.0287 75.9735 42.106 79.7445C25.3082 90.4397 2.47133 79.7445 0.206275 61.3564Z" fill="#08222F"/>
-    </svg>
-    HOT DEAL
-    <svg width="56" height="40" viewBox="0 0 56 84" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0.206275 61.3564C-2.28093 41.1647 18.3252 2.43924 29.6493 0C25.3085 11.4457 27.1957 27.332 29.6493 34.1494C33.424 23.3417 38.2683 18.7634 40.2186 17.8252C37.954 25.143 48.3343 38.2774 49.2782 40.529C49.8893 41.9867 57.6114 51.2593 55.6953 62.1069C54.6517 68.0147 48.0287 75.9735 42.106 79.7445C25.3082 90.4397 2.47133 79.7445 0.206275 61.3564Z" fill="#08222F"/>
-    </svg>
-  </h1>
   <div class="container card-container">
     <div class="card-list">
-         <div class="card" *ngFor="let court of courtGroup$ | async">-->
-              <!-- Display court details -->
-              <img [src]="court.medias" [alt]="court.name">
-              <div class="card-content">
-                <h2>{{ court.name }}</h2>
-                <p>{{ court.wardId }}</p>
-                <p>{{ court.price }}</p>
-              </div>
-              <div class="btn-booking-section">
-                <button class="btn-booking">Đặt sân</button>
-              </div>
-            </div>
-          </div>
-          <div class="error-message" *ngIf="error$ | async">
-            Error loading courts: {{ error$ | async }}&ndash;&gt;-->loading
+
+      <div class="card" *ngFor="let court of sortedCourtGroups">
+        <img *ngIf="court.medias?.length" [src]="court.medias?.[0]?.mediaUrl ?? ''" [alt]="court.name">
+        <div class="card-content">
+          <h2>{{ court.name }}</h2>
+          <p>{{ court.location }}</p>
+          <p>{{ court.price }}</p>
+        </div>
+        <div class="btn-booking-section">
+          <button class="btn-booking">Đặt sân</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

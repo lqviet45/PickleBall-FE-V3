@@ -3,6 +3,7 @@ export interface CourtYard {
   courtGroupId: string;
   name: string;
   courtYardStatus: string | null;
+  status: number | null;
   type: string;
   createdOnUtc: string;
   modifiedOnUtc: string | null;
