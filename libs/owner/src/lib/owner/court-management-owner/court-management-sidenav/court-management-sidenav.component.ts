@@ -14,7 +14,7 @@ import {
   AuthService,
   CourtGroup, createCourtGroup, ImageUploadService,
   loadCourtGroupByOwnerId, loadUser,
-  selectAllCourtGroups, selectCurrentUser, UserInterface
+  selectAllCourtGroups, selectCourtGroupByOwnerId, selectCourtGroupCreated, selectCurrentUser, UserInterface
 
 } from '@org/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -35,7 +35,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   userId = '';
   user$: Observable<UserInterface | null>;
   selectedCourtId: string | null = null;
-
+  courtGroupCreated$: Observable<boolean>;
   constructor(
     private store: Store,
     public dialog: MatDialog,
@@ -44,12 +44,13 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   ) {
     this.user$ = store.pipe(select(selectCurrentUser));
     this.courtsGroup$ = this.store.select(selectAllCourtGroups);
+    this.courtGroupCreated$ = this.store.select(selectCourtGroupCreated);
   }
 
 
   ngOnChanges(changes: SimpleChanges): void {
     this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
-    this.courtsGroup$ = this.store.select(selectAllCourtGroups);
+    this.courtsGroup$ = this.store.select(selectCourtGroupByOwnerId(this.userId));
     //console.log("On change: ", this.courtsGroup$);
   }
 
@@ -69,6 +70,13 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.courtsGroup$.subscribe(courtGroups => {
       if (courtGroups && courtGroups.length > 0) {
         this.selectedCourtId = courtGroups[0].id; // Set the first court as selected by default
+      }
+    });
+
+    this.courtGroupCreated$.subscribe((created) => {
+      if (created) {
+        // Handle logic after a court group is created
+        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
       }
     });
 
