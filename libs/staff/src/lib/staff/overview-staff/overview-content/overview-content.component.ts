@@ -4,29 +4,31 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Booking, BookingsState, loadBookings, selectBookings, selectBookingsError } from '@org/store';
 
 @Component({
   selector: 'lib-overview-content',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatCard,
     MatCardContent,
     MatIcon,
     MatIconButton,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
   ],
   templateUrl: './overview-content.component.html',
-  styleUrl: './overview-content.component.scss',
+  styleUrls: ['./overview-content.component.scss'],
 })
 export class OverviewContentComponent implements OnChanges {
   @Input() selectedDate: string | undefined;
   bookings$: Observable<Booking[]>;
   error$: Observable<any>;
+  filterStatus: 'Pending' | 'Approved' = 'Pending';
 
   constructor(private store: Store<{ bookings: BookingsState }>) {
     this.bookings$ = this.store.select(selectBookings);
@@ -39,6 +41,14 @@ export class OverviewContentComponent implements OnChanges {
     }
   }
 
+  handleBookingCreated(): void {
+    if (this.selectedDate) {
+      this.store.dispatch(loadBookings({ date: this.selectedDate }));
+    } else {
+      console.error('Selected date is undefined. Cannot load bookings.');
+    }
+  }
+
   editBooking(bookingId: string): void {
     console.log('Edit booking with ID:', bookingId);
     // Implement the edit logic here
@@ -47,5 +57,9 @@ export class OverviewContentComponent implements OnChanges {
   deleteBooking(bookingId: string): void {
     console.log('Delete booking with ID:', bookingId);
     // Implement the delete logic here
+  }
+
+  changeFilterStatus(status: 'Pending' | 'Approved'): void {
+    this.filterStatus = status;
   }
 }

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { BookingsService } from '@org/store';
 
 @Component({
   selector: 'lib-add-new-booking',
@@ -12,11 +13,38 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './add-new-booking.component.scss',
 })
 export class AddNewBookingComponent {
+  @Output() bookingCreated: EventEmitter<void> = new EventEmitter<void>();
+
+  constructor(
+    private bookingService: BookingsService,
+    public dialogRef: MatDialogRef<AddNewBookingComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { courtGroupId: string }
+  ) {}
+
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    // Handle the form submission...
+    if (form.valid) {
+      const formData = {
+        courtGroupId: this.data.courtGroupId,
+        userId: form.value.userId,
+        numberOfPlayers: form.value.nop,
+        bookingDate: form.value.date,
+        timeRange: form.value.time,
+      };
+
+      this.bookingService.createBooking(formData).subscribe(
+        (response) => {
+          console.log('Booking created successfully:', response);
+          this.bookingCreated.emit(); // Emit event when booking is created
+          this.dialogRef.close(); // Close dialog on success
+        },
+        (error) => {
+          console.error('Error creating booking:', error);
+          // Handle error, e.g., show error message
+        }
+      );
+    }
   }
-  constructor(public dialogRef: MatDialogRef<AddNewBookingComponent>) { }
+
   closeDialog() {
     this.dialogRef.close();
   }
