@@ -63,13 +63,15 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
       user => {
         this.userId = user?.id || '';
         this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+
       }
     )
 
-    // Tao selector moi
+
     this.courtsGroup$.subscribe(courtGroups => {
       if (courtGroups && courtGroups.length > 0) {
         this.selectedCourtId = courtGroups[0].id; // Set the first court as selected by default
+        console.log("Court Group: ", courtGroups);
       }
     });
 
@@ -79,6 +81,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
         this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
       }
     });
+
 
   }
 
