@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CourtGroup, selectAllCourtGroups, selectCourtGroupError } from '@org/store';
 import { Store } from '@ngrx/store';
 
@@ -12,12 +12,13 @@ import { Store } from '@ngrx/store';
   styleUrl: './hot-deal.component.scss',
 })
 export class HotDealComponent {
-  courtGroup$: Observable<CourtGroup[]>
-  error$: Observable<any>
-  constructor(private store: Store) {
-    this.courtGroup$ = this.store.select(selectAllCourtGroups);
-    this.error$ = this.store.select(selectCourtGroupError)
-    console.log(this.courtGroup$)
+  @Input() courtGroups: CourtGroup[] | null = [];
+  @Input() error: string | null = null;
+
+  get sortedCourtGroups(): CourtGroup[] {
+    return this.courtGroups
+      ? [...this.courtGroups].sort((a, b) => (b.price || 0) - (a.price || 0))
+      : [];
   }
 
 }

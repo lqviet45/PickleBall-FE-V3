@@ -1,11 +1,47 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { select, Store } from '@ngrx/store';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { RegisterState } from '@org/store';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import * as RegisterActions from '@org/store';
+import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatButton } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-register',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatError, MatButton, MatLabel],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent {}
+export class RegisterComponent {
+  registerForm: FormGroup;
+  errorMessage: string | null = null;
+
+  constructor(private fb: FormBuilder, private store: Store<RegisterState>, private router: Router) {
+    this.registerForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
+      location: ['', [Validators.required]]
+    });
+  }
+
+  onRegister() {
+    if (this.registerForm.valid) {
+      const { email, password, firstName, lastName, fullName, location, role } = this.registerForm.value;
+      this.store.dispatch(RegisterActions.register({ email, password, firstName, lastName, fullName, location, role }));
+      this.store.pipe(select(RegisterActions.registerSuccess)).subscribe((success) => {
+        if (success) {
+          this.router.navigate(['/login']); // Navigate to login page
+        }
+      });
+    }
+  }
+}

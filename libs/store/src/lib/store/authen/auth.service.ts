@@ -24,7 +24,7 @@ export class AuthService {
     private router: Router // Inject Router for navigation
   ) {}
 
-  register(email: string, password: string, firstName: string, lastName: string, fullName: string, location: string): Observable<any> {
+  register(email: string, password: string, firstName: string, lastName: string, fullName: string, location: string, role: number): Observable<any> {
     const body = { email, password, firstName, lastName, fullName, location };
     return this.http.post<any>(this.registerApi, body);
   }
@@ -39,7 +39,6 @@ export class AuthService {
           email: currentUser.email!,
           username: currentUser.displayName || '',
         });
-
         // Call API to get user's role
         this.getUserProfile(currentUser.uid).subscribe(
           (userProfile: UserInterface) => {

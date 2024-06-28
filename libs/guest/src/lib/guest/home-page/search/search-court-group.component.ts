@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormField, MatFormFieldModule, MatHint, MatLabel } from '@angular/material/form-field';
 import {MatOption, MatSelect} from "@angular/material/select";
@@ -11,7 +11,7 @@ import {
   MatDatepickerModule,
   MatDatepickerToggle
 } from '@angular/material/datepicker';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store} from '@ngrx/store';
 import {
   CityState,
@@ -22,6 +22,9 @@ import {
   selectCourtGroupError
 } from '@org/store';
 import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
+import { HotDealComponent } from '../hot-deal/hot-deal.component';
 @Component({
   selector: 'lib-search-court-group',
   standalone: true,
@@ -39,12 +42,13 @@ import { provideNativeDateAdapter } from '@angular/material/core';
     MatHint,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule, MatIcon, MatIconButton, HotDealComponent
   ],
   templateUrl: './search-court-group.component.html',
   styleUrl: './search-court-group.component.scss',
 })
 export class SearchCourtGroupComponent implements OnInit{
+  @Output() search = new EventEmitter<{ name: string; cityName: string }>();
   courtGroups$: Observable<CourtGroup[]>;
   error$: Observable<any>;
 
@@ -67,11 +71,8 @@ export class SearchCourtGroupComponent implements OnInit{
   }
 
   onSearch() {
-    console.log('Selected City:', this.selectedCity);
     this.store.dispatch(searchCourtGroups({ name: this.searchQuery, cityName: this.selectedCity }));
-    this.courtGroups$.subscribe(courtGroups => {
-      console.log('Court Groups:', courtGroups);
-    });
+    this.search.emit({ name: this.searchQuery, cityName: this.selectedCity });
   }
 }
 
