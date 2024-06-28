@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { select, Store } from '@ngrx/store';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AuthService,
   CourtGroup, createCourtGroup, ImageUploadService,
@@ -19,6 +19,7 @@ import {
 } from '@org/store';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCourtGroupComponent } from './new-court-group/new-court-group.component';
+import { NotifyDialogComponent } from '../notify-dialog/notify-dialog.component';
 
 @Component({
   selector: 'lib-court-management-sidenav',
@@ -46,7 +47,6 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.courtsGroup$ = this.store.select(selectAllCourtGroups);
     this.courtGroupCreated$ = this.store.select(selectCourtGroupCreated);
   }
-
 
   ngOnChanges(changes: SimpleChanges): void {
     this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
@@ -116,8 +116,32 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
             ...formData
             } }));
         }
+
+        //this.showNotification();
+
+
+      }
+    });
+
+  }
+
+  // Need to Update later
+
+  showNotification() {
+    // Notify
+    this.courtGroupCreated$.subscribe((created) => {
+      if (created) {
+        this.dialog.open(NotifyDialogComponent, {
+          data: { message: 'Court group created successfully!' }
+        });
+        //this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+      } else {
+        this.dialog.open(NotifyDialogComponent, {
+          data: { message: 'Failed to create court group. Please try again.' }
+        });
       }
     });
   }
+
 
 }
