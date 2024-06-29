@@ -11,4 +11,6 @@ export interface UserInterface{
   location?: string;
   role?: string;
   supervisorId? : string;
+  phoneNumber?: string;
+  photoUrl?: string;
 }

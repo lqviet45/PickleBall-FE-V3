@@ -71,7 +71,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.courtsGroup$.subscribe(courtGroups => {
       if (courtGroups && courtGroups.length > 0) {
         this.selectedCourtId = courtGroups[0].id; // Set the first court as selected by default
-        console.log("Court Group: ", courtGroups);
+        //console.log("Court Group: ", courtGroups);
       }
     });
 
