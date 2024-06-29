@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Observable } from 'rxjs';
-import { loadUser, updateUser, UserInterface, UserState } from '@org/store';
+import { AuthService, ImageUploadService, loadUser, updateUser, UserInterface, UserState } from '@org/store';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { MatCard, MatCardContent } from '@angular/material/card';
@@ -10,11 +10,12 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { EditUserDialogComponent } from './edit-user/edit-user-dialog.component';
+import { getAuth, updateProfile } from "firebase/auth";
 
 @Component({
   selector: 'lib-user',
   standalone: true,
-  imports: [CommonModule, MatCard, MatDivider, MatCardContent, MatIcon, MatIconButton, MatButton],
+  imports: [CommonModule, MatCard, MatDivider, MatCardContent, MatIcon, MatIconButton, MatButton, NgOptimizedImage],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss',
 })
@@ -23,18 +24,25 @@ export class UserComponent implements OnInit{
   error$: Observable<any>;
   userAction$: Observable<boolean>;
   user: UserInterface | null = null;
+  imageUrl: string | null = null;
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
 
   constructor(
     private store: Store<{ user: UserState }>,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private imageUploadService: ImageUploadService,
+    private authService: AuthService
   ) {
     this.user$ = store.pipe(select(state => state.user.user));
     this.error$ = store.pipe(select(state => state.user.error));
     this.userAction$ = store.pipe(select(state => state.user.userAction));
+
   }
 
   ngOnInit(): void {
+
     const firebaseId = this.route.snapshot.paramMap.get('firebaseId');
     if (firebaseId) {
       this.store.dispatch(loadUser({ firebaseId }));
@@ -54,11 +62,10 @@ export class UserComponent implements OnInit{
       }
     });
 
+    this.imageUrl = this.authService.currentUserSig()?.photoURL || null;
+
   }
 
-  onEdit() {
-    // Implement edit user
-  }
 
   onOpenEditDialog() {
     const dialogRef = this.dialog.open(EditUserDialogComponent, {
@@ -75,4 +82,35 @@ export class UserComponent implements OnInit{
     });
 
   }
+
+  onUploadIconClick() {
+    this.fileInput.nativeElement.click();
+  }
+
+  onFileSelected(event: Event) {
+    const auth = getAuth();
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (auth.currentUser && file) {
+      const filePath = `users/${Date.now()}_${file.name}`;
+      this.imageUploadService.uploadImage(file, filePath).subscribe(
+        imageURL => {
+          updateProfile(auth.currentUser!, {
+            photoURL: imageURL
+          }).then(() => {
+            console.log('Profile photo URL updated successfully.');
+            this.imageUrl = imageURL;
+          })
+        },
+        error => {
+          console.error('Failed to upload image:', error);
+        }
+      );
+    }
+  }
+
+
+
+
 }

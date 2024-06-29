@@ -6,11 +6,12 @@ import { HeaderOwnerComponent } from './header-owner/header-owner.component';
 import { OverviewOwnerComponent } from './overview-owner/overview-owner.component';
 import { CourtManagementOwnerComponent } from './court-management-owner/court-management-owner.component';
 import { AuthService } from '@org/store';
+import { LoginComponent } from '@org/login';
 
 @Component({
   selector: 'lib-owner',
   standalone: true,
-  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent],
+  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent, LoginComponent],
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss',
 })
@@ -35,6 +36,7 @@ export class OwnerComponent implements OnInit{
             email: user.email!,
             username: user.displayName!,
             firebaseId: user.uid!,
+            photoURL: user.photoURL!,
           });
         } else {
           this.authService.currentUserSig.set(null);

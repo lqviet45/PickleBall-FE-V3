@@ -10,15 +10,20 @@
   align-items: center;
   background-color: var(--primary-color);
   color: var(--secondary-color);
-  padding: 20px; /* Added padding to the card */
-  min-height: 400px; /* Adjust the minimum height to make the card taller */
+  padding: 20px;
+  min-height: 400px;
 }
 
 .profile-header {
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 20px; /* Add space below the header */
+  margin-bottom: 20px;
+}
+
+.profile-picture-container {
+  position: relative;
+  display: inline-block;
 }
 
 .profile-picture {
@@ -26,7 +31,27 @@
   height: 150px;
   border-radius: 50%;
   margin-right: 20px;
-  margin-left: 10px; /* Add margin to move the image away from the edge */
+  margin-left: 10px;
+}
+
+.upload-icon {
+  position: absolute;
+  bottom: -10px; /* Adjust this value to move the icon vertically */
+  right: 20%;  /* Adjust this value to move the icon horizontally */
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.upload-icon mat-icon {
+  font-size: 18px;
 }
 
 .profile-info {
@@ -44,12 +69,11 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
-
 }
 
 .edit-button {
-  width: 100%; /* Make the button take the full width */
-  max-width: 300px; /* Optional: Set a maximum width for the button */
+  width: 100%;
+  max-width: 300px;
 }
 
 .error-container {
