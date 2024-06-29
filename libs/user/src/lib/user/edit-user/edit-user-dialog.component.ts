@@ -24,7 +24,7 @@ export class EditUserDialogComponent {
       id: [data.user.id],
       firstName: [data.user.firstName, Validators.required],
       lastName: [data.user.lastName, Validators.required],
-      dateOfBirth: [formattedDate],
+      dayOfBirth: [formattedDate],
       phone: [data.user.phoneNumber],
       location: [data.user.location, Validators.required],
       email: [data.user.email, [Validators.required, Validators.email]],
@@ -44,13 +44,6 @@ export class EditUserDialogComponent {
     return `${year}-${month}-${day}`;
   }
 
-  formatDateToString(date: string): string | null {
-    if (!date) {
-      return null;
-    }
-    const dateObj = new Date(date);
-    return dateObj.toISOString();
-  }
 
   onCancel() {
     this.dialogRef.close();
@@ -59,7 +52,6 @@ export class EditUserDialogComponent {
   onSave() {
     if (this.userForm.valid) {
       const formValue = this.userForm.value;
-      formValue.dateOfBirth = this.formatDateToString(formValue.dateOfBirth);
       console.log(formValue);
       this.dialogRef.close(formValue);
     }
