@@ -16,8 +16,7 @@ import {
   createCourtYard, deleteCourtYard,
   loadCourtYards,
   selectAllCourtYards,
-  selectCourtYardActions, updateCourtYard,
-  updateUser
+  selectCourtYardActions, updateCourtYard
 } from '@org/store';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';

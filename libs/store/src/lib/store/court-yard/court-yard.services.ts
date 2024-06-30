@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourtYard } from './court-yard.model';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
