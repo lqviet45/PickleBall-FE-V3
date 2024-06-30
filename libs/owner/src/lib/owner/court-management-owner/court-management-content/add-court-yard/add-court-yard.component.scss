@@ -1,0 +1,42 @@
+.custom-modal-header {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 15px; /* Padding */
+  border-bottom: 1px solid #dee2e6; /* Border */
+}
+
+.custom-modal-body {
+  padding: 20px; /* Padding */
+  background-color: #FFFFFF;
+}
+
+.custom-form-group {
+  margin-bottom: 20px; /* Margin bottom */
+}
+
+.custom-input {
+  border: 1px solid #ced4da; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px; /* Padding */
+}
+
+.custom-input:focus {
+  border-color: #80bdff; /* Focus border color */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Box shadow */
+}
+
+.custom-error {
+  margin-top: 5px; /* Margin top */
+}
+
+.custom-modal-footer {
+  padding: 15px; /* Padding */
+  border-top: 1px solid #dee2e6; /* Border */
+  display: flex; /* Flexbox */
+  justify-content: flex-end; /* Align right */
+  background-color: #FFFFFF;
+}
+
+.custom-modal-footer .btn {
+  margin-left: 10px; /* Margin between buttons */
+}
