@@ -1,7 +1,7 @@
-<!--@if (authService.currentUserSig()===null){-->
-<!--  <lib-login></lib-login>-->
-<!--}-->
-<!--@if (authService.currentUserSig()){-->
+@if (authService.currentUserSig()===null){
+  <lib-login></lib-login>
+}
+@if (authService.currentUserSig()){
 <div>
   <mat-drawer-container>
     <mat-drawer mode="side" [opened]="sideBarOpen">
@@ -48,6 +48,6 @@
 
 
 </div>
-<!--}-->
+}
 
 

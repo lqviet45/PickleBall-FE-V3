@@ -76,9 +76,18 @@ export class OverviewHeaderComponent implements OnInit{
     this.dateSelected.emit(formattedDate); // Emit the formatted date
   }
   openAddDialog() {
-    const dialogRef = this.dialog.open(AddNewBookingComponent);
+    const dialogRef = this.dialog.open(AddNewBookingComponent, {
+      data: { courtGroupId: this.selectedCourtGroup?.id },
+    });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.componentInstance.bookingCreated.subscribe(() => {
+      // Refresh booking list in OverviewContentComponent
+      // You might need to handle this part based on your application structure
+      // For example, if OverviewHeaderComponent and OverviewContentComponent are sibling components,
+      // you might need to use a shared service or store to communicate between them.
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
   }

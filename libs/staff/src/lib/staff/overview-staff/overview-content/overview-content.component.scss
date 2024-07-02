@@ -29,7 +29,6 @@
 
 .booking-cell {
   padding: 1em;
-  text-align: left;
   vertical-align: middle;
 }
 
@@ -45,12 +44,22 @@
   background-color: #E6F8B3;
   color: #08222F;
 }
-.booking-name{
+.booking-user{
   font-size: 1.5em;
+  font-weight: bold;
 }
 .booking-time{
   font-size: 0.5em;
 }
 .error{
   color: black;
+}
+::ng-deep {
+  th {
+    cursor: pointer;
+    &.active {
+      background-color: #f0f0f0;
+      font-weight: bold;
+    }
+  }
 }

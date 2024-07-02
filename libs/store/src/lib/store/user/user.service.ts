@@ -19,4 +19,10 @@ export class UserService {
       map(response => response.value as UserInterface)
     );
   }
+
+  updateUserProfile(user: UserInterface): Observable<UserInterface> {
+    const url = `${this.baseUrl}/update-user`;
+    return this.http.put<UserInterface>(url, user);
+  }
+
 }

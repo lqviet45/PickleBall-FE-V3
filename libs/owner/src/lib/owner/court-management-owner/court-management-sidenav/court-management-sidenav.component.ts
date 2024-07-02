@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { select, Store } from '@ngrx/store';
-import { Observable} from 'rxjs';
+import { Observable } from 'rxjs';
 import {
   AuthService,
   CourtGroup, createCourtGroup, ImageUploadService,
@@ -19,6 +19,7 @@ import {
 } from '@org/store';
 import { MatDialog } from '@angular/material/dialog';
 import { NewCourtGroupComponent } from './new-court-group/new-court-group.component';
+import { NotifyDialogComponent } from '../notify-dialog/notify-dialog.component';
 
 @Component({
   selector: 'lib-court-management-sidenav',
@@ -47,7 +48,6 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.courtGroupCreated$ = this.store.select(selectCourtGroupCreated);
   }
 
-
   ngOnChanges(changes: SimpleChanges): void {
     this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
     this.courtsGroup$ = this.store.select(selectCourtGroupByOwnerId(this.userId));
@@ -63,13 +63,15 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
       user => {
         this.userId = user?.id || '';
         this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+
       }
     )
 
-    // Tao selector moi
+
     this.courtsGroup$.subscribe(courtGroups => {
       if (courtGroups && courtGroups.length > 0) {
         this.selectedCourtId = courtGroups[0].id; // Set the first court as selected by default
+        //console.log("Court Group: ", courtGroups);
       }
     });
 
@@ -80,13 +82,14 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
       }
     });
 
+
   }
 
 
   onCourtSelected(court: string) {
     this.selectedCourtId = court;
     this.courtSelected.emit(court);
-    //console.log(court);
+    console.log(court);
   }
 
 
@@ -116,8 +119,32 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
             ...formData
             } }));
         }
+
+        //this.showNotification();
+
+
+      }
+    });
+
+  }
+
+  // Need to Update later
+
+  showNotification() {
+    // Notify
+    this.courtGroupCreated$.subscribe((created) => {
+      if (created) {
+        this.dialog.open(NotifyDialogComponent, {
+          data: { message: 'Court group created successfully!' }
+        });
+        //this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+      } else {
+        this.dialog.open(NotifyDialogComponent, {
+          data: { message: 'Failed to create court group. Please try again.' }
+        });
       }
     });
   }
+
 
 }

@@ -1,10 +1,38 @@
-<div *ngIf="user$ | async as user">
-  <h2>User Profile</h2>
-  <p>Name: {{ user.fullName }}</p>
-  <p>Email: {{ user.email }}</p>
-  <p>Location: {{ user.location }}</p>
-  <p>Role: {{ user.role }}</p>
+<div *ngIf="user$ | async as user" class="user-profile-container">
+  <mat-card class="profile-card">
+    <div class="profile-header">
+      <div class="profile-picture-container">
+        <img [src]=" imageUrl  || 'https://firebasestorage.googleapis.com/v0/b/pickleball-fe.appspot.com/o/courtGroups%2F1719582708399_depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg?alt=media&token=1865834a-bca5-47bc-b107-0d3fec008efc'"
+             alt="Image Description"
+             width="1080w"
+             height="1080h"
+             class="profile-picture">
+        <button class="upload-icon" (click)="onUploadIconClick()">
+          <mat-icon>camera_alt</mat-icon>
+        </button>
+        <input type="file" #fileInput (change)="onFileSelected($event)" hidden>
+      </div>
+      <div class="profile-info">
+        <h2>{{ user.fullName }}</h2>
+        <p>{{ user.location }}</p>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content class="profile-details">
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+      <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
+      <p><strong>Date of Birth:</strong> {{ user.dayOfBirth ? (user.dayOfBirth | date:"MMM dd, yyyy") : 'Not specified'}}</p>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <div class="button-container pt-2">
+      <button mat-flat-button color="primary" class="edit-button" (click)="onOpenEditDialog()">
+        <mat-icon>edit</mat-icon>
+        Chỉnh sửa trang cá nhân
+      </button>
+    </div>
+  </mat-card>
 </div>
-<div *ngIf="error$ | async as error">
+<div *ngIf="error$ | async as error" class="error-container">
   <p>Error loading user profile: {{ error }}</p>
 </div>

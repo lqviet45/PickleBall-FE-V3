@@ -34,11 +34,14 @@ export class AuthService {
       // Retrieve the current user and set it in the signal
       const currentUser = this.firebaseAuth.currentUser;
       if (currentUser) {
+        console.log('Logged in as:', currentUser);
         this.currentUserSig.set({
           firebaseId: currentUser.uid,
           email: currentUser.email!,
           username: currentUser.displayName || '',
+          photoURL: currentUser.photoURL || ''
         });
+        console.log('User:', this.currentUserSig());
         // Call API to get user's role
         this.getUserProfile(currentUser.uid).subscribe(
           (userProfile: UserInterface) => {
@@ -46,7 +49,8 @@ export class AuthService {
               firebaseId: currentUser.uid,
               email: currentUser.email!,
               username: currentUser.displayName || '',
-              role: userProfile.role // Assuming userProfile includes a 'role' property
+              role: userProfile.role, // Assuming userProfile includes a 'role' property
+              photoURL: currentUser.photoURL || ''
             });
             // Navigate based on user's role
             if (userProfile.role === "Owner") {

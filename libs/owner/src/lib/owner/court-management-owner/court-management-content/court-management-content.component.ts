@@ -11,8 +11,18 @@ import {
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { Observable, Subscription } from 'rxjs';
-import { CourtYard, loadCourtYards, selectAllCourtYards } from '@org/store';
+import {
+  CourtYard,
+  createCourtYard, deleteCourtYard,
+  loadCourtYards,
+  selectAllCourtYards,
+  selectCourtYardActions, updateCourtYard
+} from '@org/store';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCourtYardComponent } from './add-court-yard/add-court-yard.component';
+import { UpdateCourtYardComponent } from './update-court-yard/update-court-yard.component';
+import { DeleteComfirmComponent } from './delete-confirm/delete-comfirm.component';
 
 
 @Component({
@@ -29,11 +39,15 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['stt', 'name', 'status', 'action'];
   dataSource: CourtYard[] = [];
   courtYards$: Observable<CourtYard[]>;
+  courtYardActions$: Observable<boolean>;
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private store: Store) {
+  constructor(
+    private store: Store,
+    private dialog: MatDialog
+    ) {
     this.courtYards$ = this.store.select(selectAllCourtYards);
-
+    this.courtYardActions$ = this.store.select(selectCourtYardActions);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,16 +64,57 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     //this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId }));
-    console.log(this.courtGroupId);
+    //console.log(this.courtGroupId);
+
+    this.courtYardActions$.subscribe((action) => {
+      if (action) {
+        this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId }));
+      }
+
+    })
+
   }
 
 
 
   onDeleteClick(id: string) {
-    // this.store.dispatch(deleteCourtGroup({ id }));
+    const dialogRef = this.dialog.open(DeleteComfirmComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(deleteCourtYard({id: id}));
+      }
+    });
+
   }
 
   onEditClick(id: string) {
-    // this.store.dispatch(editCourtGroup({ id }));
+    const dialogRef = this.dialog.open(UpdateCourtYardComponent, {
+      width: '400px',
+      data: { courtYard: this.dataSource.find(courtYard => courtYard.id === id) }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.store.dispatch(updateCourtYard({ courtYard: result }));
+      }
+    });
+
+  }
+
+  onCreateCourtYard() {
+    const dialogRef = this.dialog.open(AddCourtYardComponent, {
+      width: '300px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        //console.log(result);
+        this.store.dispatch(createCourtYard({ courtGroupId: this.courtGroupId, courtYardName: result }));
+      }
+    });
+
   }
 }

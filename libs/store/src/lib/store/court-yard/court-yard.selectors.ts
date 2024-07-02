@@ -13,3 +13,10 @@ export const selectCourtYardError = createSelector(
   selectCourtYardState,
   (state: CourtYardState) => state.error
 );
+
+export const selectCourtYardActions = createSelector(
+  selectCourtYardState,
+  (state: CourtYardState) => state.courtYardActions
+);
+
+

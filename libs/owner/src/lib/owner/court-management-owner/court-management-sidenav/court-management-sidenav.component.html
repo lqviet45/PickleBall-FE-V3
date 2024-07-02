@@ -8,6 +8,12 @@
 <!--        <mat-spinner></mat-spinner>-->
 <!--      </div>-->
 <!--    } @else {-->
+    <div class="add-court-group">
+      <div>
+        <button mat-button class="add-btn" (click)="openDialog()">+ Thêm cụm sân</button>
+      </div>
+    </div>
+
       <div *ngIf="courtsGroup$ | async as courtGroups; else noCourtGroup">
         <div *ngFor="let courtGroup of courtGroups">
           <div (click)="onCourtSelected(courtGroup.id)" [ngClass]="{'selected-court': courtGroup.id === selectedCourtId}">
@@ -16,10 +22,11 @@
               <!--                   alt="Image Description"-->
               <!--                   width="1080"-->
               <!--                   height="1080">-->
-              <img ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274567126?alt=media&token=e8094bc2-2b84-46b0-ab6f-d4f4429c8832"
+              <img [src]="courtGroup.medias?.[0]?.mediaUrl ||
+              'https://firebasestorage.googleapis.com/v0/b/pickleball-fe.appspot.com/o/courtGroups%2F1719582708399_depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg?alt=media&token=1865834a-bca5-47bc-b107-0d3fec008efc'"
                    alt="Image Description"
-                   width="1080"
-                   height="1080">
+                   width="1080w"
+                   height="1080h">
               <div class="court-group-content">
                 <h6 class="court-group-list-title">{{ courtGroup.name }}</h6>
                 <h6 class="court-group-description">Giá {{ courtGroup.price  }} VNĐ</h6>
@@ -37,14 +44,6 @@
         </div>
       </ng-template>
 <!--    }-->
-
-
-    <div class="add-court-group">
-      <div>
-        <button mat-button class="add-btn" (click)="openDialog()">+ Thêm cụm sân</button>
-      </div>
-    </div>
-
 
   </div>
 </div>

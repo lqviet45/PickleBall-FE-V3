@@ -1,0 +1,22 @@
+.dialog-form {
+  padding: 20px;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.dialog-title {
+  margin-bottom: 20px;
+}
+
+.text-danger {
+  font-size: 0.875em;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-actions button {
+  min-width: 100px;
+}
