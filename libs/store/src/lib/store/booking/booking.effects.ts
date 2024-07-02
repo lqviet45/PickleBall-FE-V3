@@ -23,6 +23,17 @@ export class BookingsEffects {
         )
       )
     ));
+  cancelBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingsActions.cancelBooking),
+      mergeMap(({ bookingId }) =>
+        this.bookingsService.cancelBooking(bookingId).pipe(
+          map(() => bookingsActions.cancelBookingSuccess({ bookingId })),
+          catchError((error: HttpErrorResponse) => of(bookingsActions.cancelBookingFailure({ error: error.message })))
+        )
+      )
+    )
+  );
 
   constructor(
     private actions$: Actions,

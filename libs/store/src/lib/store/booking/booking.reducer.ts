@@ -31,5 +31,20 @@ export const bookingsReducer = createReducer(
     bookings: [],
     error,
     loading: false
+  })),
+  on(fromActions.cancelBooking, state => ({
+  ...state,
+  loading: true,
+  error: null
+  })),
+  on(fromActions.cancelBookingSuccess, (state, { bookingId }) => ({
+    ...state,
+    bookings: state.bookings.filter(booking => booking.id !== bookingId),
+    loading: false
+  })),
+  on(fromActions.cancelBookingFailure, (state, { error }) => ({
+    ...state,
+    error,
+    loading: false
   }))
 );

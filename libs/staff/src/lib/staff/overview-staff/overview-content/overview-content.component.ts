@@ -18,15 +18,16 @@ import { Booking, BookingsState, loadBookings, selectBookings, selectBookingsErr
     MatIconButton,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
   ],
   templateUrl: './overview-content.component.html',
-  styleUrl: './overview-content.component.scss',
+  styleUrls: ['./overview-content.component.scss'],
 })
 export class OverviewContentComponent implements OnChanges {
   @Input() selectedDate: string | undefined;
   bookings$: Observable<Booking[]>;
   error$: Observable<any>;
+  filterStatus: 'Pending' | 'Approved' = 'Pending';
 
   constructor(private store: Store<{ bookings: BookingsState }>) {
     this.bookings$ = this.store.select(selectBookings);
@@ -39,6 +40,14 @@ export class OverviewContentComponent implements OnChanges {
     }
   }
 
+  handleBookingCreated(): void {
+    if (this.selectedDate) {
+      this.store.dispatch(loadBookings({ date: this.selectedDate }));
+    } else {
+      console.error('Selected date is undefined. Cannot load bookings.');
+    }
+  }
+
   editBooking(bookingId: string): void {
     console.log('Edit booking with ID:', bookingId);
     // Implement the edit logic here
@@ -47,5 +56,9 @@ export class OverviewContentComponent implements OnChanges {
   deleteBooking(bookingId: string): void {
     console.log('Delete booking with ID:', bookingId);
     // Implement the delete logic here
+  }
+
+  changeFilterStatus(status: 'Pending' | 'Approved'): void {
+    this.filterStatus = status;
   }
 }

@@ -15,3 +15,18 @@ export const loadBookingsFailure = createAction(
   '[Bookings] Load Bookings Failure',
   props<{ error: any }>()
 );
+export const cancelBooking = createAction(
+  '[Bookings] Cancel Booking',
+  props<{ bookingId: string }>()
+);
+
+export const cancelBookingSuccess = createAction(
+  '[Bookings] Cancel Booking Success',
+  props<{ bookingId: string }>()
+);
+
+export const cancelBookingFailure = createAction(
+  '[Bookings] Cancel Booking Failure',
+  props<{ error: any }>()
+);
+
