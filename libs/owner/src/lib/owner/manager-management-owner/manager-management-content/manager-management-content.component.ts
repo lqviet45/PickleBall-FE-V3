@@ -12,7 +12,6 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import {
   AuthService, createManager, deleteUser, loadManagerByOwner,
-  loadUser,
   selectAllManagersByOwner,
   selectCurrentUser,
   selectUserAction, updateUser,
