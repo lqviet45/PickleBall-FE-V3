@@ -10,7 +10,8 @@ import { map } from 'rxjs/operators';
 export class BookingsService {
   private apiUrl = 'https://pickleballapp.azurewebsites.net/api/bookings'; // Adjust based on your API URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getBookingsByDate(selectedDate: string): Observable<Booking[]> {
     const url = `${this.apiUrl}/${selectedDate}`;
@@ -42,5 +43,8 @@ export class BookingsService {
   cancelBooking(bookingId: string): Observable<any> {
     const url = `${this.apiUrl}/${bookingId}/cancel`;
     return this.http.put<any>(url, {});
+  }
+  createBooking(data: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, data);
   }
 }

@@ -4,14 +4,15 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Booking, BookingsState, loadBookings, selectBookings, selectBookingsError } from '@org/store';
 
 @Component({
   selector: 'lib-overview-content',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatCard,
     MatCardContent,
     MatIcon,
