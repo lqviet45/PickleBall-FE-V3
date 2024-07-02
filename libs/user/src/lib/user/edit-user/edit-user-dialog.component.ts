@@ -25,7 +25,7 @@ export class EditUserDialogComponent {
       firstName: [data.user.firstName, Validators.required],
       lastName: [data.user.lastName, Validators.required],
       dayOfBirth: [formattedDate],
-      phone: [data.user.phoneNumber],
+      phoneNumber: [data.user.phoneNumber],
       location: [data.user.location, Validators.required],
       email: [data.user.email, [Validators.required, Validators.email]],
     });
