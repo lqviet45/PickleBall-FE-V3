@@ -6,15 +6,18 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { CityEffects, CityReducer,
+import {
+  CityEffects, CityReducer,
   CourtGroupEffects, courtGroupReducer,
   UserEffects, userReducer,
   CourtYardEffects, courtYardReducer,
-  BookingsEffects, bookingsReducer
+  BookingsEffects, bookingsReducer, revenuesReducer, RevenuesEffects
 } from '@org/store';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideStorage, getStorage } from '@angular/fire/storage';
+import {HighchartsChartModule} from "highcharts-angular";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBOsfGWAtEPdrofxFEgGekQldqw7BK0OhU",
@@ -44,15 +47,18 @@ export const appConfig: ApplicationConfig = {
         city: CityReducer,
         user: userReducer,
         bookings: bookingsReducer,
+        revenues: revenuesReducer
       }),
       EffectsModule.forRoot([
         CourtGroupEffects,
         CourtYardEffects,
         CityEffects,
         UserEffects,
-        BookingsEffects
+        BookingsEffects,
+        RevenuesEffects
       ]),
       StoreDevtoolsModule.instrument({ maxAge: 25, }),
+      HighchartsChartModule
     ])
   ],
 };

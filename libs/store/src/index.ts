@@ -41,3 +41,11 @@ export * from './lib/store/register/register.service';
 
 // Image Upload
 export * from './lib/store/uploadImage/image-upload.service';
+
+// Revenues
+export * from './lib/store/transactions/revenues.actions';
+export * from './lib/store/transactions/revenues.effects';
+export * from './lib/store/transactions/revenue.model';
+export * from './lib/store/transactions/revenues.reducer';
+export * from './lib/store/transactions/revenues.service';
+export * from './lib/store/transactions/revenues.selectors';
