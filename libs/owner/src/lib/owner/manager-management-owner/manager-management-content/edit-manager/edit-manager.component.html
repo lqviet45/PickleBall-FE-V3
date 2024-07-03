@@ -1,5 +1,5 @@
 <div class="dialog-form container">
-  <h1 class="dialog-title">Chỉnh sửa trang cá nhân</h1>
+  <h1 class="dialog-title">Chỉnh sửa thông tin Manager</h1>
   <div class="dialog-content">
     <form [formGroup]="userForm" class="row g-3">
       <div class="col-md-6">
@@ -27,11 +27,6 @@
         <div *ngIf="userForm.get('email')?.hasError('email') && userForm.get('email')?.touched" class="text-danger">
           Email phải đúng định dạng.
         </div>
-      </div>
-
-      <div class="col-md-6">
-        <label for="dateOfBirth" class="form-label">Ngày sinh</label>
-        <input id="dateOfBirth" type="date" class="form-control" formControlName="dayOfBirth">
       </div>
 
       <div class="col-md-6">

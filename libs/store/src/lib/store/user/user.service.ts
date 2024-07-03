@@ -25,4 +25,29 @@ export class UserService {
     return this.http.put<UserInterface>(url, user);
   }
 
+  getManagersByOwner(ownerId: string): Observable<UserInterface[]> {
+    const url = `${this.baseUrl}/${ownerId}/managers`
+    console.log(url);
+    return this.http.get<{value: UserInterface[]}>(url)
+      .pipe(map(response => response.value));
+  }
+
+  deleteUser(userId: string): Observable<any> {
+    const url = `${this.baseUrl}/${userId}`;
+    return this.http.delete(url);
+  }
+
+  getUserById(id: string): Observable<UserInterface> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.get<{value: UserInterface}>(url)
+      .pipe(map(response => response.value));
+  }
+
+  createManager(ownerId: string, user: UserInterface): Observable<UserInterface> {
+    const url = `${this.baseUrl}/${ownerId}/managers`;
+    return this.http.post<{ value: UserInterface }>(url, user).pipe(
+      map(response => response.value)
+    );
+  }
+
 }

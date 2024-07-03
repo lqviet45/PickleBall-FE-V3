@@ -1,5 +1,5 @@
 <div class="dialog-form container">
-  <h1 class="dialog-title">Chỉnh sửa trang cá nhân</h1>
+  <h1 class="dialog-title">Tạo Manager</h1>
   <div class="dialog-content">
     <form [formGroup]="userForm" class="row g-3">
       <div class="col-md-6">
@@ -29,18 +29,13 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <label for="dateOfBirth" class="form-label">Ngày sinh</label>
-        <input id="dateOfBirth" type="date" class="form-control" formControlName="dayOfBirth">
-      </div>
+<!--      <div class="col-md-6">-->
+<!--        <label for="phone" class="form-label">Số điện thoại</label>-->
+<!--        <input id="phone" type="text" class="form-control" formControlName="phoneNumber">-->
+<!--      </div>-->
 
       <div class="col-md-6">
-        <label for="phone" class="form-label">Số điện thoại</label>
-        <input id="phone" type="text" class="form-control" formControlName="phoneNumber">
-      </div>
-
-      <div class="col-md-6">
-        <label for="location" class="form-label">Vị trí</label>
+        <label for="location" class="form-label">Địa chỉ</label>
         <input id="location" type="text" class="form-control" formControlName="location" required>
         <div *ngIf="userForm.get('location')?.hasError('required') && userForm.get('location')?.touched" class="text-danger">
           Vị trí là bắt buộc.
@@ -51,6 +46,6 @@
   </div>
   <div class="dialog-actions mt-3">
     <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Hủy bỏ</button>
-    <button type="button" class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSave()">Lưu</button>
+    <button type="button" class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSave()">Tạo mới</button>
   </div>
 </div>

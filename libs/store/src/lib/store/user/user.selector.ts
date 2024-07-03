@@ -20,3 +20,15 @@ export const selectUserAction = createSelector(
   selectUserState,
   (state: UserState) => state.userAction
 );
+
+// Selector to get all managers by owner
+export const selectAllManagersByOwner = createSelector(
+  selectUserState,
+  (state: UserState) => state.managers
+);
+
+// Selector to get user by ID
+export const selectUserById = (userId: string) => createSelector(
+  selectUserState,
+  (state: UserState) => state.user?.id === userId ? state.user : null
+);

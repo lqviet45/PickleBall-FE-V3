@@ -59,7 +59,22 @@
           <h5>Thống kê tháng</h5>
         </div>
         <div class="card-body">
-          <canvas id="myChart" height="200"></canvas>
+<!--          <canvas id="myChart" height="200"></canvas>-->
+          <div *ngIf="loading$ | async" class="loading-spinner">
+            Loading...
+          </div>
+
+          <div *ngIf="error$ | async as error" class="error-message">
+            Error: {{ error }}
+          </div>
+
+          <div *ngIf="(revenues$ | async) as revenues">
+            <highcharts-chart
+              [Highcharts]="Highcharts"
+              [options]="chartOptions"
+              style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+          </div>
         </div>
       </div>
 
