@@ -43,8 +43,7 @@ export class ManagerManagementContentComponent implements OnInit{
 
   constructor(
     private store: Store,
-    private dialog: MatDialog,
-    private authService: AuthService
+    private dialog: MatDialog
   ) {
     this.owner$ = this.store.pipe(select(selectCurrentUser));
     this.managerList$ = this.store.select(selectAllManagersByOwner);
@@ -58,8 +57,10 @@ export class ManagerManagementContentComponent implements OnInit{
     // }
     this.owner$.subscribe(
       owner => {
-        this.ownerId = owner?.id || '';
-        this.store.dispatch(loadManagerByOwner({ownerId: this.ownerId}));
+        if (owner && owner.id) {
+          this.ownerId = owner?.id || '';
+          this.store.dispatch(loadManagerByOwner({ownerId: this.ownerId}));
+        }
       }
     )
     this.managerList$.subscribe(managers => {

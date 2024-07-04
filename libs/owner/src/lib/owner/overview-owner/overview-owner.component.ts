@@ -7,9 +7,10 @@ import { Observable } from 'rxjs';
 import {
   loadRevenues,
   RevenueResponse,
+  selectCurrentUser,
   selectRevenuesData,
   selectRevenuesError,
-  selectRevenuesLoading
+  selectRevenuesLoading, UserInterface
 } from '@org/store';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
@@ -28,7 +29,8 @@ export class OverviewOwnerComponent implements OnInit{
   error$: Observable<any>;
   month = '06';
   year = '2024';
-  ownerId = '35be65a9-bdb5-4611-0420-08dc94ed41db';
+  ownerId = '';
+  owner$: Observable<UserInterface | null>;
   chartOptions!: Highcharts.Options;
   Highcharts: typeof Highcharts = Highcharts;
   constructor(
@@ -37,9 +39,16 @@ export class OverviewOwnerComponent implements OnInit{
     this.revenues$ = this.store.select(selectRevenuesData);
     this.loading$ = this.store.select(selectRevenuesLoading);
     this.error$ = this.store.select(selectRevenuesError);
+    this.owner$ = this.store.select(selectCurrentUser);
   }
     ngOnInit(): void {
-      this.store.dispatch(loadRevenues({ ownerId: this.ownerId, month: this.month, year: this.year }));
+
+      this.owner$.subscribe(user => {
+        if (user && user.id) {
+          this.ownerId = user?.id || '';
+          this.store.dispatch(loadRevenues({ ownerId: this.ownerId, month: this.month, year: this.year }));
+        }
+      });
 
       this.revenues$.subscribe(data => {
         if (data) {
@@ -53,7 +62,7 @@ export class OverviewOwnerComponent implements OnInit{
               borderRadius: 10,
             },
             title: {
-              text: 'Weekly Revenue and Player Count',
+              text: 'Doanh thu và số người chơi theo tuần ',
               style: {
                 color: '#333333',
                 fontSize: '20px',
@@ -63,7 +72,7 @@ export class OverviewOwnerComponent implements OnInit{
             xAxis: {
               categories: weeks,
               title: {
-                text: 'Weeks',
+                text: 'Tuần',
                 style: {
                   color: '#333333',
                   fontSize: '16px'
@@ -78,7 +87,7 @@ export class OverviewOwnerComponent implements OnInit{
             },
             yAxis: [{
               title: {
-                text: 'Total Revenue',
+                text: 'Doanh thu',
                 style: {
                   color: '#1E90FF',
                   fontSize: '16px'
@@ -93,7 +102,7 @@ export class OverviewOwnerComponent implements OnInit{
               }
             }, {
               title: {
-                text: 'Player Count',
+                text: 'Số người chơi',
                 style: {
                   color: '#FF6347',
                   fontSize: '16px'
@@ -109,7 +118,7 @@ export class OverviewOwnerComponent implements OnInit{
               opposite: true
             }],
             series: [{
-              name: 'Total Revenue',
+              name: 'Doanh thu',
               data: revenueData,
               type: 'line',
               color: '#1E90FF',
@@ -120,7 +129,7 @@ export class OverviewOwnerComponent implements OnInit{
                 fillColor: '#1E90FF'
               }
             }, {
-              name: 'Player Count',
+              name: 'Số người chơi',
               data: playersData,
               type: 'line',
               color: '#FF6347',
@@ -149,6 +158,5 @@ export class OverviewOwnerComponent implements OnInit{
           };
         }
       });
-
     }
 }
