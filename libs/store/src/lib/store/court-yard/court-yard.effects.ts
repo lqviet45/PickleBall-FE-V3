@@ -12,8 +12,8 @@ export class CourtYardEffects {
     this.actions$.pipe(
       ofType(CourtYardActions.loadCourtYards),
       mergeMap(action =>
-        this.courtYardService.getAllCourtYardsByCourtGroupId(action.courtGroupId).pipe(
-          map(courtYards => CourtYardActions.loadCourtYardsSuccess({ courtYards })),
+        this.courtYardService.getAllCourtYardsByCourtGroupId(action.courtGroupId, action.pageNumber, action.pageSize).pipe(
+          map(courtYards => CourtYardActions.loadCourtYardsSuccess({ pagedResponse: courtYards})),
           catchError(error => of(CourtYardActions.loadCourtYardsFailure({ error: error.message })))
         )
       )

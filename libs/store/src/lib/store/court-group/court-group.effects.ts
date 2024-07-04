@@ -4,6 +4,8 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { CourtGroupService } from './court-group.services';
 import * as CourtGroupActions from './court-group.action';
+import { PagedResponse } from '../PagedResponse.model';
+import { CourtGroup } from './court-group.model';
 
 @Injectable()
 export class CourtGroupEffects {
@@ -12,12 +14,24 @@ export class CourtGroupEffects {
     private courtGroupService: CourtGroupService
   ) {}
 
+  // loadCourtGroups$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(CourtGroupActions.loadCourtGroups),
+  //     mergeMap(() =>
+  //       this.courtGroupService.getCourtGroups().pipe(
+  //         map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ courtGroups })),
+  //         catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
+  //       )
+  //     )
+  //   )
+  // );
+
   loadCourtGroups$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CourtGroupActions.loadCourtGroups),
-      mergeMap(() =>
-        this.courtGroupService.getCourtGroups().pipe(
-          map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ courtGroups })),
+      mergeMap(action =>
+        this.courtGroupService.getCourtGroups(action.pageNumber, action.pageSize).pipe(
+          map((response: PagedResponse<CourtGroup>) => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse: response })),
           catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
         )
       )
@@ -29,8 +43,8 @@ export class CourtGroupEffects {
     this.actions$.pipe(
       ofType(CourtGroupActions.loadCourtGroupByOwnerId),
       mergeMap(action =>
-        this.courtGroupService.getCourtsByOwnerId(action.ownerId).pipe(
-          map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ courtGroups })),
+        this.courtGroupService.getCourtsByOwnerId(action.ownerId, action.pageNumber, action.pageSize).pipe(
+          map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse: courtGroups })),
           catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
         )
       )

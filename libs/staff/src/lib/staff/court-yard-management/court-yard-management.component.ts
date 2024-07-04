@@ -57,7 +57,7 @@ export class CourtYardManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroups()); // Load court groups initially
+    this.store.dispatch(loadCourtGroups({pageNumber: 1, pageSize: 10})); // Load court groups initially
 
     // Select the first court group initially
     this.courtGroupOptions$.subscribe(courtGroups => {
@@ -70,7 +70,7 @@ export class CourtYardManagementComponent implements OnInit {
 
   // Method to load court yards for a given court group ID
   loadCourtYards(courtGroupId: string): void {
-    this.store.dispatch(loadCourtYards({ courtGroupId }));
+    this.store.dispatch(loadCourtYards({ courtGroupId, pageNumber: 1, pageSize: 10 }));
   }
 
   // Toggle details of the selected court yard

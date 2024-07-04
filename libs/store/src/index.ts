@@ -49,3 +49,6 @@ export * from './lib/store/transactions/revenue.model';
 export * from './lib/store/transactions/revenues.reducer';
 export * from './lib/store/transactions/revenues.service';
 export * from './lib/store/transactions/revenues.selectors';
+
+// Paged Response
+export * from './lib/store/PagedResponse.model';

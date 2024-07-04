@@ -1,9 +1,10 @@
 // court-yard.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CourtYard } from './court-yard.model';
 import { map } from 'rxjs/operators';
+import { PagedResponse } from '../PagedResponse.model';
 
 
 @Injectable({
@@ -18,10 +19,17 @@ export class CourtYardService {
   constructor(private http: HttpClient) {
   }
 
-  getAllCourtYardsByCourtGroupId(courtGroupId: string): Observable<CourtYard[]> {
+  getAllCourtYardsByCourtGroupId(courtGroupId: string, pageNumber: number, pageSize: number): Observable<PagedResponse<CourtYard>> {
+    let params = new HttpParams();
+    if (pageNumber) {
+      params = params.set('PageNumber', pageNumber.toString());
+    }
+    if (pageSize) {
+      params = params.set('PageSize', pageSize.toString());
+    }
     const url = `${this.courtGroupApiUrl}/${courtGroupId}/court-yards`;
     console.log(url);
-    return this.http.get<{ value: CourtYard[] }>(url).pipe(
+    return this.http.get<{ value: PagedResponse<CourtYard> }>(url, { params }).pipe(
       map(response => response.value)
     );
   }

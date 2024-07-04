@@ -50,7 +50,7 @@ export class OverviewHeaderComponent implements OnInit{
   ngOnInit(): void {
     this.emitFormattedDate(this.selectedDate); // Emit initial date
 
-    this.store.dispatch(loadCourtGroups()); // Dispatch action to load courts
+    this.store.dispatch(loadCourtGroups({pageNumber: 1, pageSize: 10})); // Dispatch action to load courts
     this.courtGroupOptions$.subscribe(courtGroups => {
       if (courtGroups.length > 0) {
         this.selectedCourtGroup = courtGroups[0]; // Set the first item initially

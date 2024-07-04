@@ -1,6 +1,7 @@
 // court-yard.selectors.ts
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CourtYardState } from './court-yard.reducer';
+import { selectCourtGroupState } from '../court-group/court-group.selectors';
 
 export const selectCourtYardState = createFeatureSelector<CourtYardState>('courtYard');
 
@@ -17,6 +18,11 @@ export const selectCourtYardError = createSelector(
 export const selectCourtYardActions = createSelector(
   selectCourtYardState,
   (state: CourtYardState) => state.courtYardActions
+);
+
+export const selectCourtYardPagedResponse = createSelector(
+  selectCourtYardState,
+  (state) => state.pagedResponse
 );
 
 

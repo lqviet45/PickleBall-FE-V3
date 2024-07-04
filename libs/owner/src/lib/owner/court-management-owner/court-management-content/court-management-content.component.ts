@@ -14,9 +14,9 @@ import { Observable, Subscription } from 'rxjs';
 import {
   CourtYard,
   createCourtYard, deleteCourtYard,
-  loadCourtYards,
+  loadCourtYards, PagedResponse,
   selectAllCourtYards,
-  selectCourtYardActions, updateCourtYard
+  selectCourtYardActions, selectCourtYardPagedResponse, updateCourtYard
 } from '@org/store';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,6 +41,11 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
   courtYards$: Observable<CourtYard[]>;
   courtYardActions$: Observable<boolean>;
   private subscriptions: Subscription = new Subscription();
+  pagedResponse$: Observable<PagedResponse<CourtYard> | null>;
+  pageNumber = 1;
+  pageSize = 10;
+  totalItems = 0;
+  totalPages = 0;
 
   constructor(
     private store: Store,
@@ -48,11 +53,13 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
     ) {
     this.courtYards$ = this.store.select(selectAllCourtYards);
     this.courtYardActions$ = this.store.select(selectCourtYardActions);
+    this.pagedResponse$ = this.store.select(selectCourtYardPagedResponse);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['courtGroupId'] && changes['courtGroupId'].currentValue) {
-      this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId }));
+      //this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId, pageNumber: this.pageNumber, pageSize: this.pageSize }));
+      this.loadCourtYards();
       this.subscriptions.add(
         this.courtYards$.subscribe(courtYards => {
           this.dataSource = courtYards;
@@ -68,14 +75,26 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
 
     this.courtYardActions$.subscribe((action) => {
       if (action) {
-        this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId }));
+        //this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId, pageNumber: this.pageNumber, pageSize: this.pageSize }));
+        this.loadCourtYards();
       }
+    });
 
-    })
+    this.pagedResponse$.subscribe((pagedResponse) => {
+      if (pagedResponse) {
+        this.dataSource = pagedResponse.items;
+        this.pageNumber = pagedResponse.currentPage;
+        this.pageSize = pagedResponse.pageSize;
+        this.totalItems = pagedResponse.totalCount;
+        this.totalPages = pagedResponse.totalPages;
+      }
+    });
 
   }
 
-
+  loadCourtYards() {
+    this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId, pageNumber: this.pageNumber, pageSize: this.pageSize }));
+  }
 
   onDeleteClick(id: string) {
     const dialogRef = this.dialog.open(DeleteComfirmComponent, {
@@ -117,4 +136,10 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
     });
 
   }
+
+  onPageChange(page: number) {
+    this.pageNumber = page;
+    this.loadCourtYards();
+  }
+
 }

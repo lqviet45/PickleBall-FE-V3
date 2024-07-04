@@ -1,10 +1,14 @@
 import { createAction, createActionGroup, props } from '@ngrx/store';
 import { CourtGroup } from './court-group.model';
+import { PagedResponse } from '../PagedResponse.model';
 
-export const loadCourtGroups = createAction('[CourtGroup] Load CourtGroups');
+export const loadCourtGroups = createAction(
+  '[CourtGroup] Load CourtGroups',
+  props<{ pageNumber: number; pageSize: number }>()
+);
 export const loadCourtGroupsSuccess = createAction(
   '[CourtGroup] Load CourtGroups Success',
-  props<{ courtGroups: { id: string, name: string }[] }>()
+  props<{ pagedResponse: PagedResponse<CourtGroup> }>()
 );
 export const loadCourtGroupsFailure = createAction(
   '[CourtGroup] Load CourtGroups Failure',
@@ -13,7 +17,7 @@ export const loadCourtGroupsFailure = createAction(
 
 export const loadCourtGroupByOwnerId = createAction(
   '[CourtGroup] Load CourtGroup By OwnerId',
-  props<{ ownerId: string }>()
+  props<{ ownerId: string, pageNumber: number, pageSize: number }>()
 );
 
 export const createCourtGroup = createAction(

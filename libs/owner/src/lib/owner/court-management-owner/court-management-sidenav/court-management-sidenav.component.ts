@@ -37,6 +37,8 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   user$: Observable<UserInterface | null>;
   selectedCourtId: string | null = null;
   courtGroupCreated$: Observable<boolean>;
+  pageNumber = 1;
+  pageSize = 10;
   constructor(
     private store: Store,
     public dialog: MatDialog,
@@ -45,11 +47,12 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   ) {
     this.user$ = store.pipe(select(selectCurrentUser));
     this.courtsGroup$ = this.store.select(selectAllCourtGroups);
+    //this.courtsGroup$ = this.store.select(selectCourtGroupByOwnerId(this.userId));
     this.courtGroupCreated$ = this.store.select(selectCourtGroupCreated);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+    this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId, pageNumber: this.pageNumber, pageSize: this.pageSize}));
     this.courtsGroup$ = this.store.select(selectCourtGroupByOwnerId(this.userId));
     //console.log("On change: ", this.courtsGroup$);
   }
@@ -62,7 +65,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.user$.subscribe(
       user => {
         this.userId = user?.id || '';
-        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId, pageNumber: this.pageNumber, pageSize: this.pageSize}));
 
       }
     )
@@ -78,7 +81,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.courtGroupCreated$.subscribe((created) => {
       if (created) {
         // Handle logic after a court group is created
-        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId }));
+        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId, pageNumber: this.pageNumber, pageSize: this.pageSize}));
       }
     });
 

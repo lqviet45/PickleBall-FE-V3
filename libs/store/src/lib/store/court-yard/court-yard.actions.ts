@@ -1,15 +1,16 @@
 // court-yard.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { CourtYard } from './court-yard.model';
+import { PagedResponse } from '../PagedResponse.model';
 
 export const loadCourtYards = createAction(
   '[Court Yard] Load Court Yards',
-  props<{ courtGroupId: string }>()
+  props<{ courtGroupId: string, pageNumber: number, pageSize: number }>()
 );
 
 export const loadCourtYardsSuccess = createAction(
   '[Court Yard] Load Court Yards Success',
-  props<{ courtYards: CourtYard[] }>()
+  props<{ pagedResponse: PagedResponse<CourtYard> }>()
 );
 
 export const loadCourtYardsFailure = createAction(
