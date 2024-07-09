@@ -12,17 +12,14 @@
         <!-- Display booking details -->
         <td class="booking-cell">
           <div class="booking-id">{{ booking.id }}</div>
-          <div class="booking-user">{{ booking.userName }}Nguyen Hoang Phat</div>
-          <div class="booking-time">{{ booking.date.dateWorking | date: 'short' }}</div>
+          <div class="booking-user">{{ booking.user?.fullName }}</div>
+          <div class="booking-time">{{ booking.date?.dateWorking }}</div>
         </td>
         <td class="booking-cell">
           <mat-icon>alarm</mat-icon> {{ booking.timeRange }}
         </td>
         <td class="booking-cell">
           <mat-icon>person</mat-icon> {{ booking.numberOfPlayers }}
-        </td>
-        <td class="booking-cell">
-          <mat-icon>euro_symbol</mat-icon> {{ booking.courtGroup.price }}
         </td>
         <td class="booking-cell">{{ booking.bookingStatus }}</td>
         <td class="booking-cell">

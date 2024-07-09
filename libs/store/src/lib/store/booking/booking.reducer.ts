@@ -1,29 +1,33 @@
 import { createReducer, on } from '@ngrx/store';
 import * as fromActions from './booking.actions';
 import { Booking } from './booking.model';
+import { PagedResponse } from '../PagedResponse.model';
 
 export interface BookingsState {
   bookings: Booking[];
   loading: boolean;
-  error: any;
+  error: string | null;
+  pagedResponse: PagedResponse<Booking> | null;
 }
 
 export const initialBookingState: BookingsState = {
   bookings: [],
   loading: false,
-  error: null
+  error: null,
+  pagedResponse: null,
 };
 
 export const bookingsReducer = createReducer(
   initialBookingState,
-  on(fromActions.loadBookings, state => ({
+  on(fromActions.loadBookingsByDate, state => ({
     ...state,
     loading: true,
     error: null
   })),
-  on(fromActions.loadBookingsSuccess, (state, { bookings }) => ({
+  on(fromActions.loadBookingsSuccess, (state, { pagedResponse }) => ({
     ...state,
-    bookings,
+    bookings: pagedResponse.items,
+    pagedResponse,
     loading: false
   })),
   on(fromActions.loadBookingsFailure, (state, { error }) => ({

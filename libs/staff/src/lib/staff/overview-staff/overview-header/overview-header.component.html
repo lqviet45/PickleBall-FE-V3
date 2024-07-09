@@ -2,7 +2,7 @@
   <mat-card-content class="court-list-header">
     <div class="start-content">
       <div class="header-form">
-        <mat-select class="court-list-label court-select" [(ngModel)]="selectedCourtGroup">
+        <mat-select class="court-list-label court-select" [(ngModel)]="selectedCourtGroup" (selectionChange)="onSelectCourtGroup($event.value)">
           <mat-option class="court-select" *ngFor="let group of courtGroupOptions$ | async" [value]="group">
             {{ group.name }}
           </mat-option>

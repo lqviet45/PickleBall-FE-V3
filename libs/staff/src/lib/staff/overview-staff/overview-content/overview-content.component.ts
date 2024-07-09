@@ -6,7 +6,13 @@ import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Booking, BookingsState, loadBookings, selectBookings, selectBookingsError } from '@org/store';
+import {
+  Booking,
+  BookingsState,
+  loadBookingsByDate,
+  selectBookings,
+  selectBookingsError
+} from '@org/store';
 
 @Component({
   selector: 'lib-overview-content',
@@ -26,26 +32,25 @@ import { Booking, BookingsState, loadBookings, selectBookings, selectBookingsErr
 })
 export class OverviewContentComponent implements OnChanges {
   @Input() selectedDate: string | undefined;
+  @Input() selectedCourtGroupId: string | undefined;
   bookings$: Observable<Booking[]>;
   error$: Observable<any>;
   filterStatus: 'Pending' | 'Approved' = 'Pending';
 
-  constructor(private store: Store<{ bookings: BookingsState }>) {
+  constructor(
+    private store: Store<{ bookings: BookingsState }>) {
     this.bookings$ = this.store.select(selectBookings);
     this.error$ = this.store.select(selectBookingsError);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedDate'] && this.selectedDate) {
-      this.store.dispatch(loadBookings({ date: this.selectedDate }));
-    }
-  }
-
-  handleBookingCreated(): void {
-    if (this.selectedDate) {
-      this.store.dispatch(loadBookings({ date: this.selectedDate }));
-    } else {
-      console.error('Selected date is undefined. Cannot load bookings.');
+    if (changes['selectedDate'] && this.selectedDate && this.selectedCourtGroupId) {
+      this.store.dispatch(loadBookingsByDate({
+        courtGroupId: this.selectedCourtGroupId,
+        date: this.selectedDate,
+        pageNumber: 1,
+        pageSize: 10
+      }));
     }
   }
 

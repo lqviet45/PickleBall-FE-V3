@@ -44,7 +44,7 @@ export class CourtGroupEffects {
       ofType(CourtGroupActions.loadCourtGroupByOwnerId),
       mergeMap(action =>
         this.courtGroupService.getCourtsByOwnerId(action.ownerId, action.pageNumber, action.pageSize).pipe(
-          map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse: courtGroups })),
+          map(pagedResponse => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse })),
           catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
         )
       )

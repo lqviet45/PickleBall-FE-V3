@@ -12,3 +12,7 @@ export const selectBookingsError = createSelector(
   selectBookingsState,
   (state: BookingsState) => state.error
 );
+export const selectPagedResponseBooking = createSelector(
+  selectBookingsState,
+  (state) => state.pagedResponse
+);

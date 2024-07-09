@@ -11,15 +11,16 @@ import { MatLine } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
+  AuthService,
   CourtGroup,
-  CourtYard,
+  CourtYard, loadCourtGroupByOwnerId,
   loadCourtGroups,
-  loadCourtYards,
+  loadCourtYards, loadUser,
   selectAllCourtGroups,
-  selectAllCourtYards
+  selectAllCourtYards, selectCurrentUser, UserInterface
 } from '@org/store';
 import { Observable, of } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -46,41 +47,55 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './court-yard-management.component.scss',
 })
 export class CourtYardManagementComponent implements OnInit {
-  selectedCourtGroup: CourtGroup | undefined;
   courtGroupOptions$: Observable<CourtGroup[]>;
+  selectedCourtGroup?: CourtGroup;
+  user$: Observable<UserInterface | null>;
+  ownerId = '';
   courtYards$: Observable<CourtYard[]>;
   selectedCourtYard: CourtYard | null = null;
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private authService: AuthService) {
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
     this.courtYards$ = this.store.select(selectAllCourtYards);
+    this.user$ = this.store.pipe(select(selectCurrentUser));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroups({pageNumber: 1, pageSize: 10})); // Load court groups initially
+    this.store.dispatch(loadCourtGroups({ pageNumber: 1, pageSize: 10 })); // Load court groups initially
 
     // Select the first court group initially
     this.courtGroupOptions$.subscribe(courtGroups => {
       if (courtGroups.length > 0) {
-        this.selectedCourtGroup = courtGroups[0];
-        this.loadCourtYards(this.selectedCourtGroup.id); // Load court yards for the first group
+        this.selectedCourtGroup = courtGroups[0]; // Set to the first court group
+        this.loadCourtYards(); // Load court yards for the initial selected court group
+      }
+    });
+
+    const firebaseId = this.authService.currentUserSig()?.firebaseId;
+    if (firebaseId) {
+      this.store.dispatch(loadUser({ firebaseId }));
+    }
+
+    this.user$.subscribe(user => {
+      this.ownerId = user?.supervisorId || '';
+      if (this.ownerId) {
+        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.ownerId, pageNumber: 1, pageSize: 10 }));
       }
     });
   }
 
-  // Method to load court yards for a given court group ID
-  loadCourtYards(courtGroupId: string): void {
-    this.store.dispatch(loadCourtYards({ courtGroupId, pageNumber: 1, pageSize: 10 }));
+  onSelectCourtGroup(selectedGroup: CourtGroup): void {
+    this.selectedCourtGroup = selectedGroup;
+    this.loadCourtYards(); // Load court yards when court group changes
   }
 
-  // Toggle details of the selected court yard
+  loadCourtYards(): void {
+    if (this.selectedCourtGroup) {
+      this.store.dispatch(loadCourtYards({ courtGroupId: this.selectedCourtGroup.id, pageNumber: 1, pageSize: 10 }));
+    }
+  }
+
   toggleDetails(court: CourtYard) {
     this.selectedCourtYard = (this.selectedCourtYard === court) ? null : court;
-  }
-
-  // Handle change in selected court group
-  onCourtGroupChange(event: any): void {
-    const selectedGroupId = event.value.id;
-    this.loadCourtYards(selectedGroupId); // Load court yards when court group changes
   }
 }

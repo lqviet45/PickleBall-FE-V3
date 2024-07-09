@@ -1,4 +1,3 @@
-
 export interface PagedResponse<T> {
   items: T[];
   currentPage: number;

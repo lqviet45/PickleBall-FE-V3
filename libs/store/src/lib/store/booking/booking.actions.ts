@@ -1,14 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { Booking } from './booking.model';
-
-export const loadBookings = createAction(
-  '[Bookings] Load Bookings',
-  props<{ date: string }>()
-);
+import { PagedResponse } from '../PagedResponse.model';
 
 export const loadBookingsSuccess = createAction(
   '[Bookings] Load Bookings Success',
-  props<{ bookings: Booking[] }>()
+  props<{ pagedResponse: PagedResponse<Booking> }>()
+);
+export const loadBookingsByDate = createAction(
+  '[Bookings] Load Bookings By Date',
+  props<{ courtGroupId: string, date: string, pageNumber: number,  pageSize: number}>()
 );
 
 export const loadBookingsFailure = createAction(
