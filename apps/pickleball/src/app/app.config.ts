@@ -11,7 +11,9 @@ import {
   CourtGroupEffects, courtGroupReducer,
   UserEffects, userReducer,
   CourtYardEffects, courtYardReducer,
-  BookingsEffects, bookingsReducer, revenuesReducer, RevenuesEffects
+  BookingsEffects, bookingsReducer,
+  revenuesReducer, RevenuesEffects,
+  slotsReducer, SlotsEffects
 } from '@org/store';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -47,7 +49,8 @@ export const appConfig: ApplicationConfig = {
         city: CityReducer,
         user: userReducer,
         bookings: bookingsReducer,
-        revenues: revenuesReducer
+        revenues: revenuesReducer,
+        slots: slotsReducer,
       }),
       EffectsModule.forRoot([
         CourtGroupEffects,
@@ -55,7 +58,8 @@ export const appConfig: ApplicationConfig = {
         CityEffects,
         UserEffects,
         BookingsEffects,
-        RevenuesEffects
+        RevenuesEffects,
+        SlotsEffects
       ]),
       StoreDevtoolsModule.instrument({ maxAge: 25, }),
       HighchartsChartModule

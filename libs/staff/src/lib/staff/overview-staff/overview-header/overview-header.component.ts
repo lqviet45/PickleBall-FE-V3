@@ -11,17 +11,16 @@ import { FormsModule } from '@angular/forms';
 import {
   AuthService,
   CourtGroup,
-  CourtGroupService,
-  CourtGroupState, loadBookingsByDate,
+  CourtGroupState, loadBookingsByCourtGroup,
   loadCourtGroupByOwnerId,
-  loadCourtGroups, loadUser,
-  selectAllCourtGroups, selectCurrentUser, UserInterface, UserState
+  loadUser,
+  selectAllCourtGroups, selectCurrentUser, UserInterface
 } from '@org/store';
-import { Observable, of, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { AddNewBookingComponent } from './add/add-new-booking.component';
-import { Auth } from '@angular/fire/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -46,77 +45,51 @@ import { Auth } from '@angular/fire/auth';
   styleUrls: ['./overview-header.component.scss'],
 })
 export class OverviewHeaderComponent implements OnInit {
-  selectedDate: string = new Date().toISOString().split('T')[0]; // Initialize with today's date in 'yyyy-MM-dd' format
   courtGroupOptions$: Observable<CourtGroup[]>;
   selectedCourtGroup?: CourtGroup;
   user$: Observable<UserInterface | null>;
   ownerId = '';
 
-  @Output() dateSelected: EventEmitter<string> = new EventEmitter<string>();
   @Output() courtGroupChanged: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(
     private store: Store<CourtGroupState>,
     public dialog: MatDialog,
-    private authService: AuthService
+    private snackBar: MatSnackBar // Import MatSnackBar for showing feedback
   ) {
     this.user$ = this.store.pipe(select(selectCurrentUser));
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
   }
 
   ngOnInit(): void {
-    this.emitFormattedDate(this.selectedDate); // Emit initial date
-
-    this.courtGroupOptions$.subscribe(courtGroups => {
+    this.courtGroupOptions$.subscribe((courtGroups) => {
       if (courtGroups.length > 0) {
         this.selectedCourtGroup = courtGroups[0]; // Set to the first court group
         this.emitCourtGroupId(this.selectedCourtGroup.id); // Emit initial court group ID
       }
     });
-    if (this.selectedDate && this.selectedCourtGroup) {
-      this.store.dispatch(loadBookingsByDate({
-        courtGroupId: this.selectedCourtGroup.id,
-        date: this.selectedDate,
-        pageNumber: 1,
-        pageSize: 10
-      }));
+    if (this.selectedCourtGroup) {
+      this.store.dispatch(
+        loadBookingsByCourtGroup({
+          courtGroupId: this.selectedCourtGroup.id,
+          pageNumber: 1,
+          pageSize: 10,
+        })
+      );
     }
 
-    const firebaseId = this.authService.currentUserSig()?.firebaseId;
-    if (firebaseId) {
-      this.store.dispatch(loadUser({  firebaseId }));
-    }
-    this.user$.subscribe(
-      user => {
-        this.ownerId = user?.supervisorId || '';
-        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.ownerId, pageNumber: 1, pageSize: 10}));
-
-      }
-    )
-  }
-
-  private emitFormattedDate(date: string): void {
-    this.dateSelected.emit(date);
-  }
-
-  private formatDate(dateString: string): string {
-    const dateParts = dateString.split('-');
-    const yyyy = dateParts[0];
-    const mm = dateParts[1];
-    const dd = dateParts[2];
-    return `${yyyy}-${mm}-${dd}`;
-  }
-
-  onDateChange(event: any): void {
-    const selectedDate = event.target.value; // Get the date from the input
-    const formattedDate = this.formatDate(selectedDate); // Format it to 'yyyy-MM-dd'
-    this.dateSelected.emit(formattedDate); // Emit the formatted date
+    this.user$.subscribe((user) => {
+      this.ownerId = user?.supervisorId || '';
+      this.store.dispatch(
+        loadCourtGroupByOwnerId({ ownerId: this.ownerId, pageNumber: 1, pageSize: 10 })
+      );
+    });
   }
 
   onSelectCourtGroup(selectedGroup: CourtGroup): void {
     this.selectedCourtGroup = selectedGroup;
     this.emitCourtGroupId(selectedGroup.id);
-    console.log(this.selectedCourtGroup,'courtGroupId');
+    console.log(this.selectedCourtGroup, 'courtGroupId');
   }
 
   private emitCourtGroupId(courtGroupId: string): void {
@@ -129,14 +102,26 @@ export class OverviewHeaderComponent implements OnInit {
     });
 
     dialogRef.componentInstance.bookingCreated.subscribe(() => {
-      // Refresh booking list in OverviewContentComponent
-      // You might need to handle this part based on your application structure
-      // For example, if OverviewHeaderComponent and OverviewContentComponent are sibling components,
-      // you might need to use a shared service or store to communicate between them.
+      this.showSnackBar('Booking created successfully');
+      this.loadBookings(); // Reload bookings after a new booking is added
     });
+  }
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(`Dialog result: ${result}`);
+  loadBookings(): void {
+    if (this.selectedCourtGroup?.id) {
+      this.store.dispatch(
+        loadBookingsByCourtGroup({
+          courtGroupId: this.selectedCourtGroup.id,
+          pageNumber: 1,
+          pageSize: 10,
+        })
+      );
+    }
+  }
+
+  showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
     });
   }
 }

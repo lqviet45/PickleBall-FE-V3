@@ -6,9 +6,9 @@ export const loadBookingsSuccess = createAction(
   '[Bookings] Load Bookings Success',
   props<{ pagedResponse: PagedResponse<Booking> }>()
 );
-export const loadBookingsByDate = createAction(
+export const loadBookingsByCourtGroup = createAction(
   '[Bookings] Load Bookings By Date',
-  props<{ courtGroupId: string, date: string, pageNumber: number,  pageSize: number}>()
+  props<{ courtGroupId: string, pageNumber: number,  pageSize: number}>()
 );
 
 export const loadBookingsFailure = createAction(
@@ -27,6 +27,20 @@ export const cancelBookingSuccess = createAction(
 
 export const cancelBookingFailure = createAction(
   '[Bookings] Cancel Booking Failure',
+  props<{ error: any }>()
+);
+export const confirmBooking = createAction(
+  '[Booking] Confirm Booking',
+  props<{ bookingId: string; courtYardId: string; slotIds: string[]; dateBooking: string }>()
+);
+
+export const confirmBookingSuccess = createAction(
+  '[Booking] Confirm Booking Success',
+  props<{ response: any }>()
+);
+
+export const confirmBookingFailure = createAction(
+  '[Booking] Confirm Booking Failure',
   props<{ error: any }>()
 );
 

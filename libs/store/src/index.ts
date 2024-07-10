@@ -50,5 +50,13 @@ export * from './lib/store/transactions/revenues.reducer';
 export * from './lib/store/transactions/revenues.service';
 export * from './lib/store/transactions/revenues.selectors';
 
+// Slots
+export * from './lib/store/slot/slot.actions';
+export * from './lib/store/slot/slot.effects';
+export * from './lib/store/slot/slot.model';
+export * from './lib/store/slot/slot.reducer';
+export * from './lib/store/slot/slot.service';
+export * from './lib/store/slot/slot.selector';
+
 // Paged Response
 export * from './lib/store/PagedResponse.model';

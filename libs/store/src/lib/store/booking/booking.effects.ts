@@ -8,11 +8,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class BookingsEffects {
-  loadBookingsByDate$ = createEffect(() =>
+  loadBookingsByCourtGroup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(bookingsActions.loadBookingsByDate),
-      mergeMap(({ courtGroupId, date, pageNumber, pageSize }) =>
-        this.bookingsService.getBookingsByDate(courtGroupId, date, pageNumber, pageSize).pipe(
+      ofType(bookingsActions.loadBookingsByCourtGroup),
+      mergeMap(({ courtGroupId, pageNumber, pageSize }) =>
+        this.bookingsService.getBookingsByCourtGroup(courtGroupId, pageNumber, pageSize).pipe(
           map(pagedResponse => bookingsActions.loadBookingsSuccess({ pagedResponse })),
           catchError((error: HttpErrorResponse) => of(bookingsActions.loadBookingsFailure({ error: error.message })))
         )
@@ -26,6 +26,17 @@ export class BookingsEffects {
         this.bookingsService.cancelBooking(bookingId).pipe(
           map(() => bookingsActions.cancelBookingSuccess({ bookingId })),
           catchError((error: HttpErrorResponse) => of(bookingsActions.cancelBookingFailure({ error: error.message })))
+        )
+      )
+    )
+  );
+  confirmBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingsActions.confirmBooking),
+      mergeMap(action =>
+        this.bookingsService.confirmBooking(action.bookingId, action.courtYardId, action.slotIds, action.dateBooking).pipe(
+          map(response => bookingsActions.confirmBookingSuccess({ response })),
+          catchError(error => of(bookingsActions.confirmBookingFailure({ error: error.message })))
         )
       )
     )

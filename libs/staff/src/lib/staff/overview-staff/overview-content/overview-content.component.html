@@ -1,45 +1,81 @@
 <mat-card class="booking-list">
   <ng-container *ngIf="bookings$ | async as bookings">
-    <table *ngIf="bookings.length > 0" class="booking-table">
+    <table class="booking-table">
       <thead>
-      <tr>
-        <th (click)="changeFilterStatus('Pending')" [class.active]="filterStatus === 'Pending'">Pending</th>
-        <th colspan="6" (click)="changeFilterStatus('Approved')" [class.active]="filterStatus === 'Approved'">Approved</th>
+      <tr class="filter-row">
+        <th colspan="7">
+          <div class="filter-options">
+            <span (click)="changeFilterStatus('Pending')" [class.active]="filterStatus === 'Pending'">Pending</span>
+            <span (click)="changeFilterStatus('Confirmed')" [class.active]="filterStatus === 'Confirmed'">Confirmed</span>
+            <span (click)="changeFilterStatus('Cancelled')" [class.active]="filterStatus === 'Cancelled'">Cancelled</span>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let booking of bookings" class="booking-row">
-        <!-- Display booking details -->
-        <td class="booking-cell">
-          <div class="booking-id">{{ booking.id }}</div>
-          <div class="booking-user">{{ booking.user?.fullName }}</div>
-          <div class="booking-time">{{ booking.date?.dateWorking }}</div>
-        </td>
-        <td class="booking-cell">
-          <mat-icon>alarm</mat-icon> {{ booking.timeRange }}
-        </td>
-        <td class="booking-cell">
-          <mat-icon>person</mat-icon> {{ booking.numberOfPlayers }}
-        </td>
-        <td class="booking-cell">{{ booking.bookingStatus }}</td>
-        <td class="booking-cell">
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="editBooking(booking.id)">
-              Chỉnh sửa
+      <ng-container *ngIf="filterStatus === 'Pending'; else otherStatus">
+        <tr *ngIf="filteredBookings.length === 0">
+          <td colspan="7" class="no-bookings">No pending bookings found.</td>
+        </tr>
+        <tr *ngFor="let booking of filteredBookings" class="booking-row">
+          <td class="booking-cell">
+            <div class="booking-id">{{ booking.id }}</div>
+            <div class="booking-user">{{ booking.user?.fullName }}</div>
+            <div class="booking-time">{{ booking.date?.dateWorking }}</div>
+          </td>
+          <td class="booking-cell">
+            <mat-icon>email</mat-icon> {{ booking.user?.email }}
+          </td>
+          <td class="booking-cell">
+            <mat-icon>schedule</mat-icon> {{ booking.date?.dateWorking }}
+          </td>
+          <td class="booking-cell">
+            <mat-icon>alarm</mat-icon> {{ booking.timeRange }}
+          </td>
+          <td class="booking-cell">
+            <mat-icon>person</mat-icon> {{ booking.numberOfPlayers }}
+          </td>
+          <td class="booking-cell">{{ booking.bookingStatus }}</td>
+          <td class="booking-cell">
+            <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="booking.bookingStatus === 'Pending'">
+              <mat-icon>more_vert</mat-icon>
             </button>
-            <button mat-menu-item (click)="deleteBooking(booking.id)">
-              Xóa
-            </button>
-          </mat-menu>
-        </td>
-      </tr>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="confirmBooking(booking.id)">
+                Confirm
+              </button>
+              <button mat-menu-item (click)="deleteBooking(booking.id)">
+                Reject
+              </button>
+            </mat-menu>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #otherStatus>
+        <tr *ngFor="let booking of filteredBookings" class="booking-row">
+          <td class="booking-cell">
+            <div class="booking-id">{{ booking.id }}</div>
+            <div class="booking-user">{{ booking.user?.fullName }}</div>
+            <div class="booking-time">{{ booking.date?.dateWorking }}</div>
+          </td>
+          <td class="booking-cell">
+            <mat-icon>email</mat-icon> {{ booking.user?.email }}
+          </td>
+          <td class="booking-cell">
+            <mat-icon>schedule</mat-icon> {{ booking.date?.dateWorking }}
+          </td>
+          <td class="booking-cell">
+            <mat-icon>alarm</mat-icon> {{ booking.timeRange }}
+          </td>
+          <td class="booking-cell">
+            <mat-icon>person</mat-icon> {{ booking.numberOfPlayers }}
+          </td>
+          <td class="booking-cell">{{ booking.bookingStatus }}</td>
+        </tr>
+      </ng-template>
       </tbody>
     </table>
   </ng-container>
-
   <ng-template #noBookings>
     <div>No bookings found</div>
   </ng-template>

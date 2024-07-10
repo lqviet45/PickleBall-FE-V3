@@ -19,7 +19,7 @@ export const initialBookingState: BookingsState = {
 
 export const bookingsReducer = createReducer(
   initialBookingState,
-  on(fromActions.loadBookingsByDate, state => ({
+  on(fromActions.loadBookingsByCourtGroup, state => ({
     ...state,
     loading: true,
     error: null
@@ -50,5 +50,18 @@ export const bookingsReducer = createReducer(
     ...state,
     error,
     loading: false
+  })),
+  on(fromActions.confirmBooking, state => ({ ...state, loading: true })),
+  on(fromActions.confirmBookingSuccess, (state, { response }) => ({
+    ...state,
+    loading: false,
+    response,
+    error: null
+  })),
+  on(fromActions.confirmBookingFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    error,
+    response: null
   }))
 );

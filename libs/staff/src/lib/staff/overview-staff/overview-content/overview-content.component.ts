@@ -4,15 +4,17 @@ import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   Booking,
-  BookingsState,
-  loadBookingsByDate,
+  BookingsState, loadBookingsByCourtGroup,
   selectBookings,
   selectBookingsError
 } from '@org/store';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmBookingComponent } from './approve-booking/confirm-booking.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lib-overview-content',
@@ -31,40 +33,76 @@ import {
   styleUrls: ['./overview-content.component.scss'],
 })
 export class OverviewContentComponent implements OnChanges {
-  @Input() selectedDate: string | undefined;
   @Input() selectedCourtGroupId: string | undefined;
   bookings$: Observable<Booking[]>;
+  filteredBookings: Booking[] = [];
   error$: Observable<any>;
-  filterStatus: 'Pending' | 'Approved' = 'Pending';
+  filterStatus: 'Pending' | 'Confirmed' | 'Cancelled' = 'Pending';
 
   constructor(
-    private store: Store<{ bookings: BookingsState }>) {
+    private store: Store<{ bookings: BookingsState }>,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
+    ) {
     this.bookings$ = this.store.select(selectBookings);
     this.error$ = this.store.select(selectBookingsError);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['selectedDate'] && this.selectedDate && this.selectedCourtGroupId) {
-      this.store.dispatch(loadBookingsByDate({
+    if (changes['selectedCourtGroupId'] && this.selectedCourtGroupId) {
+      this.store.dispatch(loadBookingsByCourtGroup({
         courtGroupId: this.selectedCourtGroupId,
-        date: this.selectedDate,
         pageNumber: 1,
         pageSize: 10
       }));
+
+      this.bookings$.subscribe(bookings => {
+        this.filteredBookings = this.filterBookingsByStatus(bookings, this.filterStatus);
+      });
     }
   }
 
-  editBooking(bookingId: string): void {
-    console.log('Edit booking with ID:', bookingId);
-    // Implement the edit logic here
+  changeFilterStatus(status: 'Pending' | 'Confirmed' | 'Cancelled'): void {
+    this.filterStatus = status;
+    this.bookings$.subscribe(bookings => {
+      this.filteredBookings = this.filterBookingsByStatus(bookings, status);
+    });
+  }
+
+  filterBookingsByStatus(bookings: Booking[], status: 'Pending' | 'Confirmed' | 'Cancelled'): Booking[] {
+    return bookings.filter(booking => booking.bookingStatus === status);
+  }
+
+  confirmBooking(bookingId: string): void {
+    const dialogRef = this.dialog.open(ConfirmBookingComponent, {
+      data: { courtGroupId: this.selectedCourtGroupId,
+        bookingId: bookingId },
+    });
+
+    dialogRef.componentInstance.bookingConfirmed.subscribe(() => {
+      this.showSnackBar('Successfully');
+      this.loadBookings(); // Reload bookings after a new booking is added
+    });
+  }
+  loadBookings(): void {
+    if (this.selectedCourtGroupId) {
+      this.store.dispatch(
+        loadBookingsByCourtGroup({
+          courtGroupId: this.selectedCourtGroupId,
+          pageNumber: 1,
+          pageSize: 10,
+        })
+      );
+    }
   }
 
   deleteBooking(bookingId: string): void {
     console.log('Delete booking with ID:', bookingId);
     // Implement the delete logic here
   }
-
-  changeFilterStatus(status: 'Pending' | 'Approved'): void {
-    this.filterStatus = status;
+  showSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+    });
   }
 }

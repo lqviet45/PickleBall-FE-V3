@@ -17,11 +17,12 @@ import {
   loadCourtGroups,
   loadCourtYards, loadUser,
   selectAllCourtGroups,
-  selectAllCourtYards, selectCurrentUser, UserInterface
+  selectAllCourtYards, selectAllSlots, selectCurrentUser,
+  Slots, loadSlots,
+  UserInterface
 } from '@org/store';
-import { Observable, of } from 'rxjs';
+import { Observable} from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'lib-court-yard-management',
@@ -53,11 +54,14 @@ export class CourtYardManagementComponent implements OnInit {
   ownerId = '';
   courtYards$: Observable<CourtYard[]>;
   selectedCourtYard: CourtYard | null = null;
+  slots$: Observable<Slots[]>;
+  selectedDate: string = new Date().toISOString().split('T')[0]; // Initialize with today's date in 'yyyy-MM-dd' format
 
   constructor(private store: Store, private authService: AuthService) {
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
     this.courtYards$ = this.store.select(selectAllCourtYards);
     this.user$ = this.store.pipe(select(selectCurrentUser));
+    this.slots$ = this.store.select(selectAllSlots);
   }
 
   ngOnInit(): void {
@@ -95,7 +99,24 @@ export class CourtYardManagementComponent implements OnInit {
     }
   }
 
-  toggleDetails(court: CourtYard) {
-    this.selectedCourtYard = (this.selectedCourtYard === court) ? null : court;
+  onCourtYardSelect(courtYard: CourtYard): void {
+    if (this.selectedCourtYard === courtYard) {
+      this.selectedCourtYard = null; // Close details if already selected
+    } else {
+      this.selectedCourtYard = courtYard;
+      this.loadSlots(courtYard.id, this.selectedDate); // Load slots for the selected court yard
+    }
+  }
+
+  onDateChange(event: any): void {
+    const selectedDate = event.target.value;
+    this.selectedDate = selectedDate;
+    if (this.selectedCourtYard) {
+      this.loadSlots(this.selectedCourtYard.id, selectedDate);
+    }
+  }
+
+  loadSlots(courtYardId: string, selectedDate: string): void {
+    this.store.dispatch(loadSlots({ courtYardId, dateBooking: selectedDate }));
   }
 }

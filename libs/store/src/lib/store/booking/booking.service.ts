@@ -14,8 +14,8 @@ export class BookingsService {
   constructor(private http: HttpClient) {
   }
 
-  getBookingsByDate(courtGroupId: string, selectedDate: string, pageNumber: number, pageSize: number): Observable<PagedResponse<Booking>> {
-    const url = `${this.getBookingsByDateUrl}/${courtGroupId}/bookings/${selectedDate}`;
+  getBookingsByCourtGroup(courtGroupId: string, pageNumber: number, pageSize: number): Observable<PagedResponse<Booking>> {
+    const url = `${this.getBookingsByDateUrl}/${courtGroupId}/bookings`;
     let params = new HttpParams();
     if (pageNumber) {
       params = params.set('PageNumber', pageNumber.toString());
@@ -45,5 +45,15 @@ export class BookingsService {
   }
   createBooking(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, data);
+  }
+  confirmBooking(bookingId: string, courtYardId: string, slotIds: string[], dateBooking: string): Observable<any> {
+    const url = `${this.apiUrl}/${bookingId}/confirm`;
+    const body = {
+      courtYardId: courtYardId,
+      slotIds: slotIds,
+      dateBooking: dateBooking,
+      isConfirmed: true,
+    };
+    return this.http.put(url, body);
   }
 }

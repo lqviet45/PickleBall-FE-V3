@@ -11,13 +11,7 @@ import { OverviewContentComponent } from './overview-content/overview-content.co
   styleUrl: './overview-staff.component.scss',
 })
 export class OverviewStaffComponent {
-  selectedDate: string = new Date().toISOString().split('T')[0]; // Default to current date
-  selectedCourtGroupId: string | undefined;
-
-  // Event handlers to update selectedDate and selectedCourtGroupId
-  onDateSelected(date: string): void {
-    this.selectedDate = date;
-  }
+  selectedCourtGroupId?: string;
 
   onCourtGroupSelected(courtGroupId: string): void {
     this.selectedCourtGroupId = courtGroupId;
