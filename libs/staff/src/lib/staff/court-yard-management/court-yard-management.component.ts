@@ -14,7 +14,6 @@ import {
   AuthService,
   CourtGroup,
   CourtYard, loadCourtGroupByOwnerId,
-  loadCourtGroups,
   loadCourtYards, loadUser,
   selectAllCourtGroups,
   selectAllCourtYards, selectAllSlots, selectCurrentUser,
@@ -65,8 +64,6 @@ export class CourtYardManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroups({ pageNumber: 1, pageSize: 10 })); // Load court groups initially
-
     // Select the first court group initially
     this.courtGroupOptions$.subscribe(courtGroups => {
       if (courtGroups.length > 0) {
