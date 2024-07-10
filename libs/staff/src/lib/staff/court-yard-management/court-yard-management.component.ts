@@ -11,16 +11,17 @@ import { MatLine } from '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
+  AuthService,
   CourtGroup,
-  CourtYard,
-  loadCourtGroups,
-  loadCourtYards,
+  CourtYard, loadCourtGroupByOwnerId,
+  loadCourtYards, loadUser,
   selectAllCourtGroups,
-  selectAllCourtYards
+  selectAllCourtYards, selectAllSlots, selectCurrentUser,
+  Slots, loadSlots,
+  UserInterface
 } from '@org/store';
-import { Observable, of } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { MatDialog } from '@angular/material/dialog';
+import { Observable} from 'rxjs';
+import { select, Store } from '@ngrx/store';
 
 @Component({
   selector: 'lib-court-yard-management',
@@ -46,41 +47,73 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrl: './court-yard-management.component.scss',
 })
 export class CourtYardManagementComponent implements OnInit {
-  selectedCourtGroup: CourtGroup | undefined;
   courtGroupOptions$: Observable<CourtGroup[]>;
+  selectedCourtGroup?: CourtGroup;
+  user$: Observable<UserInterface | null>;
+  ownerId = '';
   courtYards$: Observable<CourtYard[]>;
   selectedCourtYard: CourtYard | null = null;
+  slots$: Observable<Slots[]>;
+  selectedDate: string = new Date().toISOString().split('T')[0]; // Initialize with today's date in 'yyyy-MM-dd' format
 
-  constructor(private store: Store) {
+  constructor(private store: Store, private authService: AuthService) {
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
     this.courtYards$ = this.store.select(selectAllCourtYards);
+    this.user$ = this.store.pipe(select(selectCurrentUser));
+    this.slots$ = this.store.select(selectAllSlots);
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroups()); // Load court groups initially
-
     // Select the first court group initially
     this.courtGroupOptions$.subscribe(courtGroups => {
       if (courtGroups.length > 0) {
-        this.selectedCourtGroup = courtGroups[0];
-        this.loadCourtYards(this.selectedCourtGroup.id); // Load court yards for the first group
+        this.selectedCourtGroup = courtGroups[0]; // Set to the first court group
+        this.loadCourtYards(); // Load court yards for the initial selected court group
+      }
+    });
+
+    const firebaseId = this.authService.currentUserSig()?.firebaseId;
+    if (firebaseId) {
+      this.store.dispatch(loadUser({ firebaseId }));
+    }
+
+    this.user$.subscribe(user => {
+      this.ownerId = user?.supervisorId || '';
+      if (this.ownerId) {
+        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.ownerId, pageNumber: 1, pageSize: 10 }));
       }
     });
   }
 
-  // Method to load court yards for a given court group ID
-  loadCourtYards(courtGroupId: string): void {
-    this.store.dispatch(loadCourtYards({ courtGroupId }));
+  onSelectCourtGroup(selectedGroup: CourtGroup): void {
+    this.selectedCourtGroup = selectedGroup;
+    this.loadCourtYards(); // Load court yards when court group changes
   }
 
-  // Toggle details of the selected court yard
-  toggleDetails(court: CourtYard) {
-    this.selectedCourtYard = (this.selectedCourtYard === court) ? null : court;
+  loadCourtYards(): void {
+    if (this.selectedCourtGroup) {
+      this.store.dispatch(loadCourtYards({ courtGroupId: this.selectedCourtGroup.id, pageNumber: 1, pageSize: 10 }));
+    }
   }
 
-  // Handle change in selected court group
-  onCourtGroupChange(event: any): void {
-    const selectedGroupId = event.value.id;
-    this.loadCourtYards(selectedGroupId); // Load court yards when court group changes
+  onCourtYardSelect(courtYard: CourtYard): void {
+    if (this.selectedCourtYard === courtYard) {
+      this.selectedCourtYard = null; // Close details if already selected
+    } else {
+      this.selectedCourtYard = courtYard;
+      this.loadSlots(courtYard.id, this.selectedDate); // Load slots for the selected court yard
+    }
+  }
+
+  onDateChange(event: any): void {
+    const selectedDate = event.target.value;
+    this.selectedDate = selectedDate;
+    if (this.selectedCourtYard) {
+      this.loadSlots(this.selectedCourtYard.id, selectedDate);
+    }
+  }
+
+  loadSlots(courtYardId: string, selectedDate: string): void {
+    this.store.dispatch(loadSlots({ courtYardId, dateBooking: selectedDate }));
   }
 }

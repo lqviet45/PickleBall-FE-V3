@@ -1,1 +1,48 @@
-<p>admin works!</p>
+@if (authService.currentUserSig()===null){
+  <lib-login></lib-login>
+}
+@if (authService.currentUserSig()){
+  <div>
+    <mat-drawer-container>
+      <mat-drawer mode="side" [opened]="sideBarOpen">
+        <lib-sidenav-admin (currentView)="setView($event)"></lib-sidenav-admin>
+      </mat-drawer>
+      <mat-drawer-content>
+        <lib-header-owner (toggleSideBarForMe)="sideBarToggled()"></lib-header-owner>
+
+        <ng-container>
+
+          @switch (currentView) {
+            @case ("overview") {
+
+            }
+            @case ("court-management") {
+
+            }
+            @case ("booking-court-list"){
+
+            }
+            @default {
+
+            }
+          }
+
+        </ng-container>
+
+
+        <!--      <ng-container *ngIf="currentView === 'owner-content'">-->
+        <!--        <lib-content-owner></lib-content-owner>-->
+        <!--      </ng-container>-->
+        <!--      <ng-container *ngIf="currentView === 'dashboard'">-->
+        <!--        <lib-dashboard-owner></lib-dashboard-owner>-->
+        <!--      </ng-container>-->
+
+
+
+
+      </mat-drawer-content>
+    </mat-drawer-container>
+
+
+  </div>
+}

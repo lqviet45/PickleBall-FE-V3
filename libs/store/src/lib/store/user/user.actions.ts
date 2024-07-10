@@ -30,3 +30,66 @@ export const updateUserFailure = createAction(
   '[User] Update User Failure',
   props<{ error: any }>()
 );
+
+export const loadManagerByOwner = createAction(
+  '[User] Load Manager By Owner',
+  props<{ ownerId: string }>()
+);
+
+export const loadManagerByOwnerSuccess = createAction(
+  '[User] Load Manager By Owner Success',
+  props<{ managers: UserInterface[] }>()
+);
+
+export const loadManagerByOwnerFailure = createAction(
+  '[User] Load Manager By Owner Failure',
+  props<{ error: any }>()
+);
+
+export const deleteUser = createAction(
+  '[User] Delete User',
+  props<{ id: string }>()
+);
+
+export const deleteUserSuccess = createAction(
+  '[User] Delete User Success',
+  props<{ id: string }>()
+);
+
+export const deleteUserFailure = createAction(
+  '[User] Delete User Failure',
+  props<{ error: any }>()
+);
+
+export const loadUserById = createAction(
+  '[User] Load User By ID',
+  props<{ id: string }>()
+);
+
+export const loadUserByIdSuccess = createAction(
+  '[User] Load User By ID Success',
+  props<{ user: UserInterface }>()
+);
+
+export const loadUserByIdFailure = createAction(
+  '[User] Load User By ID Failure',
+  props<{ error: any }>()
+);
+
+export const createManager = createAction(
+  '[User] Create Manager',
+  props<{ ownerId: string, user: UserInterface }>()
+);
+
+export const createManagerSuccess = createAction(
+  '[User] Create Manager Success',
+  props<{ user: UserInterface }>()
+);
+
+export const createManagerFailure = createAction(
+  '[User] Create Manager Failure',
+  props<{ error: any }>()
+);
+
+
+

@@ -30,7 +30,7 @@ export class GuestComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.store.dispatch(loadCourtGroups());
+    this.store.dispatch(loadCourtGroups({pageNumber: 1, pageSize: 10}));
   }
 
   onSearch(searchCriteria: { name: string; cityName: string }): void {

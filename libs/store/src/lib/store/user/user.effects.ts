@@ -7,7 +7,18 @@ import {
   loadUserFailure,
   updateUser,
   updateUserSuccess,
-  updateUserFailure
+  updateUserFailure,
+  loadManagerByOwner,
+  loadManagerByOwnerSuccess,
+  loadManagerByOwnerFailure,
+  deleteUser,
+  deleteUserSuccess,
+  deleteUserFailure,
+  loadUserById,
+  loadUserByIdSuccess,
+  loadUserByIdFailure,
+  createManager,
+  createManagerSuccess, createManagerFailure
 } from './user.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -33,6 +44,54 @@ export class UserEffects {
         this.userService.updateUserProfile(action.user).pipe(
           map(user => updateUserSuccess({ user })),
           catchError(error => of(updateUserFailure({ error })))
+        )
+      )
+    )
+  );
+
+  loadManagersByOwner$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadManagerByOwner),
+      mergeMap(action =>
+        this.userService.getManagersByOwner(action.ownerId).pipe(
+          map(managers => loadManagerByOwnerSuccess({ managers })),
+          catchError(error => of(loadManagerByOwnerFailure({ error })))
+        )
+      )
+    )
+  );
+
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteUser),
+      mergeMap(action =>
+        this.userService.deleteUser(action.id).pipe(
+          map(() => deleteUserSuccess({ id: action.id})),
+          catchError(error => of(deleteUserFailure({ error })))
+        )
+      )
+    )
+  );
+
+  loadUserById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadUserById),
+      mergeMap(action =>
+        this.userService.getUserById(action.id).pipe(
+          map(user => loadUserByIdSuccess({ user })),
+          catchError(error => of(loadUserByIdFailure({ error })))
+        )
+      )
+    )
+  );
+
+  createManager$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(createManager),
+      mergeMap(action =>
+        this.userService.createManager(action.ownerId, action.user).pipe(
+          map(user => createManagerSuccess({ user })),
+          catchError(error => of(createManagerFailure({ error })))
         )
       )
     )

@@ -8,21 +8,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class BookingsEffects {
-  loadBookings$ = createEffect(() =>
+  loadBookingsByCourtGroup$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(bookingsActions.loadBookings),
-      mergeMap(({ date }) =>
-        this.bookingsService.getBookingsByDate(date).pipe(
-          map(bookings => bookingsActions.loadBookingsSuccess({ bookings })), // Access value from API response
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 404) {
-              return of(bookingsActions.loadBookingsFailure({ error: 'No bookings found for the selected date.' }));
-            }
-            return of(bookingsActions.loadBookingsFailure({ error: 'An error occurred while loading bookings.' }));
-          })
+      ofType(bookingsActions.loadBookingsByCourtGroup),
+      mergeMap(({ courtGroupId, pageNumber, pageSize }) =>
+        this.bookingsService.getBookingsByCourtGroup(courtGroupId, pageNumber, pageSize).pipe(
+          map(pagedResponse => bookingsActions.loadBookingsSuccess({ pagedResponse })),
+          catchError((error: HttpErrorResponse) => of(bookingsActions.loadBookingsFailure({ error: error.message })))
         )
       )
-    ));
+    )
+  );
   cancelBooking$ = createEffect(() =>
     this.actions$.pipe(
       ofType(bookingsActions.cancelBooking),
@@ -30,6 +26,17 @@ export class BookingsEffects {
         this.bookingsService.cancelBooking(bookingId).pipe(
           map(() => bookingsActions.cancelBookingSuccess({ bookingId })),
           catchError((error: HttpErrorResponse) => of(bookingsActions.cancelBookingFailure({ error: error.message })))
+        )
+      )
+    )
+  );
+  confirmBooking$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(bookingsActions.confirmBooking),
+      mergeMap(action =>
+        this.bookingsService.confirmBooking(action.bookingId, action.courtYardId, action.slotIds, action.dateBooking).pipe(
+          map(response => bookingsActions.confirmBookingSuccess({ response })),
+          catchError(error => of(bookingsActions.confirmBookingFailure({ error: error.message })))
         )
       )
     )

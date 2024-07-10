@@ -63,3 +63,25 @@
     }
   }
 }
+.filter-row th {
+  text-align: center;
+}
+
+.filter-options {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px 0;
+  background-color: #f0f0f0;
+}
+
+.filter-options span {
+  cursor: pointer;
+  padding: 8px;
+  color: grey; /* Default color */
+}
+
+.filter-options span.active {
+  font-weight: bold;
+  color: black; /* Color when active */
+}
+

@@ -1,0 +1,27 @@
+<mat-nav-list class="side-nav">
+  <div class="img-logo mb-4 d-flex flex-row justify-center items-center">
+
+    <img
+      ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2Flogo%20pickle-03.png?alt=media&token=c8a2d39c-717a-4de7-87d1-bd90477e7fb2"
+      alt="Logo"
+      class="img-fluid align-self-center"
+      width="100"
+      height="100"
+      priority="high"
+    />
+    <h6 class=" align-self-center sidenav-header">PICKLEBALLCOURT</h6>
+  </div>
+
+  <a mat-list-item (click)="changeView('overview')">
+    <div class="font-color"><mat-icon>home</mat-icon> Tong quan</div>
+  </a>
+
+  <a mat-list-item (click)="changeView('court-management')">
+    <div class="font-color"><mat-icon>chrome_reader_mode</mat-icon>Quan li san</div>
+  </a>
+
+  <a mat-list-item>
+    <div class="font-color"><mat-icon>settings</mat-icon> Cài đặt</div>
+  </a>
+
+</mat-nav-list>

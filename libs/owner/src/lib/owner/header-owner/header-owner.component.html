@@ -43,7 +43,8 @@
           >
             <img
               alt=""
-              ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274567126?alt=media&token=e8094bc2-2b84-46b0-ab6f-d4f4429c8832"
+              [src]=" authService.currentUserSig()?.photoURL ||
+              'https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274567126?alt=media&token=e8094bc2-2b84-46b0-ab6f-d4f4429c8832'"
               class="user-image mr-1 p-2"
               height="1080"
               width="1080"

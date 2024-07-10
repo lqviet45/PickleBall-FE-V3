@@ -1,0 +1,75 @@
+<div class="confirm-container container">
+  <div class="row my-4">
+    <!-- Court Yard Column -->
+    <div class="col-md-2 mb-3">
+      <div class="card h-100 border-0">
+        <div class="card-body">
+          <h5 class="card-title">Court Yard</h5>
+          <div *ngIf="courtYards$ | async as courtYards">
+            <table class="table">
+              <tbody>
+              <ng-container *ngFor="let courtYard of courtYards; let i = index">
+                <tr>
+                  <td>
+                    <label>
+                      <input type="radio" name="courtYard" [value]="courtYard.id" (change)="onCourtYardSelect(courtYard.id)">
+                      {{ courtYard.name }}
+                    </label>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Date Column -->
+    <div class="col-md-2 mb-3">
+      <div class="card h-100 border-0">
+        <div class="card-body">
+          <h5 class="card-title">Date</h5>
+          <input class="court-list-label" matInput [value]="selectedDate" (input)="onDateChange($event)" type="date">
+        </div>
+      </div>
+    </div>
+
+    <!-- Slot Column -->
+    <div class="col-md-8">
+      <div class="card h-100 border-0">
+        <div class="card-body">
+          <h5 class="card-title">Slot</h5>
+          <div class="slot-buttons">
+            <div class="row" *ngIf="slots$ | async as slots">
+              <ng-container *ngFor="let slot of slots">
+                <div class="col-md-3 mb-3">
+                  <button class="slot-button"
+                          [class.selected]="isSelected(slot.id)"
+                          [disabled]="slot.isBooked"
+                          (click)="onSlotSelect(slot.id)">
+                    {{ slot.slotName }}
+                    <span [ngClass]="{'text-success': !slot.isBooked, 'text-danger': slot.isBooked}">
+                      {{ slot.isBooked ? 'Booked' : 'Available' }}
+                    </span>
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Buttons -->
+  <div class="row justify-content-end">
+    <div class="col-md-12">
+      <div class="btn-section mb-4">
+        <button class="btn-confirm" (click)="confirmBooking()">Confirm Booking</button>
+        <button class="btn-cancel" (click)="onCancel()">Cancel Booking</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

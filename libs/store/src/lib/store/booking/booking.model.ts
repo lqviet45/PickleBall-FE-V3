@@ -1,20 +1,10 @@
 export interface Booking {
   id: string;
-  courtYardId: string;
-  courtYardName?: string;
-  courtGroup: {
-    id: string;
-    name: string;
-    price: string;
-  };
-  userId?: string;
-  numberOfPlayers?: number;
-  timeRange?: string;
-  userName?: string;
-  date: {
-    dateId: string;
-    dateWorking: string;
-  };
+  numberOfPlayers: number;
+  timeRange: string;
   bookingStatus: string;
   createdOnUtc: string;
+  courtYard?: string;
+  date?: { dateWorking: string, dateStatus: string }; // Adjusted to match your data structure
+  user?: { email: string, fullName: string};
 }

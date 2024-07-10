@@ -22,7 +22,7 @@ export class HeaderOwnerComponent implements OnInit{
   authService = inject(AuthService);
   router = inject(Router);
   user$: Observable<UserInterface | null>;
-
+  avatarUrl = this.authService.currentUserSig()?.photoURL;
   ngOnInit(): void {
     const firebaseId = this.authService.currentUserSig()?.firebaseId;
     if (firebaseId) {

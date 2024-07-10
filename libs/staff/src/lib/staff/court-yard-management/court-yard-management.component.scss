@@ -62,3 +62,27 @@
   background-color: white;
   margin-bottom: 1em;
 }
+.court-list {
+  .court-details {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+
+  .court-card.selected + .court-details {
+    display: block;
+  }
+
+  .court-card {
+    cursor: pointer;
+  }
+
+  .booked {
+    color: red;
+  }
+
+  .available {
+    color: green;
+  }
+}

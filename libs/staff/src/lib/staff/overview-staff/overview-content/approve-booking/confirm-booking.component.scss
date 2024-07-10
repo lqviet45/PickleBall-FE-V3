@@ -1,0 +1,106 @@
+.confirm-container{
+  width: 90vw;
+  height: 100%;
+  background-color: white;
+}
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.table {
+  width: 100%;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.text-success {
+  color: green;
+}
+
+.text-danger {
+  color: red;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.btn-section{
+  text-align: right;
+}
+.btn-confirm{
+  padding: 10px 20px;
+  background-color: #08222F;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 1em;
+}
+.btn-cancel{
+  padding: 10px 20px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.slot-buttons {
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col-md-3 {
+    flex: 0 0 calc(25% - 1rem); /* Adjust the width to fit 4 columns with margin */
+    margin-bottom: 1rem;
+    padding-right: 1rem; /* Adjust spacing between columns */
+  }
+
+  .slot-button {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .selected {
+    font-weight: bold;
+    background-color: #007bff; /* Adjust the background color for selected slots */
+    color: #fff; /* Adjust text color for selected slots */
+  }
+
+  .text-success {
+    color: green;
+  }
+
+  .text-danger {
+    color: red;
+  }
+}

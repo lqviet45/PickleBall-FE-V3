@@ -2,19 +2,21 @@
   <mat-card-content class="court-list-header">
     <div class="start-content">
       <div class="header-form">
-        <mat-select class="court-list-label court-select" [(ngModel)]="selectedCourtGroup" (selectionChange)="onCourtGroupChange($event)">
-          <mat-option *ngFor="let group of courtGroupOptions$ | async" [value]="group">
+        <mat-select class="court-list-label court-select" [(ngModel)]="selectedCourtGroup" (selectionChange)="onSelectCourtGroup($event.value)">
+          <mat-option class="court-select" *ngFor="let group of courtGroupOptions$ | async" [value]="group">
             {{ group.name }}
           </mat-option>
         </mat-select>
       </div>
     </div>
+    <input class="court-list-label" matInput [value]="selectedDate" (input)="onDateChange($event)" type="date">
   </mat-card-content>
   <mat-card-content class="court-yard-content" fxLayout="row wrap" fxLayoutGap="30px">
     <div *ngFor="let court of courtYards$ | async" fxFlex="20%">
-      <div class="court-card" [class.selected]="selectedCourtYard === court" (click)="toggleDetails(court)">
+      <div class="court-card" [class.selected]="selectedCourtYard === court" (click)="onCourtYardSelect(court)"
+      >
         <svg width="189" height="97" viewBox="0 0 189 97" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect [attr.x]="(court.status === 1) ? '33.9221' : '33.9219'" width="121.155" height="96.924" rx="5" [attr.fill]="(court.status === 1) ? '#08222F' : '#ADE603'"/>
+          <rect [attr.x]="'33.9219'" width="121.155" height="96.924" rx="5" [attr.fill]="'#08222F'"/>
           <rect x="92.0791" width="4.84615" height="96.9231" fill="white"/>
           <circle cx="38.7692" cy="48.4621" r="36.7692" stroke="white" stroke-width="4"/>
           <circle cx="150.231" cy="48.4621" r="36.7692" stroke="white" stroke-width="4"/>
@@ -22,12 +24,8 @@
         <mat-card-title class="d-flex justify-content-center">{{ court.name }}</mat-card-title>
       </div>
       <div class="court-details" *ngIf="selectedCourtYard === court">
-        <p>Status: {{ court.status }}</p>
-        <p>Type: {{ court.type }}</p>
-        <div *ngIf="court.status === 1">
-          <p>Customer: </p>
-          <p>Time: </p>
-          <p>Number of Players: </p>
+        <div *ngFor="let slot of slots$ | async">
+          <p [ngClass]="{ 'booked': slot.isBooked, 'available': !slot.isBooked }">Slot: {{ slot.slotName }}</p>
         </div>
       </div>
     </div>
