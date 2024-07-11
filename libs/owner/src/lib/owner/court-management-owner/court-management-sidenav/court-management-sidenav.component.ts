@@ -12,9 +12,18 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
   AuthService,
-  CourtGroup, createCourtGroup, ImageUploadService,
-  loadCourtGroupByOwnerId, loadUser,
-  selectAllCourtGroups, selectCourtGroupByOwnerId, selectCourtGroupCreated, selectCurrentUser, UserInterface
+  CourtGroup,
+  createCourtGroup,
+  ImageUploadService,
+  loadCourtGroupByOwnerId,
+  loadUser,
+  PagedResponse,
+  selectAllCourtGroups,
+  selectCourtGroupByOwnerId,
+  selectCourtGroupCreated,
+  selectCourtGroupPagedResponse,
+  selectCurrentUser,
+  UserInterface
 
 } from '@org/store';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,7 +47,11 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   selectedCourtId: string | null = null;
   courtGroupCreated$: Observable<boolean>;
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 5;
+  totalItems = 0;
+  totalPages = 0;
+  pagedResponse$: Observable<PagedResponse<CourtGroup> | null>;
+
   constructor(
     private store: Store,
     public dialog: MatDialog,
@@ -49,6 +62,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.courtsGroup$ = this.store.select(selectAllCourtGroups);
     //this.courtsGroup$ = this.store.select(selectCourtGroupByOwnerId(this.userId));
     this.courtGroupCreated$ = this.store.select(selectCourtGroupCreated);
+    this.pagedResponse$ = this.store.select(selectCourtGroupPagedResponse);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -65,8 +79,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
     this.user$.subscribe(
       user => {
         this.userId = user?.id || '';
-        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId, pageNumber: this.pageNumber, pageSize: this.pageSize}));
-
+        this.loadCourtGroups();
       }
     )
 
@@ -80,19 +93,34 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
 
     this.courtGroupCreated$.subscribe((created) => {
       if (created) {
-        // Handle logic after a court group is created
-        this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId, pageNumber: this.pageNumber, pageSize: this.pageSize}));
+        this.loadCourtGroups();
       }
     });
 
+    this.pagedResponse$.subscribe(pagedResponse => {
+      if (pagedResponse) {
+        this.totalItems = pagedResponse.totalCount;
+        this.totalPages = pagedResponse.totalPages;
+      }
+    });
 
   }
 
+  onPageChange(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.pageNumber = page;
+      this.loadCourtGroups();
+    }
+  }
+
+  loadCourtGroups(): void {
+    this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.userId, pageNumber: this.pageNumber, pageSize: this.pageSize }));
+  }
 
   onCourtSelected(court: string) {
     this.selectedCourtId = court;
     this.courtSelected.emit(court);
-    console.log(court);
+    //console.log(court);
   }
 
 

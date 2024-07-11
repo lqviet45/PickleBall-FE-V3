@@ -17,3 +17,8 @@ export const selectRevenuesError = createSelector(
   selectRevenuesState,
   (state: RevenuesState) => state.error
 );
+
+export const selectCurrentRevenue = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.currentRevenue
+);

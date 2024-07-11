@@ -8,11 +8,12 @@ import { CourtManagementOwnerComponent } from './court-management-owner/court-ma
 import { AuthService } from '@org/store';
 import { LoginComponent } from '@org/login';
 import { ManagerManagementOwnerComponent } from './manager-management-owner/manager-management-owner.component';
+import { CourtGroupOwnerComponent } from './court-group-owner/court-group-owner.component';
 
 @Component({
   selector: 'lib-owner',
   standalone: true,
-  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent, LoginComponent, ManagerManagementOwnerComponent],
+  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent, LoginComponent, ManagerManagementOwnerComponent, CourtGroupOwnerComponent],
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss',
 })

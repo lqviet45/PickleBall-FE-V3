@@ -1,0 +1,74 @@
+<div class="dialog-form">
+  <h1 class="dialog-title">Create New Court Group</h1>
+  <div class="dialog-content">
+    <form [formGroup]="courtGroupForm">
+
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="name" class="form-label">Name</label>
+          <input id="name" type="text" class="form-control" formControlName="name" required>
+          <div *ngIf="courtGroupForm.get('name')?.hasError('required') && courtGroupForm.get('name')?.touched" class="text-danger">
+            Name is required
+          </div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="price" class="form-label">Price</label>
+          <input id="price" type="number" class="form-control" formControlName="price">
+          <div *ngIf="courtGroupForm.get('price')?.hasError('required') && courtGroupForm.get('price')?.touched" class="text-danger">
+            Price is required
+          </div>
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="minSlots" class="form-label">Min Slots</label>
+          <input id="minSlots" type="number" class="form-control" formControlName="minSlots">
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="maxSlots" class="form-label">Max Slots</label>
+          <input id="maxSlots" type="number" class="form-control" formControlName="maxSlots">
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="fileInput" class="form-label">Choose File</label>
+          <input id="fileInput" type="file" class="form-control" (change)="onFileSelected($event)">
+        </div>
+
+        <!--      <div class="mb-3">-->
+        <!--        <label for="wardName" class="form-label">Ward Name</label>-->
+        <!--        <input id="wardName" type="text" class="form-control" formControlName="wardName">-->
+        <!--      </div>-->
+
+        <div class="mb-3 col-md-4">
+          <label for="city" class="form-label">City</label>
+          <select id="city" class="form-select" (change)="onCityChange($event)">
+            <option *ngFor="let city of cities" [value]="city.name">{{ city.name }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="district" class="form-label">District</label>
+          <select id="district" class="form-select" (change)="onDistrictChange($event)">
+            <option selected></option>
+            <option *ngFor="let district of districts" [value]="district.id">{{ district.name }}</option>
+          </select>
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="ward" class="form-label">Ward Name</label>
+          <select id="ward" class="form-select" formControlName="wardName">
+            <option *ngFor="let ward of wards" [value]="ward.name">{{ ward.name }}</option>
+          </select>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+  <div class="dialog-actions">
+    <button type="button" class="btn btn-secondary" (click)="onNoClick()">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="courtGroupForm.invalid" (click)="onSubmit()">Create</button>
+  </div>
+</div>
+

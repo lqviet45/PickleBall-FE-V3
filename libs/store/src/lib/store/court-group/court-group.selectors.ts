@@ -30,7 +30,7 @@ export const selectCourtGroupByOwnerId = (ownerId: string) => createSelector(
   (courtGroups) => courtGroups.filter(group => group.userId === ownerId)
 );
 
-export const selectPagedResponse = createSelector(
+export const selectCourtGroupPagedResponse = createSelector(
   selectCourtGroupState,
   (state) => state.pagedResponse
 );

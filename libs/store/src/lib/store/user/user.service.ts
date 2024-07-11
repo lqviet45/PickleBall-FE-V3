@@ -27,7 +27,7 @@ export class UserService {
 
   getManagersByOwner(ownerId: string): Observable<UserInterface[]> {
     const url = `${this.baseUrl}/${ownerId}/managers`
-    console.log(url);
+    //console.log(url);
     return this.http.get<{value: UserInterface[]}>(url)
       .pipe(map(response => response.value));
   }
