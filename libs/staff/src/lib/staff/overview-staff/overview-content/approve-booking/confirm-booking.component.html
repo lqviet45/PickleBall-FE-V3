@@ -6,9 +6,9 @@
         <div class="card-body">
           <div class="booking-details">
             <h5 class="card-title">Booking Details</h5>
-            <p><strong>User:</strong> {{ data.booking.user?.fullName }}</p>
-            <p><strong>Email:</strong> {{ data.booking.user?.email }}</p>
-            <p><strong>Date:</strong> {{ data.booking.date?.dateWorking }}</p>
+            <p><strong>User:</strong> {{ data.booking.user.fullName }}</p>
+            <p><strong>Email:</strong> {{ data.booking.user.email }}</p>
+            <p><strong>Date:</strong> {{ data.booking.date.dateWorking }}</p>
             <p><strong>Time Range:</strong> {{ data.booking.timeRange }}</p>
             <p><strong>Number of Players:</strong> {{ data.booking.numberOfPlayers }}</p>
           </div>
@@ -37,8 +37,6 @@
               </tbody>
             </table>
           </div>
-          <h5 class="card-title">Date</h5>
-          <input class="court-list-label" matInput [value]="selectedDate" (input)="onDateChange($event)" type="date">
         </div>
       </div>
     </div>

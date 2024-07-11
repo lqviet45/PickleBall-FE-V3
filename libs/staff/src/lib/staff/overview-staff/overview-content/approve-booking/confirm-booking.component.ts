@@ -23,8 +23,6 @@ export class ConfirmBookingComponent implements OnInit {
   @Output() bookingConfirmed: EventEmitter<void> = new EventEmitter<void>();
   courtYards$: Observable<CourtYard[]>;
   slots$: Observable<Slots[]>;
-  selectedDate: string = new Date().toISOString().split('T')[0]; // Initialize with today's date in 'yyyy-MM-dd' format
-
   selectedCourtYard = '';
   selectedSlots: string[] = [];
 
@@ -43,15 +41,9 @@ export class ConfirmBookingComponent implements OnInit {
     this.courtYards$.subscribe(courtYards => {
       if (courtYards && courtYards.length > 0) {
         this.selectedCourtYard = courtYards[0].id;
-        this.loadSlots(this.selectedCourtYard, this.selectedDate);
+        this.loadSlots(this.selectedCourtYard, this.data.booking.date.dateWorking);
       }
     });
-  }
-
-  onDateChange(event: any): void {
-    const selectedDate = event.target.value;
-    this.selectedDate = selectedDate;
-    this.loadSlots(this.selectedCourtYard, selectedDate);
   }
 
   onSlotSelect(slotId: string): void {
@@ -65,7 +57,7 @@ export class ConfirmBookingComponent implements OnInit {
 
   onCourtYardSelect(courtYardId: string): void {
     this.selectedCourtYard = courtYardId;
-    this.loadSlots(courtYardId, this.selectedDate);
+    this.loadSlots(courtYardId, this.data.booking.date?.dateWorking);
   }
 
   loadCourtYards(): void {
@@ -84,7 +76,7 @@ export class ConfirmBookingComponent implements OnInit {
     const bookingId = this.data.booking.id;
     const courtYardId = this.selectedCourtYard;
     const slotIds = this.selectedSlots;
-    const dateBooking = this.selectedDate;
+    const dateBooking = this.data.booking.date.dateWorking;
 
     this.store.dispatch(confirmBooking({ bookingId, courtYardId, slotIds, dateBooking }));
     this.bookingConfirmed.emit();

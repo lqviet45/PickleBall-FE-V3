@@ -38,7 +38,7 @@ export class UserComponent implements OnInit{
     this.user$ = store.pipe(select(state => state.user.user));
     this.error$ = store.pipe(select(state => state.user.error));
     this.userAction$ = store.pipe(select(state => state.user.userAction));
-
+    this.imageUrl = this.authService.currentUserSig()?.photoURL || null;
   }
 
   ngOnInit(): void {

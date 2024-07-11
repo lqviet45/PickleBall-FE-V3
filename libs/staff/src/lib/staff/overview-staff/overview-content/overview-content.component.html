@@ -19,15 +19,14 @@
         </tr>
         <tr *ngFor="let booking of filteredBookings" class="booking-row">
           <td class="booking-cell" data-label="ID">
-            <div class="booking-id">{{ booking.id }}</div>
-            <div class="booking-user">{{ booking.user?.fullName }}</div>
-            <div class="booking-time">{{ booking.date?.dateWorking }}</div>
+            <div class="booking-user">{{ booking.user.fullName }}</div>
+            <div class="booking-time">{{ booking.createdOnUtc }}</div>
           </td>
           <td class="booking-cell" data-label="Email">
-            <mat-icon>email</mat-icon> {{ booking.user?.email }}
+            <mat-icon>email</mat-icon> {{ booking.user.email }}
           </td>
           <td class="booking-cell" data-label="Date">
-            <mat-icon>schedule</mat-icon> {{ booking.date?.dateWorking }}
+            <mat-icon>schedule</mat-icon> {{ booking.date.dateWorking }}
           </td>
           <td class="booking-cell" data-label="Time Range">
             <mat-icon>alarm</mat-icon> {{ booking.timeRange }}
@@ -52,17 +51,19 @@
         </tr>
       </ng-container>
       <ng-template #otherStatus>
+        <tr *ngIf="filteredBookings.length === 0">
+          <td colspan="7" class="no-bookings">No {{ filterStatus.toLowerCase() }} bookings found.</td>
+        </tr>
         <tr *ngFor="let booking of filteredBookings" class="booking-row">
           <td class="booking-cell" data-label="ID">
-            <div class="booking-id">{{ booking.id }}</div>
-            <div class="booking-user">{{ booking.user?.fullName }}</div>
-            <div class="booking-time">{{ booking.date?.dateWorking }}</div>
+            <div class="booking-user">{{ booking.user.fullName }}</div>
+            <div class="booking-time">{{ booking.createdOnUtc }}</div>
           </td>
           <td class="booking-cell" data-label="Email">
-            <mat-icon>email</mat-icon> {{ booking.user?.email }}
+            <mat-icon>email</mat-icon> {{ booking.user.email }}
           </td>
           <td class="booking-cell" data-label="Date">
-            <mat-icon>schedule</mat-icon> {{ booking.date?.dateWorking }}
+            <mat-icon>schedule</mat-icon> {{ booking.date.dateWorking }}
           </td>
           <td class="booking-cell" data-label="Time Range">
             <mat-icon>alarm</mat-icon> {{ booking.timeRange }}
@@ -75,6 +76,7 @@
       </ng-template>
       </tbody>
     </table>
+    <mat-paginator [length]="bookings$" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
   </ng-container>
   <ng-template #noBookings>
     <div>No bookings found</div>
