@@ -28,7 +28,7 @@ export class CourtYardService {
       params = params.set('PageSize', pageSize.toString());
     }
     const url = `${this.courtGroupApiUrl}/${courtGroupId}/court-yards`;
-    console.log(url);
+    //console.log(url);
     return this.http.get<{ value: PagedResponse<CourtYard> }>(url, { params }).pipe(
       map(response => response.value)
     );

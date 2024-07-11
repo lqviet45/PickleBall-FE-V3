@@ -4,7 +4,7 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { RevenuesService } from './revenues.service';
 import * as RevenuesActions from './revenues.actions';
-import { RevenueResponse } from './revenue.model';
+import { CurrentRevenue, RevenueResponse } from './revenue.model';
 
 @Injectable()
 export class RevenuesEffects {
@@ -15,6 +15,18 @@ export class RevenuesEffects {
       mergeMap(action =>
         this.revenuesService.getRevenues(action.ownerId, action.month, action.year).pipe(
           map((data: RevenueResponse) => RevenuesActions.loadRevenuesSuccess({ data })),
+          catchError(error => of(RevenuesActions.loadRevenuesFailure({ error })))
+        )
+      )
+    )
+  );
+
+  loadCurrentMonthRevenues$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RevenuesActions.loadCurrentRevenue),
+      mergeMap(action =>
+        this.revenuesService.getCurentMonthRevenues(action.ownerId).pipe(
+          map((currentRevenue: CurrentRevenue) => RevenuesActions.loadCurrentRevenueSuccess({ currentRevenue })),
           catchError(error => of(RevenuesActions.loadRevenuesFailure({ error })))
         )
       )

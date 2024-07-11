@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { RevenueResponse } from './revenue.model';
+import { CurrentRevenue, RevenueResponse } from './revenue.model';
 
 export const loadRevenues = createAction(
   '[Revenues] Load Revenues',
@@ -13,5 +13,20 @@ export const loadRevenuesSuccess = createAction(
 
 export const loadRevenuesFailure = createAction(
   '[Revenues] Load Revenues Failure',
+  props<{ error: any }>()
+);
+
+export const loadCurrentRevenue = createAction(
+  '[Revenues] Load Current Revenue',
+  props<{ ownerId: string }>()
+);
+
+export const loadCurrentRevenueSuccess = createAction(
+  '[Revenues] Load Current Revenue Success',
+  props<{ currentRevenue: CurrentRevenue }>()
+);
+
+export const loadCurrentRevenueFailure = createAction(
+  '[Revenues] Load Current Revenue Failure',
   props<{ error: any }>()
 );

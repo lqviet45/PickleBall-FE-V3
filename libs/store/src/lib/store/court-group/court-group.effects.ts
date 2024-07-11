@@ -6,6 +6,7 @@ import { CourtGroupService } from './court-group.services';
 import * as CourtGroupActions from './court-group.action';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from './court-group.model';
+import * as CourtYardActions from '../court-yard/court-yard.actions';
 
 @Injectable()
 export class CourtGroupEffects {
@@ -74,4 +75,29 @@ export class CourtGroupEffects {
       )
     )
   );
+
+  deleteCourtGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourtGroupActions.deleteCourtGroup),
+      mergeMap(action =>
+        this.courtGroupService.deleteCourtGroup(action.id).pipe(
+          map(() => CourtGroupActions.deleteCourtGroupSuccess({ id: action.id })),
+          catchError(error => of(CourtGroupActions.deleteCourtGroupFailure({ error: error.message })))
+        )
+      )
+    )
+  );
+
+  updateCourtGroup$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourtGroupActions.updateCourtGroup),
+      mergeMap(action =>
+        this.courtGroupService.updateCourtGroup(action.courtGroup).pipe(
+          map(courtGroup => CourtGroupActions.updateCourtGroupSuccess({ courtGroup })),
+          catchError(error => of(CourtGroupActions.updateCourtGroupFailure({ error: error.message })))
+        )
+      )
+    )
+  );
+
 }

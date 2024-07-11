@@ -1,4 +1,4 @@
-import { createAction, createActionGroup, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { CourtGroup } from './court-group.model';
 import { PagedResponse } from '../PagedResponse.model';
 
@@ -47,3 +47,32 @@ export const searchCourtGroupsFailure = createAction(
   props<{ error: any }>()
 );
 
+export const deleteCourtGroup = createAction(
+  '[CourtGroup] Delete Court Group',
+  props<{ id: string }>()
+);
+
+export const deleteCourtGroupSuccess = createAction(
+  '[CourtGroup] Delete Court Group Success',
+  props<{ id: string }>()
+);
+
+export const deleteCourtGroupFailure = createAction(
+  '[CourtGroup] Delete Court Group Failure',
+  props<{ error: string }>()
+);
+
+export const updateCourtGroup = createAction(
+  '[CourtGroup] Update Court Group',
+  props<{ courtGroup: CourtGroup }>()
+);
+
+export const updateCourtGroupSuccess = createAction(
+  '[CourtGroup] Update Court Group Success',
+  props<{ courtGroup: CourtGroup }>()
+);
+
+export const updateCourtGroupFailure = createAction(
+  '[CourtGroup] Update Court Group Failure',
+  props<{ error: string }>()
+);

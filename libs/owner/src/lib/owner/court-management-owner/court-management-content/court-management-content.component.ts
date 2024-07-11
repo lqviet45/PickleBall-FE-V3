@@ -58,11 +58,10 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['courtGroupId'] && changes['courtGroupId'].currentValue) {
-      //this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId, pageNumber: this.pageNumber, pageSize: this.pageSize }));
       this.loadCourtYards();
       this.subscriptions.add(
         this.courtYards$.subscribe(courtYards => {
-          this.dataSource = courtYards;
+          this.loadCourtYards();
         })
       );
     }
@@ -89,6 +88,7 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
         this.totalPages = pagedResponse.totalPages;
       }
     });
+
 
   }
 
