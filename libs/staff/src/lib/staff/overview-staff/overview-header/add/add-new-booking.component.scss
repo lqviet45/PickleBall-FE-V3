@@ -7,8 +7,8 @@
 .add-form {
   background-color: white;
   padding: 2em;
-  width: 40vw;
-  height: 70vh;
+  width: 50vw;
+  height: 100%;
 }
 
 .btn-submit {
@@ -32,7 +32,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .input-column {

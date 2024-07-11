@@ -5,7 +5,7 @@ import { MatButton } from '@angular/material/button';
 import {
   CourtYard, selectAllCourtYards, loadCourtYards,
   Slots, selectAllSlots, loadSlots,
-  confirmBooking, cancelBooking
+  confirmBooking, cancelBooking, Booking
 } from '@org/store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
@@ -32,7 +32,7 @@ export class ConfirmBookingComponent implements OnInit {
     private store: Store,
     public dialogRef: MatDialogRef<ConfirmBookingComponent>,
 
-    @Inject(MAT_DIALOG_DATA) public data: { courtGroupId: string; bookingId: string }
+    @Inject(MAT_DIALOG_DATA) public data: { courtGroupId: string; booking: Booking }
   ) {
     this.courtYards$ = this.store.select(selectAllCourtYards);
     this.slots$ = this.store.select(selectAllSlots);
@@ -81,7 +81,7 @@ export class ConfirmBookingComponent implements OnInit {
   }
 
   confirmBooking(): void {
-    const bookingId = this.data.bookingId;
+    const bookingId = this.data.booking.id;
     const courtYardId = this.selectedCourtYard;
     const slotIds = this.selectedSlots;
     const dateBooking = this.selectedDate;
@@ -92,7 +92,7 @@ export class ConfirmBookingComponent implements OnInit {
   }
 
   onCancel(): void {
-    const bookingId = this.data.bookingId;
+    const bookingId = this.data.booking.id;
     this.store.dispatch(cancelBooking({ bookingId }));
     this.bookingConfirmed.emit();
     this.dialogRef.close();

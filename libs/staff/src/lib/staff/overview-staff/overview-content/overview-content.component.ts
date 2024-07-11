@@ -73,10 +73,10 @@ export class OverviewContentComponent implements OnChanges {
     return bookings.filter(booking => booking.bookingStatus === status);
   }
 
-  confirmBooking(bookingId: string): void {
+  confirmBooking(booking: Booking): void {
     const dialogRef = this.dialog.open(ConfirmBookingComponent, {
       data: { courtGroupId: this.selectedCourtGroupId,
-        bookingId: bookingId },
+        booking: booking },
     });
 
     dialogRef.componentInstance.bookingConfirmed.subscribe(() => {

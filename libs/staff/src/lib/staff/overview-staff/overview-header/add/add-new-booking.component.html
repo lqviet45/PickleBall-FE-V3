@@ -3,13 +3,13 @@
   <form #bookingForm="ngForm" (ngSubmit)="onSubmit(bookingForm)">
     <div class="form-group">
       <div class="label-column">
-        <label class="add-label" for="userId">Khách Hàng</label>
+        <label class="add-label" for="email">Email</label>
         <label class="add-label" for="date">Ngày đặt</label>
         <label class="add-label" for="time">Khoảng thời gian</label>
         <label class="add-label" for="nop">Số người chơi</label>
       </div>
       <div class="input-column">
-        <input type="text" id="userId" class="form-control" name="userId" ngModel required>
+        <input type="text" id="email" class="form-control" name="email" ngModel required>
         <input type="date" id="date" class="form-control" name="date" ngModel required>
         <input id="time" class="form-control" name="time" ngModel required>
         <input id="nop" class="form-control" name="nop" ngModel required>

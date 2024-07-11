@@ -8,15 +8,20 @@
   justify-content: space-between; /* Aligns items to the start and end of the flex container */
   align-items: center;
   background-color: white;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
 }
 
 .start-content {
   flex: 1; /* Takes up available space, pushing end-content to the end */
+  display: flex;
+  align-items: center;
 }
 
 .end-content {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
 }
 
 .mat-form-field {
@@ -31,8 +36,6 @@
   border-radius: 1em;
   color: black;
   margin-right: 10px; /* Adjust spacing between form fields */
-  display: flex;
-  align-items: center;
 }
 
 .btn-add {
@@ -42,7 +45,52 @@
   color: white;
   padding: 1em;
 }
-.court-select{
+
+.court-select {
   color: black;
-  max-width: 10vw;
+  width: 100%;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .court-list-header {
+    flex-direction: column; /* Stack items vertically */
+    align-items: flex-start;
+  }
+
+  .start-content {
+    margin-bottom: 1em;
+    width: 100%;
+  }
+
+  .end-content {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .btn-add {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0; /* Ensure consistent spacing */
+  }
+
+  .court-select {
+    max-width: 100%; /* Ensure select box fits within smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .court-list-header {
+    padding: 0.5em; /* Reduce padding on very small screens */
+  }
+
+  .court-list-label {
+    width: 100%;
+    margin-right: 0; /* Remove margin on smaller screens */
+    margin-bottom: 10px; /* Add bottom margin for spacing */
+  }
+
+  .btn-add {
+    padding: 0.75em;
+  }
 }

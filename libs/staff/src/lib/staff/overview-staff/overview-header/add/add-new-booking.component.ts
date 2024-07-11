@@ -25,7 +25,7 @@ export class AddNewBookingComponent {
     if (form.valid) {
       const formData = {
         courtGroupId: this.data.courtGroupId,
-        userId: form.value.userId,
+        email: form.value.email,
         numberOfPlayers: form.value.nop,
         bookingDate: form.value.date,
         timeRange: form.value.time,

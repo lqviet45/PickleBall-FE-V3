@@ -1,6 +1,22 @@
 <div class="confirm-container container">
   <div class="row my-4">
     <!-- Court Yard Column -->
+    <div class="col-md-3 mb-3">
+      <div class="card h-100 border-0">
+        <div class="card-body">
+          <div class="booking-details">
+            <h5 class="card-title">Booking Details</h5>
+            <p><strong>User:</strong> {{ data.booking.user?.fullName }}</p>
+            <p><strong>Email:</strong> {{ data.booking.user?.email }}</p>
+            <p><strong>Date:</strong> {{ data.booking.date?.dateWorking }}</p>
+            <p><strong>Time Range:</strong> {{ data.booking.timeRange }}</p>
+            <p><strong>Number of Players:</strong> {{ data.booking.numberOfPlayers }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Court Yard and Date Column -->
     <div class="col-md-2 mb-3">
       <div class="card h-100 border-0">
         <div class="card-body">
@@ -21,14 +37,6 @@
               </tbody>
             </table>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Date Column -->
-    <div class="col-md-2 mb-3">
-      <div class="card h-100 border-0">
-        <div class="card-body">
           <h5 class="card-title">Date</h5>
           <input class="court-list-label" matInput [value]="selectedDate" (input)="onDateChange($event)" type="date">
         </div>
@@ -36,7 +44,7 @@
     </div>
 
     <!-- Slot Column -->
-    <div class="col-md-8">
+    <div class="col-md-7">
       <div class="card h-100 border-0">
         <div class="card-body">
           <h5 class="card-title">Slot</h5>
@@ -61,6 +69,7 @@
       </div>
     </div>
   </div>
+
   <!-- Buttons -->
   <div class="row justify-content-end">
     <div class="col-md-12">
@@ -71,5 +80,3 @@
     </div>
   </div>
 </div>
-
-
