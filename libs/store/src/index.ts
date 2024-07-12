@@ -26,6 +26,7 @@ export * from './lib/store/city/city.effects';
 export * from './lib/store/city/city.reducer';
 //Authen
 export * from './lib/store/authen/auth.service';
+export * from './lib/store/authen/auth.interceptor';
 //Booking
 export * from './lib/store/booking/booking.actions';
 export * from './lib/store/booking/booking.effects';

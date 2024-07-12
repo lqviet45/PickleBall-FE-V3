@@ -35,6 +35,13 @@ export class AuthService {
       const currentUser = this.firebaseAuth.currentUser;
       if (currentUser) {
         console.log('Logged in as:', currentUser);
+
+        // Extract the access token
+        currentUser.getIdToken().then((accessToken) => {
+          localStorage.setItem('accessToken', accessToken);
+        });
+
+
         this.currentUserSig.set({
           firebaseId: currentUser.uid,
           email: currentUser.email!,
@@ -81,6 +88,7 @@ export class AuthService {
   logout(): Observable<void> {
     const promise = signOut(this.firebaseAuth).then(() => {
       this.currentUserSig.set(null);
+      localStorage.removeItem('accessToken');
     });
     return from(promise);
   }

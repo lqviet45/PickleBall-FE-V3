@@ -61,7 +61,8 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
       this.loadCourtYards();
       this.subscriptions.add(
         this.courtYards$.subscribe(courtYards => {
-          this.loadCourtYards();
+          this.dataSource = courtYards;
+          //this.loadCourtYards();
         })
       );
     }
@@ -69,8 +70,6 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
     }
 
   ngOnInit(): void {
-    //this.store.dispatch(loadCourtYards({ courtGroupId: this.courtGroupId }));
-    //console.log(this.courtGroupId);
 
     this.courtYardActions$.subscribe((action) => {
       if (action) {
@@ -87,6 +86,11 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
         this.totalItems = pagedResponse.totalCount;
         this.totalPages = pagedResponse.totalPages;
       }
+    });
+
+    this.courtYards$.subscribe(courtYards => {
+      this.dataSource = courtYards;
+      //this.loadCourtYards();
     });
 
 
