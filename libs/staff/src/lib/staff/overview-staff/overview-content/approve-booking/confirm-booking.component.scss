@@ -1,8 +1,10 @@
-.confirm-container{
-  width: 90vw;
+.confirm-container {
+  width: 100%;
   height: 100%;
   background-color: white;
+  padding: 1rem;
 }
+
 .card {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -46,10 +48,12 @@ input[type="checkbox"] {
 button:hover {
   background-color: #0056b3;
 }
-.btn-section{
+
+.btn-section {
   text-align: right;
 }
-.btn-confirm{
+
+.btn-confirm {
   padding: 10px 20px;
   background-color: #08222F;
   color: white;
@@ -59,7 +63,8 @@ button:hover {
   transition: background-color 0.3s ease;
   margin-right: 1em;
 }
-.btn-cancel{
+
+.btn-cancel {
   padding: 10px 20px;
   background-color: red;
   color: white;
@@ -68,39 +73,53 @@ button:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
-.slot-buttons {
-  .row {
-    display: flex;
-    flex-wrap: wrap;
+
+.slot-buttons .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.slot-buttons .col-md-3 {
+  flex: 0 0 calc(25% - 1rem); /* Adjust the width to fit 4 columns with margin */
+  margin-bottom: 1rem;
+  padding-right: 1rem; /* Adjust spacing between columns */
+}
+
+.slot-button {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.slot-button.selected {
+  background-color: #08222F; /* Adjust the background color for selected slots */
+  color: #fff; /* Adjust text color for selected slots */
+}
+
+@media (max-width: 768px) {
+  .confirm-container {
+    padding: 0.5rem;
   }
 
-  .col-md-3 {
-    flex: 0 0 calc(25% - 1rem); /* Adjust the width to fit 4 columns with margin */
+  .card {
     margin-bottom: 1rem;
-    padding-right: 1rem; /* Adjust spacing between columns */
   }
 
-  .slot-button {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid #ccc;
-    background-color: #f0f0f0;
+  .slot-buttons .col-md-3 {
+    flex: 0 0 calc(50% - 1rem); /* Adjust the width to fit 2 columns on smaller screens */
+  }
+
+  .btn-section {
     text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
   }
+}
 
-  .selected {
-    font-weight: bold;
-    background-color: #007bff; /* Adjust the background color for selected slots */
-    color: #fff; /* Adjust text color for selected slots */
-  }
-
-  .text-success {
-    color: green;
-  }
-
-  .text-danger {
-    color: red;
+@media (max-width: 480px) {
+  .slot-buttons .col-md-3 {
+    flex: 0 0 100%; /* Full width on very small screens */
   }
 }

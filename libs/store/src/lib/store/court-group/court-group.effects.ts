@@ -39,7 +39,6 @@ export class CourtGroupEffects {
     )
   );
 
-
   loadCourtGroupByOwnerId$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CourtGroupActions.loadCourtGroupByOwnerId),

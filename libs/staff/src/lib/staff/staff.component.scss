@@ -4,12 +4,38 @@
   height: 100%;
 }
 
-mat-drawer-container {
+.drawer-container {
   height: 100vh;
   background-color: white;
 }
 
-mat-drawer {
-  width: 20vw;
-  //background: #0f172a;
+.drawer {
+  width: 16vw;
+}
+
+/* Media query for tablets and small desktops */
+@media (max-width: 1200px) {
+  .drawer {
+    width: 20vw;
+  }
+}
+
+/* Media query for large phones and tablets in portrait mode */
+@media (max-width: 768px) {
+  .drawer {
+    width: 30vw;
+  }
+}
+
+/* Media query for phones */
+@media (max-width: 576px) {
+  .drawer {
+    width: 40vw;
+  }
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
 }
