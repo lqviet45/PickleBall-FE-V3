@@ -5,7 +5,7 @@
     <div class="col-md-3 statistic-box">
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
-          <div class="statistic-box-content_money">50 Tr</div>
+          <div class="statistic-box-content_money">{{ getFormattedTotalMonthRevenue() }}</div>
           <div class="statistic-box-content_description">Doanh thu tháng này</div>
         </div>
         <div class="statistic-box-img">
@@ -21,15 +21,15 @@
     <div class="col-md-3 statistic-box">
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
-          <div class="statistic-box-content_money">1.5 Tr</div>
+          <div class="statistic-box-content_money">{{ getFormattedTotalDayRevenue() }}</div>
           <div class="statistic-box-content_description">Doanh thu hôm nay</div>
         </div>
         <div class="statistic-box-img">
           <img
-            ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274371825?alt=media&token=60562ff4-d46a-4dd1-af56-30812ca5783c"
+            [src]="'https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274371825?alt=media&token=60562ff4-d46a-4dd1-af56-30812ca5783c'"
             alt="Icon"
-            width="1080"
-            height="1080"/>
+            width="1080w"
+            height="1080h"/>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
     <div class="col-md-3 statistic-box">
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
-          <div class="statistic-box-content_money">100 Người</div>
+          <div class="statistic-box-content_money">{{ playerCountOfMonth }}</div>
           <div class="statistic-box-content_description">Tổng số người chơi</div>
         </div>
         <div class="statistic-box-icon">
@@ -53,11 +53,19 @@
   <!--  DashBoard-->
 
   <div class="row mt-4">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="col-md-12 card">
         <div class="card-header">
-          <h5>Thống kê tháng</h5>
+          <h5>Thống kê tháng {{ chooseMonth }}/{{chooseYear}} </h5>
         </div>
+
+        <!-- Month selection -->
+        <div class="row mt-4">
+          <div class="col-md-12">
+            <input type="month" [value]="chooseMonthYear" (change)="onMonthChange($event)" class="form-control" />
+          </div>
+        </div>
+
         <div class="card-body">
 <!--          <canvas id="myChart" height="200"></canvas>-->
           <div *ngIf="loading$ | async" class="loading-spinner">
@@ -91,61 +99,61 @@
     </div>
 
     <!--    Court Group-->
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-header ">
-          <h5>Cụm sân</h5>
-        </div>
-        <div class="card-body">
-          <div class="court-group-header">
-            <img ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274567126?alt=media&token=e8094bc2-2b84-46b0-ab6f-d4f4429c8832"
-                 alt="Image Description"
-                 width="1080"
-                 height="1080">
-            <h6>Tên cụm sân</h6>
-            <div class="court-group-header_icon">
-              <mat-icon>keyboard_arrow_up</mat-icon>
-            </div>
+<!--    <div class="col-md-4">-->
+<!--      <div class="card">-->
+<!--        <div class="card-header ">-->
+<!--          <h5>Cụm sân</h5>-->
+<!--        </div>-->
+<!--        <div class="card-body">-->
+<!--          <div class="court-group-header">-->
+<!--            <img ngSrc="https://firebasestorage.googleapis.com/v0/b/ang-blog-9854a.appspot.com/o/postIMG%2F1713274567126?alt=media&token=e8094bc2-2b84-46b0-ab6f-d4f4429c8832"-->
+<!--                 alt="Image Description"-->
+<!--                 width="1080"-->
+<!--                 height="1080">-->
+<!--            <h6>Tên cụm sân</h6>-->
+<!--            <div class="court-group-header_icon">-->
+<!--              <mat-icon>keyboard_arrow_up</mat-icon>-->
+<!--            </div>-->
 
-          </div>
+<!--          </div>-->
 
-          <ul class="court-group-list">
-            <li>
-              <span class="court-group-list_label">Tổng doanh thu:</span>
-              <span class="court-group-list_value">100k</span>
-            </li>
-            <li>
-              <span class="court-group-list_label">Tổng giờ chơi:</span>
-              <span class="court-group-list_value">100h</span>
-            </li>
-            <li>
-              <span class="court-group-list_label">Số người chơi:</span>
-              <span class="court-group-list_value">100 người </span>
-            </li>
-          </ul>
-        </div>
+<!--          <ul class="court-group-list">-->
+<!--            <li>-->
+<!--              <span class="court-group-list_label">Tổng doanh thu:</span>-->
+<!--              <span class="court-group-list_value">100k</span>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <span class="court-group-list_label">Tổng giờ chơi:</span>-->
+<!--              <span class="court-group-list_value">100h</span>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <span class="court-group-list_label">Số người chơi:</span>-->
+<!--              <span class="court-group-list_value">100 người </span>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
 
-        <hr class="card-separator">
+<!--        <hr class="card-separator">-->
 
-        <div class="card-body">
-          <h6>Tên cụm sân</h6>
-          <ul class="court-group-list">
-            <li>
-              <span class="court-group-list_label">Tổng doanh thu:</span>
-              <span class="court-group-list_value">100k</span>
-            </li>
-            <li>
-              <span class="court-group-list_label">Tổng giờ chơi:</span>
-              <span class="court-group-list_value">100h</span>
-            </li>
-            <li>
-              <span class="court-group-list_label">Số người chơi:</span>
-              <span class="court-group-list_value">100 người </span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+<!--        <div class="card-body">-->
+<!--          <h6>Tên cụm sân</h6>-->
+<!--          <ul class="court-group-list">-->
+<!--            <li>-->
+<!--              <span class="court-group-list_label">Tổng doanh thu:</span>-->
+<!--              <span class="court-group-list_value">100k</span>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <span class="court-group-list_label">Tổng giờ chơi:</span>-->
+<!--              <span class="court-group-list_value">100h</span>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--              <span class="court-group-list_label">Số người chơi:</span>-->
+<!--              <span class="court-group-list_value">100 người </span>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
 
   </div>
 </div>

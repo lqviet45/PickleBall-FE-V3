@@ -17,3 +17,10 @@ export interface RevenueResponse {
   errors: any[];
   validationErrors: any[];
 }
+
+export interface CurrentRevenue {
+  currentDate: string;
+  totalDayRevenue: number;
+  totalMonthRevenue: number;
+  playerCountOfMonth: number;
+}

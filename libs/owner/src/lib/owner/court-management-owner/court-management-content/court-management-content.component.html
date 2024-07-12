@@ -1,45 +1,4 @@
 
-<!--<div class="d-flex mb-3 mr-1 justify-content-end">-->
-<!--  <div class="btn-container">-->
-<!--    <button class="btn btn-primary" (click)="onCreateCourtYard()">Tạo sân +</button>-->
-<!--  </div>-->
-<!--</div>-->
-
-<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 court-table">-->
-<!--  &lt;!&ndash; STT Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="stt" >-->
-<!--    <th mat-header-cell *matHeaderCellDef class="court-table-header"> STT </th>-->
-<!--    <td mat-cell *matCellDef="let element; let i = index" class="court-table-content"> {{ i + 1 }} </td>-->
-<!--  </ng-container>-->
-
-<!--  &lt;!&ndash; Tên Sân Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="name">-->
-<!--    <th mat-header-cell *matHeaderCellDef class="court-table-header"> Tên Sân </th>-->
-<!--    <td mat-cell *matCellDef="let element" class="court-table-content" > {{ element.name }} </td>-->
-<!--  </ng-container>-->
-
-<!--  &lt;!&ndash; Trạng thái Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="status">-->
-<!--    <th mat-header-cell *matHeaderCellDef class="court-table-header"> Trạng thái </th>-->
-<!--    <td mat-cell *matCellDef="let element" class="court-table-content" > {{ element.courtYardStatus }} </td>-->
-<!--  </ng-container>-->
-
-<!--  &lt;!&ndash; Action Column &ndash;&gt;-->
-<!--  <ng-container matColumnDef="action" >-->
-<!--    <th mat-header-cell *matHeaderCellDef class="court-table-header"> Thao tác </th>-->
-<!--    <td mat-cell *matCellDef="let element">-->
-<!--      <button mat-icon-button color="primary" (click)="onEditClick(element.id)">-->
-<!--        <mat-icon>edit</mat-icon>-->
-<!--      </button>-->
-<!--      <button mat-icon-button color="warn" (click)="onDeleteClick(element.id)">-->
-<!--        <mat-icon>delete</mat-icon>-->
-<!--      </button>-->
-<!--    </td>-->
-<!--  </ng-container>-->
-
-<!--  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--</table>-->
 
 <div class="d-flex mb-3 mr-1 justify-content-end">
   <div class="btn-container">
@@ -64,7 +23,7 @@
       <td>{{ element.courtYardStatus }}</td>
       <td>
         <button class="btn btn-primary btn-sm btn-edit" (click)="onEditClick(element.id)">
-          <mat-icon>edit</mat-icon>-
+          <mat-icon>edit</mat-icon>
         </button>
         <button class="btn btn-danger btn-sm" (click)="onDeleteClick(element.id)">
           <mat-icon>delete</mat-icon>

@@ -62,4 +62,12 @@ export class CourtGroupService {
     return this.http.post<CourtGroup>(`${this.courtGrApiUrl}`, courtGroup);
   }
 
+  deleteCourtGroup(courtGroupId: string): Observable<any> {
+    return this.http.delete(`${this.courtGrApiUrl}/${courtGroupId}`);
+  }
+
+  updateCourtGroup(courtGroup: CourtGroup): Observable<CourtGroup> {
+    return this.http.put<CourtGroup>(`${this.courtGrApiUrl}/${courtGroup.id}`, courtGroup);
+  }
+
 }

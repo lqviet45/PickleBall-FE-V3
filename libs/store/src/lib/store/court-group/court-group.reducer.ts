@@ -56,5 +56,36 @@ export const courtGroupReducer = createReducer(
     ...state,
     error,
     courtGroupCreated: false
-  }))
+  })),
+  on(CourtGroupActions.deleteCourtGroup, (state) => ({
+    ...state,
+    courtGroupCreated : false
+  })),
+  on(CourtGroupActions.deleteCourtGroupSuccess, (state, { id }) => ({
+    ...state,
+    courtGroups: state.courtGroups.filter(item => item.id !== id),
+    error: null,
+    courtGroupCreated: true
+  })),
+  on(CourtGroupActions.deleteCourtGroupFailure, (state, { error }) => ({
+    ...state,
+    error,
+    courtGroupCreated: false
+  })),
+  on(CourtGroupActions.updateCourtGroup, (state) => ({
+    ...state,
+    error: null,
+    courtGroupCreated: false
+  })),
+  on(CourtGroupActions.updateCourtGroupSuccess, (state, { courtGroup }) => ({
+    ...state,
+    courtGroups: state.courtGroups.map(item => item.id === courtGroup.id ? courtGroup : item),
+    error: null,
+    courtGroupCreated: true
+  })),
+  on(CourtGroupActions.updateCourtGroupFailure, (state, { error }) => ({
+    ...state,
+    error,
+    courtGroupCreated: false
+  })),
 );

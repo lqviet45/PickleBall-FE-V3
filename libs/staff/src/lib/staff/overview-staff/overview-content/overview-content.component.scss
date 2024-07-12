@@ -1,6 +1,7 @@
 .booking-list {
   width: 100%;
   background-color: white;
+  overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 .booking-table {
@@ -30,6 +31,7 @@
 .booking-cell {
   padding: 1em;
   vertical-align: middle;
+  text-align: left; /* Align text to the left */
 }
 
 .booking-cell button {
@@ -38,20 +40,20 @@
   cursor: pointer;
 }
 
-.booking-id{
+.booking-id {
   font-size: 1em;
   display: inline-block;
   background-color: #E6F8B3;
   color: #08222F;
 }
-.booking-user{
+.booking-user {
   font-size: 1.5em;
   font-weight: bold;
 }
-.booking-time{
+.booking-time {
   font-size: 0.5em;
 }
-.error{
+.error {
   color: black;
 }
 ::ng-deep {
@@ -85,3 +87,34 @@
   color: black; /* Color when active */
 }
 
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .booking-table, .booking-table thead, .booking-table tbody, .booking-table th, .booking-table td, .booking-table tr {
+    display: block;
+  }
+
+  .booking-row {
+    margin-bottom: 1em;
+    border-bottom: none;
+  }
+
+  .booking-cell {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .booking-cell::before {
+    content: attr(data-label);
+    font-weight: bold;
+  }
+
+  .filter-options {
+    flex-direction: column;
+  }
+
+  .filter-options span {
+    padding: 0.5em 0;
+  }
+}

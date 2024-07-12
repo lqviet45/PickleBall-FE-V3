@@ -1,7 +1,7 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withEnabledBlockingInitialNavigation } from '@angular/router';
 import { appRoutes } from './app.routes';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -13,7 +13,7 @@ import {
   CourtYardEffects, courtYardReducer,
   BookingsEffects, bookingsReducer,
   revenuesReducer, RevenuesEffects,
-  slotsReducer, SlotsEffects
+  slotsReducer, SlotsEffects, authInterceptor
 } from '@org/store';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -38,6 +38,7 @@ export const appConfig: ApplicationConfig = {
       withComponentInputBinding()
     ),
     provideHttpClient(withFetch()),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAnimationsAsync(),
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(firebaseConfig)),
