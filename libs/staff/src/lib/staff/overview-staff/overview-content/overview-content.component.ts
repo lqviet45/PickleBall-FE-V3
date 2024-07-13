@@ -40,8 +40,9 @@ export class OverviewContentComponent implements OnChanges {
   filteredBookings: Booking[] = [];
   error$: Observable<any>;
   filterStatus: 'Pending' | 'Confirmed' | 'Cancelled' = 'Pending';
-  pageSize  = 10;
-  pageNumber  = 0;
+  pageSize = 6; // Adjust page size to 6 per page
+  pageNumber = 0;
+  totalBookings = 20;
 
   constructor(
     private store: Store<{ bookings: BookingsState }>,
@@ -64,7 +65,7 @@ export class OverviewContentComponent implements OnChanges {
   }
 
   onPageChange(event: PageEvent): void {
-    this.pageNumber  = event.pageIndex;
+    this.pageNumber = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadBookings();
   }
@@ -95,7 +96,7 @@ export class OverviewContentComponent implements OnChanges {
     });
 
     dialogRef.componentInstance.bookingConfirmed.subscribe(() => {
-      this.showSnackBar('Successfully');
+      this.showSnackBar('Booking confirmed successfully.');
       this.loadBookings(); // Reload bookings after a new booking is added
     });
   }

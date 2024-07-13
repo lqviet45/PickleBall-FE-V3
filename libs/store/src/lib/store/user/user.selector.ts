@@ -3,7 +3,7 @@ import { UserState } from './user.reducer';
 
 // Feature selector for the user state
 export const selectUserState = createFeatureSelector<UserState>('user');
-
+export const selectUsersState = createFeatureSelector<UserState>('users');
 // Selector to get the current user
 export const selectCurrentUser = createSelector(
   selectUserState,
@@ -31,4 +31,9 @@ export const selectAllManagersByOwner = createSelector(
 export const selectUserById = (userId: string) => createSelector(
   selectUserState,
   (state: UserState) => state.user?.id === userId ? state.user : null
+);
+
+export const selectFilteredUsers = createSelector(
+  selectUsersState,
+  (state: UserState) => state.users
 );

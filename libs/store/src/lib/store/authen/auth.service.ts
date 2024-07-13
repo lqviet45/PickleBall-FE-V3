@@ -64,9 +64,8 @@ export class AuthService {
               this.router.navigate(['/owner']);
             } else if (userProfile.role === "Manager") {
               this.router.navigate(['/staff']);
-            } else {
-              // Handle other roles if needed
-              console.log('Unknown role:', userProfile.role);
+            } else if (userProfile.role === "SystemAdmin") {
+              this.router.navigate(['/admin']);
             }
           },
           (error) => {

@@ -1,8 +1,8 @@
 <div class="card">
   <div class="card-header d-flex justify-content-between">
-    <h5>Cụm sân</h5>
+    <h5>Court Group</h5>
     <div class="add-court-group ">
-      <button class="btn btn-primary" (click)="openDialog()">+ Thêm cụm sân</button>
+      <button class="btn btn-primary" (click)="openDialog()">+ Create Court Group</button>
     </div>
   </div>
   <div class="card-body">
@@ -11,13 +11,13 @@
         <table class="table table-bordered table-hover">
           <thead>
           <tr>
-            <th>#</th>
-            <th>Tên Sân</th>
-            <th>Hình ảnh</th>
-            <th>Giá tiền</th>
-            <th>Số chỗ tối thiểu</th>
-            <th>Số chỗ tối đa</th>
-            <th>Thao tác</th>
+            <th></th>
+            <th>Court Name</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Min Slot</th>
+            <th>Max Slot</th>
+            <th></th>
           </tr>
           </thead>
           <tbody>
@@ -65,7 +65,7 @@
     </div>
     <ng-template #noCourtGroup>
       <div class="no-court-group">
-        <p>Chưa có cụm sân nào</p>
+        <p>No have any court group</p>
       </div>
     </ng-template>
   </div>

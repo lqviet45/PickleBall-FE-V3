@@ -1,9 +1,10 @@
 <div class="hot-deal">
   <div class="container card-container">
     <div class="card-list">
-
-      <div class="card" *ngFor="let court of sortedCourtGroups">
-        <img *ngIf="court.medias?.length" [src]="court.medias?.[0]?.mediaUrl ?? ''" [alt]="court.name">
+      <div class="card" *ngFor="let court of courtGroups">
+        <div class="image-container">
+          <img *ngIf="court.medias?.length" [src]="court.medias?.[0]?.mediaUrl ?? ''" [alt]="court.name">
+        </div>
         <div class="card-content">
           <h2>{{ court.name }}</h2>
           <p>{{ court.location }}</p>

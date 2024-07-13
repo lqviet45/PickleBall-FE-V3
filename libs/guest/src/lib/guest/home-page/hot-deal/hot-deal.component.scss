@@ -1,9 +1,9 @@
 .hot-deal {
-  height: auto; /* Change height to auto to allow content to expand */
+  height: auto;
   background: #e6f7b3;
   text-align: center;
   margin-top: 2em;
-  padding: 2em 0; /* Add padding for better spacing */
+  padding: 2em 0;
 }
 
 .hot-deal-title {
@@ -19,9 +19,9 @@
 .card-list {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* Allows the cards to wrap to the next line */
+  flex-wrap: wrap;
   gap: 2em;
-  margin-top: 2em; /* Add margin at the top */
+  margin-top: 2em;
 }
 
 .card {
@@ -30,15 +30,22 @@
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: calc(33% - 30px); /* Adjust width based on screen size */
+  width: calc(33% - 30px);
   max-width: 300px;
   text-align: left;
-  margin-bottom: 2em; /* Add margin at the bottom */
+  margin-bottom: 2em;
+}
+
+.card .image-container {
+  width: 100%;
+  height: 200px; /* Fixed height for the image container */
+  overflow: hidden;
 }
 
 .card img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container */
 }
 
 .card-content {
@@ -59,7 +66,7 @@
 .btn-booking {
   width: 50%;
   margin: 0.5em 0 0.5em 0;
-  border-radius: 25px; /* Rounded corners */
+  border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s, border-color 0.3s;
   background-color: #08222F;
@@ -73,12 +80,12 @@
 
 @media screen and (max-width: 1200px) {
   .card {
-    width: calc(50% - 30px); /* Adjust card width for medium screens */
+    width: calc(50% - 30px);
   }
 }
 
 @media screen and (max-width: 768px) {
   .card {
-    width: calc(100% - 30px); /* Adjust card width for smaller screens */
+    width: calc(100% - 30px);
   }
 }

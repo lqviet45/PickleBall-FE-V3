@@ -9,19 +9,15 @@
 
   <mat-form-field>
     <mat-select placeholder="Số người chơi">
-      <input matInput placeholder="">
       <mat-option *ngFor="let option of nop" [value]="option">{{ option }}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" value="" type="date" [(ngModel)]="selectedDate">
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
   <button (click)="onSearch()" class="btn-search">Tìm kiếm</button>
 </div>
-<div class="result" *ngIf="(courtGroups$ | async) as courtGroups">
-  <lib-hot-deal [courtGroups]="courtGroups$ | async" [error]="error$ | async"></lib-hot-deal>
-</div>
 
+<div class="result" *ngIf="courtGroups$ | async as courtGroups">
+  <lib-hot-deal [courtGroups]="courtGroups" [error]="error$ | async"></lib-hot-deal>
+  <mat-paginator [length]="totalCourtGroups" [pageSize]="pageSize" [pageSizeOptions]="[8]" (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

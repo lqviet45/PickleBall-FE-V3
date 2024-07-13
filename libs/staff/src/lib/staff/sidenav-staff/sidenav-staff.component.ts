@@ -16,7 +16,7 @@ import { MatListItem, MatNavList } from '@angular/material/list';
   styleUrl: './sidenav-staff.component.scss',
 })
 export class SidenavStaffComponent {
-  @Output() currentView : EventEmitter<string> = new EventEmitter<string>();
+  @Output() currentView: EventEmitter<string> = new EventEmitter<string>();
 
   changeView(view: string) {
     this.currentView.emit(view);

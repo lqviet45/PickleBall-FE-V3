@@ -10,17 +10,15 @@
   <table class="table table-striped table-bordered">
     <thead class="thead-light">
     <tr>
-      <th scope="col">STT</th>
-      <th scope="col">Tên Sân</th>
-      <th scope="col">Trạng thái</th>
-      <th scope="col">Thao tác</th>
+      <th scope="col"></th>
+      <th scope="col">Court Name</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let element of dataSource; let i = index">
       <th scope="row">{{ i + 1 }}</th>
       <td>{{ element.name }}</td>
-      <td>{{ element.courtYardStatus }}</td>
       <td>
         <button class="btn btn-primary btn-sm btn-edit" (click)="onEditClick(element.id)">
           <mat-icon>edit</mat-icon>

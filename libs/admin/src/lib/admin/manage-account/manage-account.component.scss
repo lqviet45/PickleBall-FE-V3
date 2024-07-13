@@ -1,0 +1,42 @@
+/* Example styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.text-center {
+  text-align: center;
+}
+.selected-role {
+  background-color: #08222F;
+  color: white; /* Optional: change text color for better readability */
+}
+
+.court-group-list-title {
+  cursor: pointer;
+  padding: 10px;
+}
+
+.court-group-list-title:hover {
+  background-color: #ccc; /* Optional: add a hover effect */
+}
+.btn-edit{
+  background-color: #08222F;
+}
+.btn-delete{
+  background-color: red;
+}
+

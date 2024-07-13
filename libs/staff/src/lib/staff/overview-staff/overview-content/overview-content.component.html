@@ -76,7 +76,7 @@
       </ng-template>
       </tbody>
     </table>
-    <mat-paginator [length]="bookings$" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+    <mat-paginator [length]="totalBookings" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
   </ng-container>
   <ng-template #noBookings>
     <div>No bookings found</div>

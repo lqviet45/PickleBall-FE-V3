@@ -49,6 +49,7 @@ export const appConfig: ApplicationConfig = {
         courtYard: courtYardReducer,
         city: CityReducer,
         user: userReducer,
+        users: userReducer,
         bookings: bookingsReducer,
         revenues: revenuesReducer,
         slots: slotsReducer,

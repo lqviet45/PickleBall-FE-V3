@@ -42,7 +42,7 @@ export class CourtGroupService {
       }));
       //.pipe(map(response => response.value));
   }
-  searchCourtGroups(name: string, cityName: string): Observable<CourtGroup[]> {
+  searchCourtGroups(name: string, cityName: string, pageNumber: number, pageSize: number): Observable<PagedResponse<CourtGroup>> {
     let params = new HttpParams();
     if (name) {
       params = params.set('Name', name);
@@ -50,7 +50,9 @@ export class CourtGroupService {
     if (cityName) {
       params = params.set('CityName', cityName);
     }
-    return this.http.get<{ value: CourtGroup[] }>(`${this.getCourtGroupsByNameAndCity}/court-groups/search`, { params })
+    params = params.set('PageNumber', pageNumber.toString());
+    params = params.set('PageSize', pageSize.toString());
+    return this.http.get<{ value: PagedResponse<CourtGroup> }>(`${this.getCourtGroupsByNameAndCity}/court-groups/search`, { params })
       .pipe(map(response => {
         console.log('API response:', response);
         return response.value;
