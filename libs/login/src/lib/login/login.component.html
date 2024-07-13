@@ -17,25 +17,39 @@
         </svg>
       </mat-card-title>
       <mat-card-content>
-        <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
-          <input class="word-input" type="email" matInput placeholder="Email" formControlName="email">
-          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
-            Email is required
-          </mat-error>
-          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
-            Email must be a valid Email
-          </mat-error>
-          <div>
-            <input class="word-input" type="password" matInput placeholder="Password" formControlName="password">
-            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
-              Password is required
-            </mat-error>
+        <div class="dialog-form container">
+<!--          <h1 class="dialog-title">Login</h1>-->
+          <div class="dialog-content">
+            <form [formGroup]="loginForm"  (ngSubmit)="login()" class="row g-3 login-form">
+              <div class="col-md-12">
+                <label for="email" class="form-label">Email</label>
+                <input id="email" type="email" class="form-control" formControlName="email" required>
+                <div *ngIf="loginForm.get('email')?.hasError('required') && loginForm.get('email')?.touched" class="text-danger">
+                  Email is required
+                </div>
+                <div *ngIf="loginForm.get('email')?.hasError('email') && loginForm.get('email')?.touched" class="text-danger">
+                  Email must be a valid Email
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <label for="password" class="form-label">Password</label>
+                <input id="password" type="password" class="form-control" formControlName="password" required>
+                <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-danger">
+                  Password is required
+                </div>
+              </div>
+
+              <div class="col-md-12">
+                <button class="btn btn-primary w-100 btn-login" type="submit" [disabled]="loginForm.invalid"  >Login</button>
+              </div>
+            </form>
           </div>
-          <button class="btn-login" type="submit" mat-button [disabled]="!loginForm.valid">Đăng nhập</button>
-        </form>
+        </div>
+
       </mat-card-content>
       <div class="register-link">
-        Chưa có tài khoản? <a routerLink="/register">Đăng kí</a>
+        Don't have account? <a routerLink="/register">Register</a>
       </div>
     </mat-card>
   </div>

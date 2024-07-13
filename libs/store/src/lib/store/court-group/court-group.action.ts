@@ -77,3 +77,10 @@ export const updateCourtGroupFailure = createAction(
   '[CourtGroup] Update Court Group Failure',
   props<{ error: string }>()
 );
+
+export const loadCourtGroupWithRevenueByOwnerId = createAction(
+  '[CourtGroup] Load CourtGroup By OwnerId',
+  props<{ ownerId: string, month: string; year: string, pageNumber: number, pageSize: number }>()
+);
+
+

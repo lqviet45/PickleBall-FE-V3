@@ -33,7 +33,7 @@ export class CourtGroupOwnerComponent implements OnInit{
   courtGroupCreated$: Observable<boolean>;
   pagedResponse$: Observable<PagedResponse<CourtGroup> | null>;
   pageNumber = 1;
-  pageSize = 5;
+  pageSize = 4;
   totalItems = 0;
   totalPages = 0;
   courtGroups: CourtGroup[] = [];

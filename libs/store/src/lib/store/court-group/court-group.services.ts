@@ -54,7 +54,7 @@ export class CourtGroupService {
     params = params.set('PageSize', pageSize.toString());
     return this.http.get<{ value: PagedResponse<CourtGroup> }>(`${this.getCourtGroupsByNameAndCity}/court-groups/search`, { params })
       .pipe(map(response => {
-        console.log('API response:', response);
+        //console.log('API response:', response);
         return response.value;
       }));
   }
@@ -70,6 +70,26 @@ export class CourtGroupService {
 
   updateCourtGroup(courtGroup: CourtGroup): Observable<CourtGroup> {
     return this.http.put<CourtGroup>(`${this.courtGrApiUrl}/${courtGroup.id}`, courtGroup);
+  }
+
+  getCourtGroupWithRevenueByOwnerId(userId: string, month: string, year: string, pageNumber: number, pageSize: number): Observable<PagedResponse<CourtGroup>> {
+    let params = new HttpParams();
+    if (pageNumber) {
+      params = params.set('PageNumber', pageNumber.toString());
+    }
+    if (pageSize) {
+      params = params.set('PageSize', pageSize.toString());
+    }
+    if (month) {
+      params = params.set('Month', month);
+    }
+    if (year) {
+      params = params.set('Year', year);
+    }
+    return this.http.get<{value: PagedResponse<CourtGroup>}>(`${this.apiUrl}/${userId}/court-groups/revenue`, { params })
+      .pipe(map(response => {
+        return response.value;
+      }))
   }
 
 }

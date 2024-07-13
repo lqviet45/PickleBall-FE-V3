@@ -99,4 +99,16 @@ export class CourtGroupEffects {
     )
   );
 
+  loadCourtGroupWithRevenuesByOwnerId$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CourtGroupActions.loadCourtGroupWithRevenueByOwnerId),
+      mergeMap(action =>
+        this.courtGroupService.getCourtGroupWithRevenueByOwnerId(action.ownerId, action.month, action.year, action.pageNumber, action.pageSize).pipe(
+          map(pagedResponse => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse })),
+          catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
+        )
+      )
+    )
+  );
+
 }

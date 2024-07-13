@@ -1,76 +1,47 @@
-<div class="card">
+<div class="card d-flex flex-column" style="height: 100vh;">
   <div class="card-header">
     <h5>Court Group</h5>
   </div>
-  <div class="card-body">
-<!--    @if (loading$ | async) {-->
-<!--      <div>-->
-<!--        <mat-spinner></mat-spinner>-->
-<!--      </div>-->
-<!--    } @else {-->
-    <div class="add-court-group">
-      <div>
-        <button mat-button class="add-btn" (click)="openDialog()">+ Add new court group</button>
-      </div>
-    </div>
-
-      <div *ngIf="courtsGroup$ | async as courtGroups; else noCourtGroup">
-        <div>
-          <div *ngFor="let courtGroup of courtGroups">
-            <div (click)="onCourtSelected(courtGroup.id)" [ngClass]="{'selected-court': courtGroup.id === selectedCourtId}">
-              <div class="court-group-header">
-                <!--              <img [src]="courtGroup.image"-->
-                <!--                   alt="Image Description"-->
-                <!--                   width="1080"-->
-                <!--                   height="1080">-->
-                <img [src]="courtGroup.medias?.[0]?.mediaUrl ||
+  <div class="card-body d-flex flex-column flex-grow-1">
+    <div *ngIf="courtsGroup$ | async as courtGroups; else noCourtGroup" class="flex-grow-1 d-flex flex-column">
+      <div class="flex-grow-1">
+        <div *ngFor="let courtGroup of courtGroups">
+          <div (click)="onCourtSelected(courtGroup.id)" [ngClass]="{'selected-court': courtGroup.id === selectedCourtId}">
+            <div class="court-group-header">
+              <img [src]="courtGroup.medias?.[0]?.mediaUrl ||
               'https://firebasestorage.googleapis.com/v0/b/pickleball-fe.appspot.com/o/courtGroups%2F1719582708399_depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg?alt=media&token=1865834a-bca5-47bc-b107-0d3fec008efc'"
-                     alt="Image Description"
-                     width="1080w"
-                     height="1080h">
-                <div class="court-group-content">
-                  <h6 class="court-group-list-title">{{ courtGroup.name }}</h6>
-                  <h6 class="court-group-description">Price {{ courtGroup.price  }} VNĐ</h6>
-                  <h6 class="court-group-description">Min Slot:{{ courtGroup.minSlots }} - Max Slot: {{ courtGroup.maxSlots }}</h6>
-                </div>
+                   alt="Image Description"
+                   width="50"
+                   height="50">
+              <div class="court-group-content">
+                <h6 class="court-group-list-title">{{ courtGroup.name }}</h6>
+                <h6 class="court-group-description">Price {{ courtGroup.price  }} VNĐ</h6>
+                <h6 class="court-group-description">Min Slot:{{ courtGroup.minSlots }} - Max Slot: {{ courtGroup.maxSlots }}</h6>
               </div>
-
             </div>
-            <hr class="card-separator">
           </div>
-
-          <div>
-            <nav aria-label="Page navigation">
-              <ul class="pagination justify-content-center">
-                <li class="page-item" [class.disabled]="pageNumber === 1">
-                  <a class="page-link" (click)="onPageChange(pageNumber - 1)" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
-                    [class.active]="pageNumber === i + 1">
-                  <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
-                </li>
-                <li class="page-item" [class.disabled]="pageNumber === totalPages">
-                  <a class="page-link" (click)="onPageChange(pageNumber + 1)">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-
+          <hr class="card-separator">
         </div>
       </div>
-      <ng-template #noCourtGroup>
-        <div class="no-court-group">
-          <p class="text-danger">Chưa có cụm sân nào</p>
-        </div>
-      </ng-template>
-<!--    }-->
 
+      <nav aria-label="Page navigation" class="mt-auto">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [class.disabled]="pageNumber === 1">
+            <a class="page-link" (click)="onPageChange(pageNumber - 1)" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+          <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="pageNumber === i + 1">
+            <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="pageNumber === totalPages">
+            <a class="page-link" (click)="onPageChange(pageNumber + 1)">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <ng-template #noCourtGroup>
+      <div class="no-court-group">
+        <p class="text-danger">Chưa có cụm sân nào</p>
+      </div>
+    </ng-template>
   </div>
 </div>
-
-
-
-
-
-

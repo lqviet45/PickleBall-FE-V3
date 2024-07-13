@@ -121,7 +121,7 @@ export class OverviewOwnerComponent implements OnInit{
 
 
   private updateChart(data: RevenueResponse): void {
-    const weeks = data.value.weeks.map((week, index) => `Tuần ${index + 1}`);
+    const weeks = data.value.weeks.map((week, index) => `Week ${index + 1}`);
     const revenueData = data.value.weeks.map(week => week.totalRevenue);
     const playersData = data.value.weeks.map(week => week.playerCount);
 
@@ -131,7 +131,7 @@ export class OverviewOwnerComponent implements OnInit{
         borderRadius: 10,
       },
       title: {
-        text: 'Doanh thu và số người chơi theo tuần',
+        text: 'Weekly Revenue & Players',
         style: {
           color: '#333333',
           fontSize: '20px',
@@ -141,7 +141,7 @@ export class OverviewOwnerComponent implements OnInit{
       xAxis: {
         categories: weeks,
         title: {
-          text: 'Tuần',
+          text: 'Week',
           style: {
             color: '#333333',
             fontSize: '16px'
@@ -156,7 +156,7 @@ export class OverviewOwnerComponent implements OnInit{
       },
       yAxis: [{
         title: {
-          text: 'Doanh thu',
+          text: 'Revenue (VND)',
           style: {
             color: '#1E90FF',
             fontSize: '16px'
@@ -171,7 +171,7 @@ export class OverviewOwnerComponent implements OnInit{
         }
       }, {
         title: {
-          text: 'Số người chơi',
+          text: 'Players',
           style: {
             color: '#FF6347',
             fontSize: '16px'
@@ -187,7 +187,7 @@ export class OverviewOwnerComponent implements OnInit{
         opposite: true
       }],
       series: [{
-        name: 'Doanh thu',
+        name: 'Revenue',
         data: revenueData,
         type: 'line',
         color: '#1E90FF',
@@ -198,7 +198,7 @@ export class OverviewOwnerComponent implements OnInit{
           fillColor: '#1E90FF'
         }
       }, {
-        name: 'Số người chơi',
+        name: 'Players',
         data: playersData,
         type: 'line',
         color: '#FF6347',

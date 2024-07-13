@@ -47,7 +47,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   selectedCourtId: string | null = null;
   courtGroupCreated$: Observable<boolean>;
   pageNumber = 1;
-  pageSize = 5;
+  pageSize = 4;
   totalItems = 0;
   totalPages = 0;
   pagedResponse$: Observable<PagedResponse<CourtGroup> | null>;

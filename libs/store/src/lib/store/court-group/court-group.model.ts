@@ -12,5 +12,6 @@
     modifiedOnUtc?: string | null;
     mediaUrl?: string;
     medias?: { id: string, mediaUrl: string }[]; // Adjusted to match your data structure
+    monthRevenue?: number;
   }
 

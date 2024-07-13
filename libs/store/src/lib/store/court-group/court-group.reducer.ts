@@ -15,7 +15,7 @@ export const courtGroupInitialState: CourtGroupState = {
   courtGroups: [],
   pagedResponse: null,
   error: null,
-  courtGroupCreated: false
+  courtGroupCreated: false,
 };
 
 export const courtGroupReducer = createReducer(
@@ -34,6 +34,7 @@ export const courtGroupReducer = createReducer(
   on(CourtGroupActions.loadCourtGroupByOwnerId, (state) => ({
     ...state,
     error: null,
+    courtGroupCreated: false
   })),
   on(CourtGroupActions.createCourtGroupSuccess, (state, { courtGroup }) => ({
     ...state,
@@ -86,6 +87,11 @@ export const courtGroupReducer = createReducer(
   on(CourtGroupActions.updateCourtGroupFailure, (state, { error }) => ({
     ...state,
     error,
+    courtGroupCreated: false
+  })),
+  on(CourtGroupActions.loadCourtGroupWithRevenueByOwnerId, (state) => ({
+    ...state,
+    error: null,
     courtGroupCreated: false
   })),
 );

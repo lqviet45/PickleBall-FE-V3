@@ -1,48 +1,30 @@
-/* Outer container */
-.outer-container {
+.custom-container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: var(--primary-color); /* Background color for the entire form */
 }
 
-/* Form container */
-.register-container {
-  max-width: 40vw;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-/* Form rows */
-.form-row {
-  display: flex;
-  flex-wrap: wrap; /* Allow elements to wrap to the next line */
-}
-
-/* Form fields */
-.register-field {
-  flex: 1; /* Distribute equal width */
-  margin-right: 10px; /* Adjust spacing */
-}
-
-/* Error message */
-.error-message {
-  color: red;
-}
-
-/* Submit button */
-.register-button {
+.custom-form {
+  max-width: 600px;
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+  padding: 20px;
+  background-color: #ffffff; /* Background color for the form */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for the form */
 }
 
-.register-button:hover {
-  background-color: #0056b3;
+.custom-submit-btn {
+  padding: 12px 0; /* Adjust padding for button */
+  font-size: 18px;
+  width: 100%; /* Make button 100% width */
+}
+
+.custom-header {
+  background-color: #FFFFFF; /* Header background color */
+  color: #000000; /* Header text color */
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 8px 8px 0 0; /* Optional: Rounded corners for top */
 }

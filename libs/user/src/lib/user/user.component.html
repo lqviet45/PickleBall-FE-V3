@@ -26,10 +26,15 @@
     </mat-card-content>
     <mat-divider></mat-divider>
     <div class="button-container pt-2">
-      <button mat-flat-button color="primary" class="edit-button" (click)="onOpenEditDialog()">
-        <mat-icon>edit</mat-icon>
-        Chỉnh sửa trang cá nhân
-      </button>
+        <button mat-flat-button color="primary" class="edit-button mr-3" (click)="onOpenEditDialog()">
+          <mat-icon>edit</mat-icon>
+          Edit Profile
+        </button>
+        <button mat-flat-button color="danger" class="edit-button" (click)="onBackToHome()">
+          Return to Overview
+        </button>
+
+
     </div>
   </mat-card>
 </div>

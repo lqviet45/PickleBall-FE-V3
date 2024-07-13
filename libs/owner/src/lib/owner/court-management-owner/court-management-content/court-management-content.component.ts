@@ -43,7 +43,7 @@ export class CourtManagementContentComponent implements OnInit, OnChanges {
   private subscriptions: Subscription = new Subscription();
   pagedResponse$: Observable<PagedResponse<CourtYard> | null>;
   pageNumber = 1;
-  pageSize = 10;
+  pageSize = 7;
   totalItems = 0;
   totalPages = 0;
 

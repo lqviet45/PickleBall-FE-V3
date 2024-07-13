@@ -3,7 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Observable } from 'rxjs';
 import { AuthService, ImageUploadService, loadUser, updateUser, UserInterface, UserState } from '@org/store';
 import { select, Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -33,7 +33,8 @@ export class UserComponent implements OnInit{
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private imageUploadService: ImageUploadService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.user$ = store.pipe(select(state => state.user.user));
     this.error$ = store.pipe(select(state => state.user.error));
@@ -110,7 +111,16 @@ export class UserComponent implements OnInit{
     }
   }
 
+  onBackToHome() {
 
+    if (this.user?.role === 'Owner') {
+      this.router.navigate(['/owner']);
+    } else if (this.user?.role === 'Manager') {
+      this.router.navigate(['/staff']);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 
 
 }

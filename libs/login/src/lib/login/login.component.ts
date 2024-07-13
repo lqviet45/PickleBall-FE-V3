@@ -36,7 +36,7 @@ export class LoginComponent {
   authService = inject(AuthService);
   dialog = inject(MatDialog);
   loginForm = this.fb.nonNullable.group({
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
   login(): void{

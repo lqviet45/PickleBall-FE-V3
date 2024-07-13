@@ -1,48 +1,48 @@
-
-
 <div class="d-flex mb-3 mr-1 justify-content-end">
   <div class="btn-container">
-    <button class="btn btn-primary" (click)="onCreateCourtYard()">Tạo sân +</button>
+    <button class="btn btn-primary" (click)="onCreateCourtYard()">Create Court Yard +</button>
   </div>
 </div>
 
-<div class="table-responsive">
-  <table class="table table-striped table-bordered">
-    <thead class="thead-light">
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Court Name</th>
-      <th scope="col"></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let element of dataSource; let i = index">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ element.name }}</td>
-      <td>
-        <button class="btn btn-primary btn-sm btn-edit" (click)="onEditClick(element.id)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button class="btn btn-danger btn-sm" (click)="onDeleteClick(element.id)">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<div class="d-flex flex-column court-table-wrapper" style="height: calc(100vh - 150px);"> <!-- Adjust height as needed -->
+  <div class="table-responsive flex-grow-1">
+    <table class="table table-striped table-bordered court-table">
+      <thead class="thead-light court-table-header">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Court Name</th>
+        <th scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let element of dataSource; let i = index" class="court-table-content">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ element.name }}</td>
+        <td>
+          <button class="btn btn-primary btn-sm btn-edit" (click)="onEditClick(element.id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button class="btn btn-danger btn-sm" (click)="onDeleteClick(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<nav aria-label="Page navigation">
-  <ul class="pagination justify-content-center">
-    <li class="page-item" [class.disabled]="pageNumber === 1">
-      <a class="page-link" (click)="onPageChange(pageNumber - 1)" tabindex="-1" aria-disabled="true">Previous</a>
-    </li>
-    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
-        [class.active]="pageNumber === i + 1">
-      <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
-    </li>
-    <li class="page-item" [class.disabled]="pageNumber === totalPages">
-      <a class="page-link" (click)="onPageChange(pageNumber + 1)">Next</a>
-    </li>
-  </ul>
-</nav>
+  <nav aria-label="Page navigation" class="mt-auto">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [class.disabled]="pageNumber === 1">
+        <a class="page-link" (click)="onPageChange(pageNumber - 1)" tabindex="-1" aria-disabled="true">Previous</a>
+      </li>
+      <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class.active]="pageNumber === i + 1">
+        <a class="page-link" (click)="onPageChange(i + 1)">{{ i + 1 }}</a>
+      </li>
+      <li class="page-item" [class.disabled]="pageNumber === totalPages">
+        <a class="page-link" (click)="onPageChange(pageNumber + 1)">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>

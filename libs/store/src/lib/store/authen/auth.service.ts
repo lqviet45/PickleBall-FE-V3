@@ -46,9 +46,9 @@ export class AuthService {
           firebaseId: currentUser.uid,
           email: currentUser.email!,
           username: currentUser.displayName || '',
-          photoURL: currentUser.photoURL || ''
+          photoURL: currentUser.photoURL || '',
         });
-        console.log('User:', this.currentUserSig());
+        //console.log('User:', this.currentUserSig());
         // Call API to get user's role
         this.getUserProfile(currentUser.uid).subscribe(
           (userProfile: UserInterface) => {

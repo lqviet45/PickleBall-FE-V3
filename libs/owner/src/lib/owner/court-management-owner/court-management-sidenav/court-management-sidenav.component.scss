@@ -3,6 +3,8 @@
 }
 
 .card-body {
+  display: flex;
+  flex-direction: column;
   padding-bottom: 0;
 }
 
@@ -19,7 +21,6 @@
   height: 50px;
   border-radius: 10px;
   margin-right: 10px; /* Space between image and text */
-
 }
 
 .court-group-content {
@@ -46,7 +47,6 @@
 
 .selected-court {
   background-color: lightblue; /* Change this to the desired color */
-
 }
 
 .add-court-group {
@@ -62,7 +62,6 @@
   font-size: 0.8rem;
 }
 
-
-
-
-
+.pagination {
+  margin-bottom: 20px; /* Adjust margin to move the pagination up */
+}

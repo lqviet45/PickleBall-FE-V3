@@ -12,13 +12,25 @@
 }
 
 .btn-container {
-
+  /* Add any additional styling here if needed */
 }
 
 .btn-edit {
   margin-right: 8px;
 }
 
+.court-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Ensure it takes the full height */
+}
 
+.table-responsive {
+  flex-grow: 1;
+  overflow-y: auto;
+}
 
-
+.pagination {
+  margin-top: auto; /* Ensure it stays at the bottom of the container */
+  margin-bottom: 20px; /* Adjust margin to move the pagination up */
+}
