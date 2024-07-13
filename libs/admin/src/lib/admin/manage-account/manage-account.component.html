@@ -1,0 +1,60 @@
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-md-2">
+      <div class="card">
+        <div class="card-header">
+          <h5>Role</h5>
+        </div>
+        <div class="card-body">
+          <div class="court-group-header">
+            <div class="court-group-content">
+              <h6
+                class="court-group-list-title"
+                [class.selected-role]="selectedRole === 2"
+                (click)="filterUsers(2)">Owner
+              </h6>
+              <h6
+                class="court-group-list-title"
+                [class.selected-role]="selectedRole === 3"
+                (click)="filterUsers(3)">Staff
+              </h6>
+              <h6
+                class="court-group-list-title"
+                [class.selected-role]="selectedRole === 4"
+                (click)="filterUsers(4)">Customer
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Email</th>
+          <th>Full Name</th>
+          <th>Phone</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of filteredUsers$ | async; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.fullName }}</td>
+          <td>{{ user.phoneNumber }}</td>
+          <td>
+            <button class="btn btn-sm btn-edit" mat-button (click)="openUpdateDialog(user)">Edit</button>
+            <button class="btn btn-sm btn-delete" mat-button (click)="openDeleteDialog(user)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="(filteredUsers$ | async)?.length === 0">
+          <td colspan="4" class="text-center">No users found.</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

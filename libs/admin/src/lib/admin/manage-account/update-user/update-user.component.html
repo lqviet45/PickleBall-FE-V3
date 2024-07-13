@@ -1,0 +1,50 @@
+<div class="dialog-form container">
+  <h1 class="dialog-title">Update User</h1>
+  <div class="dialog-content">
+    <form [formGroup]="updateUserForm" class="row g-3">
+      <div class="col-md-6">
+        <label for="firstName" class="form-label">First Name</label>
+        <input id="firstName" type="text" class="form-control" formControlName="firstName" required>
+        <div *ngIf="updateUserForm.get('firstName')?.hasError('required') && updateUserForm.get('firstName')?.touched" class="text-danger">
+          Họ là bắt buộc.
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input id="lastName" type="text" class="form-control" formControlName="lastName" required>
+        <div *ngIf="updateUserForm.get('lastName')?.hasError('required') && updateUserForm.get('lastName')?.touched" class="text-danger">
+          Tên là bắt buộc.
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email" class="form-control" formControlName="email" required>
+        <div *ngIf="updateUserForm.get('email')?.hasError('required') && updateUserForm.get('email')?.touched" class="text-danger">
+          Email là bắt buộc.
+        </div>
+        <div *ngIf="updateUserForm.get('email')?.hasError('email') && updateUserForm.get('email')?.touched" class="text-danger">
+          Email phải đúng định dạng.
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label for="phone" class="form-label">Phone Number</label>
+        <input id="phone" type="text" class="form-control" formControlName="phoneNumber">
+      </div>
+
+      <div class="col-md-6">
+        <label for="location" class="form-label">Location</label>
+        <input id="location" type="text" class="form-control" formControlName="location" required>
+        <div *ngIf="updateUserForm.get('location')?.hasError('required') && updateUserForm.get('location')?.touched" class="text-danger">
+          Vị trí là bắt buộc.
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="dialog-actions mt-3">
+    <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="updateUserForm.invalid" (click)="onSave()">Save</button>
+  </div>
+</div>
