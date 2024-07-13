@@ -3,18 +3,18 @@
 }
 @if (authService.currentUserSig()){
   <div>
-    <mat-drawer-container>
-      <mat-drawer mode="side" [opened]="sideBarOpen">
+    <mat-drawer-container class="drawer-container">
+      <mat-drawer mode="side" [opened]="sideBarOpen" class="drawer">
         <lib-sidenav-admin (currentView)="setView($event)"></lib-sidenav-admin>
       </mat-drawer>
-      <mat-drawer-content>
+      <mat-drawer-content class="drawer-content">
         <lib-header-owner (toggleSideBarForMe)="sideBarToggled()"></lib-header-owner>
 
         <ng-container>
 
           @switch (currentView) {
-            @case ("overview") {
-
+            @case ("account") {
+              <lib-manage-account></lib-manage-account>
             }
             @case ("court-management") {
 
@@ -28,21 +28,7 @@
           }
 
         </ng-container>
-
-
-        <!--      <ng-container *ngIf="currentView === 'owner-content'">-->
-        <!--        <lib-content-owner></lib-content-owner>-->
-        <!--      </ng-container>-->
-        <!--      <ng-container *ngIf="currentView === 'dashboard'">-->
-        <!--        <lib-dashboard-owner></lib-dashboard-owner>-->
-        <!--      </ng-container>-->
-
-
-
-
       </mat-drawer-content>
     </mat-drawer-container>
-
-
   </div>
 }

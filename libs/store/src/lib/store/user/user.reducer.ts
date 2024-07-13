@@ -15,22 +15,25 @@ import {
   loadUserById,
   loadUserByIdSuccess,
   loadUserByIdFailure,
-  createManager, createManagerSuccess, createManagerFailure
+  createManager, createManagerSuccess, createManagerFailure, loadAllUsers, loadAllUsersSuccess
 } from './user.actions';
 import { UserInterface } from './user.interface';
+import { PagedResponse } from '../PagedResponse.model';
 
 export interface UserState {
   user: UserInterface | null;
   managers: UserInterface[];
   error: any;
   userAction: boolean;
+  users: UserInterface[];
 }
 
 export const userInitialState: UserState = {
   user: null,
   managers:[],
   error: null,
-  userAction: false
+  userAction: false,
+  users: [],
 };
 
 const _userReducer = createReducer(
@@ -56,7 +59,13 @@ const _userReducer = createReducer(
     managers: [...state.managers, user],
     userAction: true
   })),
-  on(createManagerFailure, (state, { error }) => ({ ...state, userAction: false, error })),
+  on(loadAllUsers, state => ({ ...state, loading: true })),
+  on(loadAllUsersSuccess, (state, { users }) => ({
+    ...state,
+    users,
+    loading: false,
+  })),
+  on(loadUserFailure, (state, { error }) => ({ ...state, error, loading: false }))
 );
 
 export function userReducer(state: UserState | undefined, action: any) {

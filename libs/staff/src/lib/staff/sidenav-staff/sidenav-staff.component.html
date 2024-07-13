@@ -8,15 +8,14 @@
       height="100"
       priority="high"
     />
-    <h6 class=" align-self-center sidenav-header">PICKLEBALLCOURT</h6>
+    <h6 class="align-self-center sidenav-header">PICKLEBALLCOURT</h6>
   </div>
 
-  <a mat-list-item (click)="changeView('overview')">
+  <a mat-list-item (click)="changeView('overview')" [ngClass]="{'selected': currentView }">
     <div class="font-color"><mat-icon>home</mat-icon> Overview</div>
   </a>
 
-  <a mat-list-item (click)="changeView('court-management')">
-    <div class="font-color"><mat-icon>chrome_reader_mode</mat-icon>Court Yard</div>
+  <a mat-list-item (click)="changeView('court-management')" [ngClass]="{'selected': currentView }">
+    <div class="font-color"><mat-icon>chrome_reader_mode</mat-icon> Court Yard</div>
   </a>
-
 </mat-nav-list>

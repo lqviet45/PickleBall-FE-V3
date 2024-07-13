@@ -66,9 +66,9 @@ export class CourtGroupEffects {
   searchCourtGroups$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CourtGroupActions.searchCourtGroups),
-      mergeMap(({ name, cityName }) =>
-        this.courtGroupService.searchCourtGroups(name, cityName).pipe(
-          map(courtGroups => CourtGroupActions.searchCourtGroupsSuccess({ courtGroups })),
+      mergeMap(({ name, cityName, pageNumber, pageSize }) =>
+        this.courtGroupService.searchCourtGroups(name, cityName, pageNumber, pageSize).pipe(
+          map(pagedResponse => CourtGroupActions.searchCourtGroupsSuccess({ pagedResponse })),
           catchError(error => of(CourtGroupActions.searchCourtGroupsFailure({ error })))
         )
       )

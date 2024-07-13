@@ -25,6 +25,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { HotDealComponent } from '../hot-deal/hot-deal.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'lib-search-court-group',
   standalone: true,
@@ -42,13 +43,12 @@ import { HotDealComponent } from '../hot-deal/hot-deal.component';
     MatHint,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule, MatIcon, MatIconButton, HotDealComponent
+    MatDatepickerModule, MatIcon, MatIconButton, HotDealComponent, MatPaginator
   ],
   templateUrl: './search-court-group.component.html',
   styleUrl: './search-court-group.component.scss',
 })
 export class SearchCourtGroupComponent implements OnInit{
-  @Output() search = new EventEmitter<{ name: string; cityName: string }>();
   courtGroups$: Observable<CourtGroup[]>;
   error$: Observable<any>;
 
@@ -56,14 +56,13 @@ export class SearchCourtGroupComponent implements OnInit{
   selectedCity = '';
   cities$: Observable<string[]>;
   nop: string[] = ['2', '3', '4'];
-  selectedDate: string;
+  pageSize = 8;
+  totalCourtGroups = 30;
+
   constructor(private store: Store<{ city: CityState, courtGroups: { courtGroups: CourtGroup[], error: any } }>) {
-    const today = new Date();
-    this.selectedDate = today.toISOString().slice(0, 10);
     this.cities$ = this.store.select(state => state.city.cities);
-    this.courtGroups$ = this.store.select(selectAllCourtGroups);
+    this.courtGroups$ = this.store.select(selectAllCourtGroups)
     this.error$ = this.store.select(selectCourtGroupError);
-    console.log(this.courtGroups$)
   }
 
   ngOnInit() {
@@ -71,8 +70,16 @@ export class SearchCourtGroupComponent implements OnInit{
   }
 
   onSearch() {
-    this.store.dispatch(searchCourtGroups({ name: this.searchQuery, cityName: this.selectedCity }));
-    this.search.emit({ name: this.searchQuery, cityName: this.selectedCity });
+    this.store.dispatch(searchCourtGroups({ name: this.searchQuery, cityName: this.selectedCity, pageNumber: 1, pageSize: this.pageSize }));
+  }
+  onPageChange(event: PageEvent) {
+    const pageIndex = event.pageIndex;
+    this.store.dispatch(searchCourtGroups({
+      name: this.searchQuery,
+      cityName: this.selectedCity,
+      pageNumber: pageIndex + 1,
+      pageSize: this.pageSize
+    }));
   }
 }
 

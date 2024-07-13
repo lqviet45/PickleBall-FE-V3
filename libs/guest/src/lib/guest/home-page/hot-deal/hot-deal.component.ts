@@ -12,13 +12,6 @@ import { Store } from '@ngrx/store';
   styleUrl: './hot-deal.component.scss',
 })
 export class HotDealComponent {
-  @Input() courtGroups: CourtGroup[] | null = [];
+  @Input() courtGroups: CourtGroup[] = [];
   @Input() error: string | null = null;
-
-  get sortedCourtGroups(): CourtGroup[] {
-    return this.courtGroups
-      ? [...this.courtGroups].sort((a, b) => (b.price || 0) - (a.price || 0))
-      : [];
-  }
-
 }

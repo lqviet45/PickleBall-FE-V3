@@ -1,7 +1,7 @@
 export interface UserInterface{
   email: string;
   username: string
-  firebaseId: string;
+  firebaseId?: string;
   id?: string;
   firstName?: string;
   lastName?: string;

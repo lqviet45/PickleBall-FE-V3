@@ -33,7 +33,4 @@ export class GuestComponent implements OnInit{
     this.store.dispatch(loadCourtGroups({pageNumber: 1, pageSize: 10}));
   }
 
-  onSearch(searchCriteria: { name: string; cityName: string }): void {
-    this.store.dispatch(searchCourtGroups(searchCriteria));
-  }
 }

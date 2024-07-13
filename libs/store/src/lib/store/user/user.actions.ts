@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { UserInterface } from './user.interface';
+import { PagedResponse } from '../PagedResponse.model';
+import { Booking } from '../booking/booking.model';
 
 export const loadUser = createAction(
   '[User] Load User',
@@ -89,6 +91,14 @@ export const createManagerSuccess = createAction(
 export const createManagerFailure = createAction(
   '[User] Create Manager Failure',
   props<{ error: any }>()
+);
+export const loadAllUsers = createAction(
+  '[Users] Load All Users',
+  props<{ role: number }>()
+);
+export const loadAllUsersSuccess = createAction(
+  '[Users] Load Users Success',
+  props<{ users: UserInterface[] }>()
 );
 
 

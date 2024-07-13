@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <h5>Cụm sân</h5>
+    <h5>Court Group</h5>
   </div>
   <div class="card-body">
 <!--    @if (loading$ | async) {-->
@@ -10,7 +10,7 @@
 <!--    } @else {-->
     <div class="add-court-group">
       <div>
-        <button mat-button class="add-btn" (click)="openDialog()">+ Thêm cụm sân</button>
+        <button mat-button class="add-btn" (click)="openDialog()">+ Add new court group</button>
       </div>
     </div>
 
@@ -30,7 +30,7 @@
                      height="1080h">
                 <div class="court-group-content">
                   <h6 class="court-group-list-title">{{ courtGroup.name }}</h6>
-                  <h6 class="court-group-description">Giá {{ courtGroup.price  }} VNĐ</h6>
+                  <h6 class="court-group-description">Price {{ courtGroup.price  }} VNĐ</h6>
                   <h6 class="court-group-description">Min Slot:{{ courtGroup.minSlots }} - Max Slot: {{ courtGroup.maxSlots }}</h6>
                 </div>
               </div>

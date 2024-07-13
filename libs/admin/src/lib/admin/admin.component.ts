@@ -1,22 +1,27 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { AuthService } from '@org/store';
 import { LoginComponent } from '@org/login';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
 import { HeaderOwnerComponent } from '@org/owner';
 import { SidenavAdminComponent } from './sidenav-admin.component';
+import { MatIcon } from '@angular/material/icon';
+import { MatListItem, MatNavList } from '@angular/material/list';
+import { ManageAccountComponent } from './manage-account/manage-account.component';
 
 @Component({
   selector: 'lib-admin',
   standalone: true,
   imports: [CommonModule,
+    MatIcon,
+    MatListItem,
+    MatNavList,
+    NgOptimizedImage,
     LoginComponent,
-    MatDrawerContainer,
     MatDrawer,
+    MatDrawerContainer,
     MatDrawerContent,
-    SidenavAdminComponent,
-    HeaderOwnerComponent,
-    SidenavAdminComponent
+    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -24,7 +29,7 @@ import { SidenavAdminComponent } from './sidenav-admin.component';
 export class AdminComponent implements OnInit{
   authService = inject(AuthService)
 
-  currentView = 'overview';
+  currentView = 'account';
   sideBarOpen = true;
 
   sideBarToggled() {

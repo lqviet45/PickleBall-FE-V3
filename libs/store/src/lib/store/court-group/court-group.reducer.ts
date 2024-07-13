@@ -46,11 +46,11 @@ export const courtGroupReducer = createReducer(
     error,
     courtGroupCreated: false
   })),
-  on(CourtGroupActions.searchCourtGroupsSuccess, (state, { courtGroups }) => ({
+  on(CourtGroupActions.searchCourtGroupsSuccess, (state, { pagedResponse }) => ({
     ...state,
-    courtGroups,
-    error: null,  // Reset the error on success
-    courtGroupCreated: false
+    courtGroups: pagedResponse.items,
+    pagedResponse,
+    loading: false,
   })),
   on(CourtGroupActions.searchCourtGroupsFailure, (state, { error }) => ({
     ...state,

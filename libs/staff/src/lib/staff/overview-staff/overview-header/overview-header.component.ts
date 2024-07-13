@@ -9,11 +9,9 @@ import { MatLabel, MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/autocomplete';
 import { FormsModule } from '@angular/forms';
 import {
-  AuthService,
   CourtGroup,
   CourtGroupState, loadBookingsByCourtGroup,
   loadCourtGroupByOwnerId,
-  loadUser,
   selectAllCourtGroups, selectCurrentUser, UserInterface
 } from '@org/store';
 import { Observable } from 'rxjs';

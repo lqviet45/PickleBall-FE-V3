@@ -18,7 +18,7 @@ import {
   loadUserByIdSuccess,
   loadUserByIdFailure,
   createManager,
-  createManagerSuccess, createManagerFailure
+  createManagerSuccess, createManagerFailure, loadAllUsers, loadAllUsersSuccess
 } from './user.actions';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -96,6 +96,18 @@ export class UserEffects {
       )
     )
   );
+  loadAllUsers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadAllUsers),
+      mergeMap(action =>
+        this.userService.getAllUsers(action.role).pipe(
+          map(users => loadAllUsersSuccess({ users })),
+          catchError(error => of(loadUserFailure({ error })))
+        )
+      )
+    )
+  );
+
 
   constructor(private actions$: Actions, private userService: UserService) {}
 }

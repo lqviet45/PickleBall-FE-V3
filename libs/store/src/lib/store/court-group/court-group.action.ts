@@ -36,16 +36,17 @@ export const createCourtGroupFailure = createAction(
 )
 export const searchCourtGroups = createAction(
   '[CourtGroup] Search CourtGroups',
-  props<{ name: string, cityName: string }>()
+  props<{ name: string, cityName: string, pageNumber: number, pageSize: number }>()
 );
 export const searchCourtGroupsSuccess = createAction(
   '[CourtGroup] Search CourtGroups Success',
-  props<{ courtGroups: CourtGroup[] }>()
+  props<{ pagedResponse: PagedResponse<CourtGroup> }>()
 );
 export const searchCourtGroupsFailure = createAction(
   '[CourtGroup] Search CourtGroups Failure',
   props<{ error: any }>()
 );
+
 
 export const deleteCourtGroup = createAction(
   '[CourtGroup] Delete Court Group',

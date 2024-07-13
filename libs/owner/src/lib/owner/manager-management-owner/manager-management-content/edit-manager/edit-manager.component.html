@@ -1,9 +1,9 @@
 <div class="dialog-form container">
-  <h1 class="dialog-title">Chỉnh sửa thông tin Manager</h1>
+  <h1 class="dialog-title">Edit Manager Information</h1>
   <div class="dialog-content">
     <form [formGroup]="userForm" class="row g-3">
       <div class="col-md-6">
-        <label for="firstName" class="form-label">Họ</label>
+        <label for="firstName" class="form-label">First Name</label>
         <input id="firstName" type="text" class="form-control" formControlName="firstName" required>
         <div *ngIf="userForm.get('firstName')?.hasError('required') && userForm.get('firstName')?.touched" class="text-danger">
           Họ là bắt buộc.
@@ -11,7 +11,7 @@
       </div>
 
       <div class="col-md-6">
-        <label for="lastName" class="form-label">Tên</label>
+        <label for="lastName" class="form-label">Last Name</label>
         <input id="lastName" type="text" class="form-control" formControlName="lastName" required>
         <div *ngIf="userForm.get('lastName')?.hasError('required') && userForm.get('lastName')?.touched" class="text-danger">
           Tên là bắt buộc.
@@ -30,12 +30,12 @@
       </div>
 
       <div class="col-md-6">
-        <label for="phone" class="form-label">Số điện thoại</label>
+        <label for="phone" class="form-label">Phone Number</label>
         <input id="phone" type="text" class="form-control" formControlName="phoneNumber">
       </div>
 
       <div class="col-md-6">
-        <label for="location" class="form-label">Vị trí</label>
+        <label for="location" class="form-label">Location</label>
         <input id="location" type="text" class="form-control" formControlName="location" required>
         <div *ngIf="userForm.get('location')?.hasError('required') && userForm.get('location')?.touched" class="text-danger">
           Vị trí là bắt buộc.
@@ -45,7 +45,7 @@
     </form>
   </div>
   <div class="dialog-actions mt-3">
-    <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Hủy bỏ</button>
-    <button type="button" class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSave()">Lưu</button>
+    <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>
+    <button type="button" class="btn btn-primary" [disabled]="userForm.invalid" (click)="onSave()">Save</button>
   </div>
 </div>
