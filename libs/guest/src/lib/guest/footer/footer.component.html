@@ -1,33 +1,46 @@
-<!-- footer.component.html -->
-<div class="footer">
-  <footer class="footer-content">
-    <div class="footer-column">
-      <h4>Ho tro khach hang</h4>
-      <h3>Hotline: 1900 2093 (1000đ/phút)</h3>
-      <h3>Câu hỏi thường gặp</h3>
-      <h3>Hướng dẫn đặt dịch vụ</h3>
-      <h3>Phản ứng chất lượng dịch vụ: {{adminEmail}}</h3>
-      <!-- Add your content for the first column here -->
-    </div>
-    <div class="footer-column">
-      <h4>Ve PickleCourt</h4>
-      <!-- Add your content for the second column here -->
-    </div>
-    <div class="footer-column">
-      <h4>Phuong thuc thanh toan</h4>
-      <!-- Add your content for the third column here -->
-    </div>
-    <div class="footer-column">
-      <h4>Hop tac va lien ket</h4>
-      <!-- Add your content for the fourth column here -->
-    </div>
-  </footer>
-</div>
-<div class="footer-end">
-  <div>
-    <h4>Ban quyen cua TekcoGroup</h4>
+<footer class="footer mt-5">
+  <div class="footer__addr">
+    <h1 class="footer__logo">PickleCourt</h1>
+    <h2>Contact: 0123456789</h2>
+    <address>
+      Thành Phố Thủ Đức, Hồ Chí Minh 700000<br>
+    </address>
+    <h2>Email: {{adminEmail}}</h2>
   </div>
-  <div>
-    <h5></h5>
+
+  <ul class="footer__nav">
+    <li class="nav__item">
+      <h2 class="nav__title">Payment</h2>
+      <ul class="nav__ul">
+        <li><a routerLink="/">Online</a></li>
+<!--        <li><a routerLink="/">Print</a></li>-->
+<!--        <li><a routerLink="/">Alternative Ads</a></li>-->
+      </ul>
+    </li>
+    <li class="nav__item nav__item--extra">
+      <h2 class="nav__title">Connect With Us</h2>
+      <ul class="nav__ul nav__ul--icons">
+        <li><a routerLink="/"><mat-icon>facebook</mat-icon></a></li>
+        <li><a routerLink="/"><mat-icon>facebook</mat-icon></a></li>
+        <li><a routerLink="/"><mat-icon>instagram</mat-icon></a></li>
+      </ul>
+    </li>
+    <li class="nav__item">
+      <h2 class="nav__title">Legal</h2>
+      <ul class="nav__ul">
+        <li><a routerLink="/">Privacy Policy</a></li>
+        <li><a routerLink="/">Terms of Use</a></li>
+        <li><a routerLink="/">Sitemap</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="legal-wrapper">
+    <div class="legal">
+      <p>&copy; 2024 TekCoGroup. All rights reserved.</p>
+      <div class="legal__links">
+        <span>Made with <span class="heart">♥</span> remotely from Anywhere</span>
+      </div>
+    </div>
   </div>
-</div>
+</footer>
