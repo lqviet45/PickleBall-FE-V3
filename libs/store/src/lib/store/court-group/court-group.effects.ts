@@ -6,7 +6,6 @@ import { CourtGroupService } from './court-group.services';
 import * as CourtGroupActions from './court-group.action';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from './court-group.model';
-import * as CourtYardActions from '../court-yard/court-yard.actions';
 
 @Injectable()
 export class CourtGroupEffects {
@@ -103,7 +102,7 @@ export class CourtGroupEffects {
     this.actions$.pipe(
       ofType(CourtGroupActions.loadCourtGroupWithRevenueByOwnerId),
       mergeMap(action =>
-        this.courtGroupService.getCourtGroupWithRevenueByOwnerId(action.ownerId, action.month, action.year, action.pageNumber, action.pageSize).pipe(
+        this.courtGroupService.getCourtGroupWithRevenueByOwnerId(action.ownerId, action.month, action.year).pipe(
           map(pagedResponse => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse })),
           catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
         )
