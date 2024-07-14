@@ -89,9 +89,4 @@ export const courtGroupReducer = createReducer(
     error,
     courtGroupCreated: false
   })),
-  on(CourtGroupActions.loadCourtGroupWithRevenueByOwnerId, (state) => ({
-    ...state,
-    error: null,
-    courtGroupCreated: false
-  })),
 );

@@ -78,9 +78,6 @@ export const updateCourtGroupFailure = createAction(
   props<{ error: string }>()
 );
 
-export const loadCourtGroupWithRevenueByOwnerId = createAction(
-  '[CourtGroup] Load CourtGroup By OwnerId',
-  props<{ ownerId: string, month: string; year: string }>()
-);
+
 
 
