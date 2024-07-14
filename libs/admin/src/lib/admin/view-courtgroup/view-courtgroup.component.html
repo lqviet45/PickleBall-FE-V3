@@ -1,0 +1,39 @@
+<div class="container mt-2 d-flex flex-column" style="height: 100vh;">
+  <div class="card flex-grow-1">
+    <div class="card-header d-flex justify-content-between">
+      <h5>Court Group</h5>
+    </div>
+    <div class="card-body d-flex flex-column">
+      <div *ngIf="courtGroups$ | async as courtGroups" class="flex-grow-1 d-flex flex-column">
+        <div class="table-responsive flex-grow-1">
+          <table class="table table-bordered table-hover mb-0">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Court Name</th>
+              <th>Image</th>
+              <th>Location</th>
+              <th>Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let courtGroup of courtGroups; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ courtGroup.name }}</td>
+              <td>
+                <img [src]="courtGroup.medias?.[0]?.mediaUrl || 'https://firebasestorage.googleapis.com/v0/b/pickleball-fe.appspot.com/o/courtGroups%2F1719582708399_depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg?alt=media&token=1865834a-bca5-47bc-b107-0d3fec008efc'"
+                     alt="Image Description"
+                     class="img-thumbnail"
+                     width="100"
+                     height="100">
+              </td>
+              <td>{{ courtGroup.location }}</td>
+              <td>{{ courtGroup.price }} VNĐ</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { SidenavAdminComponent } from './sidenav-admin.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
+import { ViewCourtgroupComponent } from './view-courtgroup/view-courtgroup.component';
 
 @Component({
   selector: 'lib-admin',
@@ -21,7 +22,7 @@ import { ManageAccountComponent } from './manage-account/manage-account.componen
     MatDrawer,
     MatDrawerContainer,
     MatDrawerContent,
-    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent
+    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent, ViewCourtgroupComponent
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
