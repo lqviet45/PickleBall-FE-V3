@@ -39,7 +39,7 @@ export class OverviewContentComponent implements OnChanges {
   bookings$: Observable<Booking[]>;
   filteredBookings: Booking[] = [];
   error$: Observable<any>;
-  filterStatus: 'Pending' | 'Confirmed' | 'Cancelled' = 'Pending';
+  filterStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled' = 'Pending';
   pageSize = 6; // Adjust page size to 6 per page
   pageNumber = 0;
   totalBookings = 20;
@@ -59,7 +59,7 @@ export class OverviewContentComponent implements OnChanges {
     }
   }
 
-  changeFilterStatus(status: 'Pending' | 'Confirmed' | 'Cancelled'): void {
+  changeFilterStatus(status: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled'): void {
     this.filterStatus = status;
     this.loadBookings();
   }
@@ -86,7 +86,7 @@ export class OverviewContentComponent implements OnChanges {
     }
   }
 
-  filterBookingsByStatus(bookings: Booking[], status: 'Pending' | 'Confirmed' | 'Cancelled'): Booking[] {
+  filterBookingsByStatus(bookings: Booking[], status: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled'): Booking[] {
     return bookings.filter(booking => booking.bookingStatus === status);
   }
 
@@ -100,10 +100,19 @@ export class OverviewContentComponent implements OnChanges {
       this.loadBookings(); // Reload bookings after a new booking is added
     });
   }
-
-  deleteBooking(bookingId: string): void {
-    console.log('Delete booking with ID:', bookingId);
-    // Implement the delete logic here
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Pending':
+        return 'status-pending';
+      case 'Confirmed':
+        return 'status-confirmed';
+      case 'Completed':
+        return 'status-completed';
+      case 'Cancelled':
+        return 'status-cancelled';
+      default:
+        return '';
+    }
   }
 
   showSnackBar(message: string): void {
