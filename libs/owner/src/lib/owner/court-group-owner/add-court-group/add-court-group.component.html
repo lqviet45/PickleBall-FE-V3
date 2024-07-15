@@ -18,6 +18,9 @@
           <div *ngIf="courtGroupForm.get('price')?.hasError('required') && courtGroupForm.get('price')?.touched" class="text-danger">
             Price is required
           </div>
+          <div *ngIf="courtGroupForm.get('price')?.hasError('priceInvalid') && courtGroupForm.get('price')?.touched" class="text-danger">
+            Price must be greater than 1
+          </div>
         </div>
 
         <div class="mb-3 col-md-4">
