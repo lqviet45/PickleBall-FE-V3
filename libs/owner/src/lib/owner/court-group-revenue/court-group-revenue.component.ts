@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import {
   AuthService,
-  CourtGroup, loadCourtGroupWithRevenueByOwnerId, loadUser,
-  selectAllCourtGroups,
+  CourtGroup, loadCourtGroupWithRevenueByOwnerId2, loadUser, selectCourtGroupWithRevenue,
   selectCurrentUser,
   UserInterface
 } from '@org/store';
@@ -20,7 +19,7 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class CourtGroupRevenueComponent implements OnInit{
 
-  courtsGroup$: Observable<CourtGroup[]>;
+  courtsGroup$!: Observable<CourtGroup[]>;
   userId = '';
   user$: Observable<UserInterface | null>;
   pageNumber = 1;
@@ -34,7 +33,7 @@ export class CourtGroupRevenueComponent implements OnInit{
     private authService: AuthService
   ) {
     this.user$ = store.pipe(select(selectCurrentUser));
-    this.courtsGroup$ = this.store.select(selectAllCourtGroups);
+    this.courtsGroup$ = this.store.select(selectCourtGroupWithRevenue);
 
     const now = new Date();
     this.chooseMonth = ('0' + (now.getMonth() + 1)).slice(-2);
@@ -58,7 +57,7 @@ export class CourtGroupRevenueComponent implements OnInit{
   }
 
   loadCourtGroupWithRevenues() {
-    this.store.dispatch(loadCourtGroupWithRevenueByOwnerId({
+    this.store.dispatch(loadCourtGroupWithRevenueByOwnerId2({
       ownerId: this.userId, month: this.chooseMonth, year: this.chooseYear
     }));
   }

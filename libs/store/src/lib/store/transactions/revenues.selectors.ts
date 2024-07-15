@@ -22,3 +22,13 @@ export const selectCurrentRevenue = createSelector(
   selectRevenuesState,
   (state: RevenuesState) => state.currentRevenue
 );
+
+export const selectCourtGroupWithRevenuePaging = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.pageResponse
+)
+
+export const selectCourtGroupWithRevenue = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.courtGroup
+)
