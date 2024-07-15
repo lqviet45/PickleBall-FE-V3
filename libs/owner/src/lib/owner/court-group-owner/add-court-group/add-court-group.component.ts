@@ -1,6 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HttpClient } from '@angular/common/http';
 import { CityResponse, WardResponse } from '../location.interface';
@@ -33,7 +40,7 @@ export class AddCourtGroupComponent implements OnInit{
       userId: [data.userId, Validators.required],
       name: ['', Validators.required],
       wardName: ['', Validators.required],
-      price: [0, Validators.required],
+      price: [1, [Validators.required, this.priceValidator]],
       minSlots: [1, Validators.required],
       maxSlots: [24, Validators.required],
       mediaUrl: ['']
@@ -96,6 +103,11 @@ export class AddCourtGroupComponent implements OnInit{
           console.error('Error loading wards:', error);
         }
       });
+  }
+
+  priceValidator(control: AbstractControl): ValidationErrors | null {
+    const price = control.value;
+    return price > 1 ? null : { priceInvalid: true };
   }
 
 }
