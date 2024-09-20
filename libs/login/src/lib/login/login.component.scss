@@ -41,6 +41,7 @@
 .register-link {
   text-align: center;
   margin-top: 5px; /* Adjust the top margin as needed */
+  padding-top: 24px;
 }
 .word-input{
   padding: 5px 5px; /* Adjust the padding as needed */
@@ -58,3 +59,24 @@
   width: 100%;
   padding: 10px 10px;
 }
+
+.forgot-password {
+  text-decoration: none;
+  display: flex;
+}
+
+.forgot-password a {
+  margin-left: auto;
+}
+
+.return-home {
+  position: relative;
+}
+
+.return-home-arrow {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+}
+
+

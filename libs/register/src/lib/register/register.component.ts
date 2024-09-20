@@ -7,13 +7,13 @@ import * as RegisterActions from '@org/store';
 import { MatError, MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'lib-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatError, MatButton, MatLabel],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatFormField, MatInput, MatError, MatButton, MatLabel, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -27,7 +27,6 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      fullName: ['', [Validators.required]],
       location: ['', [Validators.required]]
     });
   }

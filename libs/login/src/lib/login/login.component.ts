@@ -10,6 +10,7 @@ import { AuthService } from '@org/store';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { LoginFailedComponent } from './loginFailed.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'lib-login',
@@ -24,7 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatCard,
     MatCardTitle,
     MatCardContent,
-    RouterLink
+    RouterLink, MatIcon
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

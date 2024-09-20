@@ -3,14 +3,14 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: var(--primary-color); /* Background color for the entire form */
+  background-color: #fff /* Background color for the entire form */
 }
 
 .custom-form {
   max-width: 600px;
   width: 100%;
   padding: 20px;
-  background-color: #ffffff; /* Background color for the form */
+  background-color: #E6F8B3;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Box shadow for the form */
 }
@@ -19,12 +19,19 @@
   padding: 12px 0; /* Adjust padding for button */
   font-size: 18px;
   width: 100%; /* Make button 100% width */
+  background-color: #08222F;
+  color: #ADE603;
 }
 
 .custom-header {
-  background-color: #FFFFFF; /* Header background color */
+  background-color: #E6F8B3;
   color: #000000; /* Header text color */
   padding: 10px 0;
   text-align: center;
   border-radius: 8px 8px 0 0; /* Optional: Rounded corners for top */
+}
+
+.sign-in {
+  text-align: center;
+  margin-top: 16px; /* Adjust top margin as needed */
 }
