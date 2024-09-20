@@ -23,6 +23,10 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@org/register').then(m => m.RegisterComponent),
   },
   {
+    path: 'forgot-password',
+    loadComponent: () => import('@org/forgot-password').then(m => m.ForgotPasswordComponent),
+  },
+  {
     path: 'owner',
     loadComponent: () => import('@org/owner').then(m => m.OwnerComponent),
   },

@@ -36,26 +36,35 @@ export class LoginComponent {
   router = inject(Router);
   authService = inject(AuthService);
   dialog = inject(MatDialog);
+
   loginForm = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
-  login(): void{
+
+  login(): void {
     const rawForm = this.loginForm.getRawValue();
     this.authService
       .login(rawForm.email, rawForm.password)
       .subscribe({
         next: () => {
-          //
+          // Handle successful login, e.g., navigate to the dashboard
+          this.router.navigate(['/dashboard']);
         },
         error: (error) => {
-          this.showLoginFailed('Login failed: ' + (error.message || 'Unknown error')); // Display a user-friendly error message
+          // Check for specific Firebase error codes
+          if (error.code === 'auth/user-not-found') {
+            this.showLoginFailed("Your Gmail hasn't registered yet.");
+          } else {
+            this.showLoginFailed('Login failed: ' + (error.message || 'Unknown error'));
+          }
         }
-      })
+      });
   }
+
   showLoginFailed(message: string): void {
     this.dialog.open(LoginFailedComponent, {
-      data: { message }
+      data: { message },
     });
   }
 }
