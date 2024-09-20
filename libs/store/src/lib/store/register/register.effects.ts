@@ -17,8 +17,14 @@ export class RegisterEffects {
       ofType(RegisterActions.register),
       mergeMap(action =>
         this.authService.register(action.email, action.password, action.firstName, action.lastName, action.fullName, action.location, action.role).pipe(
-          map(() => RegisterActions.registerSuccess()),
-          catchError(error => of(RegisterActions.registerFailure({ error })))
+          map(() => {
+            console.log('User registration successful');
+            return RegisterActions.registerSuccess();
+          }),
+          catchError(error => {
+            console.error('User registration failed', error);
+            return of(RegisterActions.registerFailure({ error }));
+          })
         )
       )
     )

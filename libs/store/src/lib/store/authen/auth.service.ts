@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 import {
-  Auth,
+  Auth, sendPasswordResetEmail,
   signInWithEmailAndPassword, signOut,
   user
 } from '@angular/fire/auth';
@@ -88,6 +88,15 @@ export class AuthService {
     const promise = signOut(this.firebaseAuth).then(() => {
       this.currentUserSig.set(null);
       localStorage.removeItem('accessToken');
+    });
+    return from(promise);
+  }
+  forgotPassword(email: string): Observable<void> {
+    const promise = sendPasswordResetEmail(this.firebaseAuth, email).then(() => {
+      console.log('Password reset email sent');
+    }).catch(error => {
+      console.error('Error sending password reset email:', error);
+      // Handle error (e.g., show a message)
     });
     return from(promise);
   }

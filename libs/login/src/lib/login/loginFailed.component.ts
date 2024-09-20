@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   template: `
     <h2 mat-dialog-title>Error</h2>
-    <mat-dialog-content>{{ data.message }}</mat-dialog-content>
+    <mat-dialog-content>Your gmail has not registered yet</mat-dialog-content>
     <mat-dialog-actions>
       <button mat-button (click)="close()">OK</button>
     </mat-dialog-actions>

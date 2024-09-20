@@ -34,12 +34,14 @@ export class RegisterComponent {
 
   onRegister() {
     if (this.registerForm.valid) {
-      const { email, password, firstName, lastName, fullName, location, role } = this.registerForm.value;
+      const { email, password, firstName, lastName, fullName, location } = this.registerForm.value;
+      const role = 3; // Assuming role is fixed for now
       this.store.dispatch(RegisterActions.register({ email, password, firstName, lastName, fullName, location, role }));
+
       this.store.pipe(select(RegisterActions.registerSuccess)).subscribe((success) => {
         if (success) {
-          this.showSnackBar('Successfully');
-          this.router.navigate(['/login']); // Navigate to login page
+          this.showSnackBar('Successfully Registered');
+          this.router.navigate(['/login']); // Navigate to login page on success
         }
       });
     }
