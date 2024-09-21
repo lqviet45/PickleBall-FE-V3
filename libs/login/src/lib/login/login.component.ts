@@ -49,7 +49,7 @@ export class LoginComponent {
       .subscribe({
         next: () => {
           // Handle successful login, e.g., navigate to the dashboard
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/owner']);
         },
         error: (error) => {
           // Check for specific Firebase error codes

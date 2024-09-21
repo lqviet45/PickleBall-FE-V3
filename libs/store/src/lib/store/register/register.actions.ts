@@ -13,3 +13,5 @@ export const registerFailure = createAction(
   '[Auth] Register Failure',
   props<{ error: any }>()
 );
+export const resetRegisterState = createAction('[Auth] Reset Register State');
+

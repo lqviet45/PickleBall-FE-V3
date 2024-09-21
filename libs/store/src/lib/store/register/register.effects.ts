@@ -17,16 +17,20 @@ export class RegisterEffects {
       ofType(RegisterActions.register),
       mergeMap(action =>
         this.authService.register(action.email, action.password, action.firstName, action.lastName, action.fullName, action.location, action.role).pipe(
-          map(() => {
-            console.log('User registration successful');
-            return RegisterActions.registerSuccess();
-          }),
+          map(() => RegisterActions.registerSuccess()),  // Dispatch success action
           catchError(error => {
-            console.error('User registration failed', error);
-            return of(RegisterActions.registerFailure({ error }));
+            const errorMessage = this.getErrorMessage(error);
+            return of(RegisterActions.registerFailure({ error: errorMessage }));  // Dispatch failure action
           })
         )
       )
     )
   );
+
+  private getErrorMessage(error: any): string {
+    if (error?.error?.error?.message === 'EMAIL_EXISTS') {
+      return 'The email address is already in use by another account.';
+    }
+    return 'The email address is already in use by another account.';
+  }
 }

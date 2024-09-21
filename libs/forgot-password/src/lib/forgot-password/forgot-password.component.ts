@@ -7,12 +7,13 @@ import { MatInput } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
 import { AuthService } from '@org/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router'; // Import Router for navigation
+import { Router, RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon'; // Import Router for navigation
 
 @Component({
   selector: 'lib-forgot-password',
   standalone: true,
-  imports: [CommonModule, MatCard, MatCardTitle, MatCardContent, ReactiveFormsModule, MatFormField, MatInput, MatButton, MatLabel, MatError],
+  imports: [CommonModule, MatCard, MatCardTitle, MatCardContent, ReactiveFormsModule, MatFormField, MatInput, MatButton, MatLabel, MatError, MatIcon, RouterLink],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss',
 })

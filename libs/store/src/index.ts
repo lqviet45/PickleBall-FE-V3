@@ -39,7 +39,7 @@ export * from './lib/store/register/register.actions';
 export * from './lib/store/register/register.effects';
 export * from './lib/store/register/register.reducer';
 export * from './lib/store/register/register.service';
-
+export * from './lib/store/register/register.selectors';
 // Image Upload
 export * from './lib/store/uploadImage/image-upload.service';
 

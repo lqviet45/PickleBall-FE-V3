@@ -1,4 +1,3 @@
-
 <div class="custom-container">
   <div class="dialog-form custom-form">
     <div class="custom-header">
@@ -64,7 +63,10 @@
         </div>
 
         <!-- Error message -->
-        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+        <div *ngIf="errorMessage" class="error-message text-danger">
+          {{ errorMessage }}
+        </div>
+
 
         <!-- Submit button -->
         <div class="dialog-actions">

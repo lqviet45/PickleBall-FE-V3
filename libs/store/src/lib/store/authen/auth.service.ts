@@ -17,7 +17,7 @@ export class AuthService {
   firebaseAuth = inject(Auth);
   user$ = user(this.firebaseAuth);
   currentUserSig = signal<UserInterface | null | undefined>(undefined);
-  private registerApi = 'https://pickleballapp.azurewebsites.net/api/users';
+  private registerApi = 'https://pickleballapp.azurewebsites.net/api/register';
   private userApi = `https://pickleballapp.azurewebsites.net/api/users`;
   constructor(
     private http: HttpClient,
