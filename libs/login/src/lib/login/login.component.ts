@@ -54,7 +54,7 @@ export class LoginComponent {
         error: (error) => {
           // Check for specific Firebase error codes
           if (error.code === 'auth/user-not-found') {
-            this.showLoginFailed("Your Gmail hasn't registered yet.");
+            this.showLoginFailed("sai tài khoản hoặc sai mật khẩu");
           } else {
             this.showLoginFailed('Login failed: ' + (error.message || 'Unknown error'));
           }
