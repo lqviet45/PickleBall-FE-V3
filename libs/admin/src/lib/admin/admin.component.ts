@@ -9,6 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatListItem, MatNavList } from '@angular/material/list';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
 import { ViewCourtgroupComponent } from './view-courtgroup/view-courtgroup.component';
+import { OverviewAdminComponent } from './overview-admin/overview-admin.component';
 
 @Component({
   selector: 'lib-admin',
@@ -22,7 +23,7 @@ import { ViewCourtgroupComponent } from './view-courtgroup/view-courtgroup.compo
     MatDrawer,
     MatDrawerContainer,
     MatDrawerContent,
-    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent, ViewCourtgroupComponent
+    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent, ViewCourtgroupComponent, OverviewAdminComponent
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
@@ -30,7 +31,7 @@ import { ViewCourtgroupComponent } from './view-courtgroup/view-courtgroup.compo
 export class AdminComponent implements OnInit{
   authService = inject(AuthService)
 
-  currentView = 'account';
+  currentView = 'overview';
   sideBarOpen = true;
 
   sideBarToggled() {

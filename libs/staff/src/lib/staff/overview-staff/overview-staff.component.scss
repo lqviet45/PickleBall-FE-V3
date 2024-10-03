@@ -11,23 +11,6 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
-.statistic-box {
-  flex: 1;
-  min-width: 250px; /* Ensures boxes don't get too small */
-  min-height: 10vh;
-  margin: 8px;
-  padding: 16px;
-  background-color: var(--white-color); /* Background color */
-  border: 1px solid #ddd; /* Border */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
-  text-align: center; /* Center text */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .statistic-box-content {
   display: flex;
   justify-content: space-between;

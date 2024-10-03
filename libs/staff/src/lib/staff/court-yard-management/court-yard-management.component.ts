@@ -22,6 +22,7 @@ import {
 } from '@org/store';
 import { Observable} from 'rxjs';
 import { select, Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'lib-court-yard-management',
@@ -56,7 +57,7 @@ export class CourtYardManagementComponent implements OnInit {
   slots$: Observable<Slots[]>;
   selectedDate: string = new Date().toISOString().split('T')[0]; // Initialize with today's date in 'yyyy-MM-dd' format
 
-  constructor(private store: Store, private authService: AuthService) {
+  constructor(private store: Store, private authService: AuthService, public dialog: MatDialog) {
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
     this.courtYards$ = this.store.select(selectAllCourtYards);
     this.user$ = this.store.pipe(select(selectCurrentUser));

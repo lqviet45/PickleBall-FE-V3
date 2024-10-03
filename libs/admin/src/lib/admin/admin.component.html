@@ -13,6 +13,9 @@
         <ng-container>
 
           @switch (currentView) {
+            @case ("overview") {
+              <lib-overview-admin></lib-overview-admin>
+            }
             @case ("account") {
               <lib-manage-account></lib-manage-account>
             }
@@ -20,7 +23,6 @@
               <lib-view-courtgroup></lib-view-courtgroup>
             }
             @default {
-
             }
           }
 
