@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatOption } from '@angular/material/autocomplete';
-import { MatLabel, MatSelect } from '@angular/material/select';
+import { MatFormField, MatLabel, MatSelect } from '@angular/material/select';
 import { MatCard, MatCardContent, MatCardTitle } from '@angular/material/card';
 import { MatButton } from '@angular/material/button';
-import { MatDatepicker, MatDatepickerInput } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material/input';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatLine } from '@angular/material/core';
@@ -33,8 +32,6 @@ import { MatDialog } from '@angular/material/dialog';
     MatCard,
     MatCardContent,
     MatButton,
-    MatDatepicker,
-    MatDatepickerInput,
     MatInput,
     MatLabel,
     MatList,
@@ -42,7 +39,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatLine,
     MatCardTitle,
     FlexLayoutModule,
-    FormsModule
+    FormsModule, MatFormField,
   ],
   templateUrl: './court-yard-management.component.html',
   styleUrl: './court-yard-management.component.scss',
@@ -55,7 +52,7 @@ export class CourtYardManagementComponent implements OnInit {
   courtYards$: Observable<CourtYard[]>;
   selectedCourtYard: CourtYard | null = null;
   slots$: Observable<Slots[]>;
-  selectedDate: string = new Date().toISOString().split('T')[0]; // Initialize with today's date in 'yyyy-MM-dd' format
+  selectedDate: string = new Date().toISOString().split('T')[0];
 
   constructor(private store: Store, private authService: AuthService, public dialog: MatDialog) {
     this.courtGroupOptions$ = this.store.select(selectAllCourtGroups);
@@ -68,8 +65,8 @@ export class CourtYardManagementComponent implements OnInit {
     // Select the first court group initially
     this.courtGroupOptions$.subscribe(courtGroups => {
       if (courtGroups.length > 0) {
-        this.selectedCourtGroup = courtGroups[0]; // Set to the first court group
-        this.loadCourtYards(); // Load court yards for the initial selected court group
+        this.selectedCourtGroup = courtGroups[0];
+        this.loadCourtYards();
       }
     });
 
@@ -84,11 +81,12 @@ export class CourtYardManagementComponent implements OnInit {
         this.store.dispatch(loadCourtGroupByOwnerId({ ownerId: this.ownerId, pageNumber: 1, pageSize: 10 }));
       }
     });
-  }
-
-  onSelectCourtGroup(selectedGroup: CourtGroup): void {
-    this.selectedCourtGroup = selectedGroup;
-    this.loadCourtYards(); // Load court yards when court group changes
+    this.courtYards$.subscribe(courtYards => {
+      if (courtYards.length > 0) {
+        this.selectedCourtYard = courtYards[0];
+        this.loadSlots(this.selectedCourtYard.id, this.selectedDate);
+      }
+    });
   }
 
   loadCourtYards(): void {
@@ -102,19 +100,18 @@ export class CourtYardManagementComponent implements OnInit {
       this.selectedCourtYard = null; // Close details if already selected
     } else {
       this.selectedCourtYard = courtYard;
-      this.loadSlots(courtYard.id, this.selectedDate); // Load slots for the selected court yard
-    }
-  }
-
-  onDateChange(event: any): void {
-    const selectedDate = event.target.value;
-    this.selectedDate = selectedDate;
-    if (this.selectedCourtYard) {
-      this.loadSlots(this.selectedCourtYard.id, selectedDate);
+      this.loadSlots(courtYard.id, this.selectedDate);
     }
   }
 
   loadSlots(courtYardId: string, selectedDate: string): void {
     this.store.dispatch(loadSlots({ courtYardId, dateBooking: selectedDate }));
+  }
+
+  onDateChange(newDate: string): void {
+    this.selectedDate = newDate;  // Directly assign the new date
+    if (this.selectedCourtYard) {
+      this.loadSlots(this.selectedCourtYard.id, this.selectedDate);  // Reload slots with the new date
+    }
   }
 }

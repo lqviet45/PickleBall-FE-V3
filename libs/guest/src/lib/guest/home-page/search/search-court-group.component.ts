@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormField, MatFormFieldModule, MatHint, MatLabel } from '@angular/material/form-field';
 import {MatOption, MatSelect} from "@angular/material/select";
@@ -11,7 +11,7 @@ import {
   MatDatepickerModule,
   MatDatepickerToggle
 } from '@angular/material/datepicker';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store} from '@ngrx/store';
 import {
   CityState,
@@ -56,8 +56,8 @@ export class SearchCourtGroupComponent implements OnInit{
   selectedCity = '';
   cities$: Observable<string[]>;
   nop: string[] = ['2', '3', '4'];
-  pageSize = 8;
-  totalCourtGroups = 30;
+  pageSize = 6;
+  totalCourtGroups = 18;
 
   constructor(private store: Store<{ city: CityState, courtGroups: { courtGroups: CourtGroup[], error: any } }>) {
     this.cities$ = this.store.select(state => state.city.cities);
@@ -67,10 +67,18 @@ export class SearchCourtGroupComponent implements OnInit{
 
   ngOnInit() {
     this.store.dispatch(loadCities());
+    // Trigger search with default values on page load
+    this.onSearch();
   }
 
   onSearch() {
-    this.store.dispatch(searchCourtGroups({ name: this.searchQuery, cityName: this.selectedCity, pageNumber: 1, pageSize: this.pageSize }));
+    // Dispatch the search action with current search query, selected city, and pagination settings
+    this.store.dispatch(searchCourtGroups({
+      name: this.searchQuery || '',
+      cityName: this.selectedCity || '',
+      pageNumber: 1,
+      pageSize: 6
+    }));
   }
   onPageChange(event: PageEvent) {
     const pageIndex = event.pageIndex;

@@ -23,6 +23,10 @@
 
   <!-- Right Column for Slots of Selected Court Yard (col-md-6) -->
   <div class="col-md-6">
+    <div class="date-picker">
+      <label for="slotDate">Select Date:</label>
+      <input id="slotDate" type="date" [(ngModel)]="selectedDate" (ngModelChange)="onDateChange($event)" />
+    </div>
     <mat-card-content *ngIf="selectedCourtYard">
       <h3>Slots for {{ selectedCourtYard.name }}</h3>
       <div class="slot-list" fxLayout="row wrap" fxLayoutGap="10px">
@@ -36,7 +40,6 @@
           </span>
         </button>
       </div>
-
     </mat-card-content>
   </div>
 </div>

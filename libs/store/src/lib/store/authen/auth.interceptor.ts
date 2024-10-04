@@ -6,7 +6,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   // List of routes that do not require a token
   const excludedRoutes = [
     '/api/register',
-    '/api/forgot-password'
+    '/api/forgot-password',
+    '/api/'
   ];
 
   // Check if the request URL matches any of the excluded routes

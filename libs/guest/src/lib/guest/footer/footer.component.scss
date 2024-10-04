@@ -92,33 +92,6 @@
   gap: 1em;
 }
 
-.legal-wrapper {
-  position: relative;
-  width: 100%;
-}
-
-.legal {
-  display: flex;
-  flex-wrap: wrap;
-  color: var(--primary-color);
-  background-color: var(--secondary-color);
-  position: absolute;
-  width: 100vw;
-  padding: 10px 30px;
-  margin-top: 20px;
-  left: -30px;
-}
-
-.legal__links {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.heart {
-  color: var(--primary-color);
-}
-
 @media screen and (max-width: 768px) {
   .footer__addr, .footer__nav {
     flex: 1 1 100%;
@@ -126,9 +99,5 @@
 
   .footer__nav > * {
     flex: 1 1 100%;
-  }
-
-  .legal__links {
-    margin-left: 0;
   }
 }
