@@ -60,7 +60,7 @@ export class AddCourtGroupComponent implements OnInit{
   }
 
   onSubmit(): void {
-    console.log(this.courtGroupForm.value);
+    //console.log(this.courtGroupForm.value);
     if (this.courtGroupForm.valid) {
       this.dialogRef.close({
         formData: this.courtGroupForm.value,

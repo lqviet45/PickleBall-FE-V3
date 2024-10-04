@@ -5,6 +5,7 @@ import { PagedResponse } from '../PagedResponse.model';
 
 
 export interface CourtGroupState {
+  isLoading: boolean;
   courtGroups: CourtGroup[];
   pagedResponse: PagedResponse<CourtGroup> | null;
   error: string | null;
@@ -12,6 +13,7 @@ export interface CourtGroupState {
 }
 
 export const courtGroupInitialState: CourtGroupState = {
+  isLoading: false,
   courtGroups: [],
   pagedResponse: null,
   error: null,
@@ -20,16 +22,18 @@ export const courtGroupInitialState: CourtGroupState = {
 
 export const courtGroupReducer = createReducer(
   courtGroupInitialState,
+  on(CourtGroupActions.loadCourtGroups, (state) => ({...state, isLoading: true})),
   on(CourtGroupActions.loadCourtGroupsSuccess, (state, { pagedResponse }) => ({
     ...state,
     courtGroups: pagedResponse.items,
     pagedResponse,
-    loading: false,
+    isLoading: false,
   })),
   on(CourtGroupActions.loadCourtGroupsFailure, (state, { error }) => ({
     ...state,
     error,
-    courtGroupCreated: false
+    courtGroupCreated: false,
+    isLoading: false
   })),
   on(CourtGroupActions.loadCourtGroupByOwnerId, (state) => ({
     ...state,

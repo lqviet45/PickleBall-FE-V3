@@ -61,3 +61,12 @@ export * from './lib/store/slot/slot.selector';
 
 // Paged Response
 export * from './lib/store/PagedResponse.model';
+
+// Product
+export * from './lib/store/product/product.actions';
+export * from './lib/store/product/product.effects';
+export * from './lib/store/product/product.model';
+export * from './lib/store/product/product.reducers';
+export * from './lib/store/product/product.services';
+export * from './lib/store/product/product.selectors';
+

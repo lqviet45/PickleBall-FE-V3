@@ -1,0 +1,89 @@
+.container {
+  max-width: 1200px;
+}
+
+.btn-add-product {
+  background-color: var(--primary-color);
+}
+
+.card {
+  border: 1px solid #eaeaea;
+  transition: box-shadow 0.3s ease-in-out;
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  object-fit: cover;
+  height: 150px;
+  position: relative;
+}
+
+.icon-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.update-icon,
+.delete-icon {
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 5px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.update-icon:hover {
+  background-color: rgba(0, 123, 255, 0.8);
+}
+
+.delete-icon:hover {
+  background-color: rgba(255, 0, 0, 0.8);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #555;
+}
+
+.text-muted {
+  font-size: 1.6rem;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .col-md-3 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  .col-md-6.offset-md-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

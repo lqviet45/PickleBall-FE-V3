@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CourtGroup } from './court-group.model';
 import { PagedResponse } from '../PagedResponse.model';
@@ -12,6 +12,10 @@ export class CourtGroupService {
   private apiUrl = 'https://pickleballapp.azurewebsites.net/api/users';
   private courtGrApiUrl = 'https://pickleballapp.azurewebsites.net/api/court-groups';
   private getCourtGroupsByNameAndCity = 'https://pickleballapp.azurewebsites.net/api'
+
+  private courtGroupSource = new BehaviorSubject<CourtGroup | null>(null);
+  currentCourtGroup = this.courtGroupSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
   // getCourtGroups(): Observable<CourtGroup[]> {
@@ -24,7 +28,10 @@ export class CourtGroupService {
     params = params.set('PageNumber', pageNumber.toString());
     params = params.set('PageSize', pageSize.toString());
 
-    return this.http.get<PagedResponse<CourtGroup>>(`${this.apiUrl}/18e3a373-c160-4510-733e-08dc94fc4248/court-groups`, { params });
+    return this.http.get< {value: PagedResponse<CourtGroup>} >(this.courtGrApiUrl, {params})
+      .pipe(map(response => {
+        return response.value;
+      }));
   }
 
   getCourtsByOwnerId(userId: string, pageNumber: number, pageSize: number): Observable<PagedResponse<CourtGroup>> {
@@ -38,9 +45,11 @@ export class CourtGroupService {
     return this.http.get< {value: PagedResponse<CourtGroup>} >(`${this.apiUrl}/${userId}/court-groups`, {params})
       .pipe(map(response => {
         //console.log(response.value)
+        this.courtGroupSource.next(response.value.items[0]);
+        //console.log('courtGroupSource:', this.courtGroupSource);
         return response.value;
       }));
-      //.pipe(map(response => response.value));
+
   }
   searchCourtGroups(name: string, cityName: string, pageNumber: number, pageSize: number): Observable<PagedResponse<CourtGroup>> {
     let params = new HttpParams();
@@ -60,7 +69,7 @@ export class CourtGroupService {
   }
 
   createCourtGroup(courtGroup: CourtGroup): Observable<CourtGroup> {
-    console.log('user id', courtGroup);
+    //console.log('user id', courtGroup);
     return this.http.post<CourtGroup>(`${this.courtGrApiUrl}`, courtGroup);
   }
 

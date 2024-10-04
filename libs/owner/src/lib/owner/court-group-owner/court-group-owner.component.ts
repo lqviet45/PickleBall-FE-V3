@@ -26,7 +26,7 @@ import { UpdateCourtGroupComponent } from './update-court-group/update-court-gro
 })
 export class CourtGroupOwnerComponent implements OnInit{
 
-  courtsGroup$!: Observable<CourtGroup[]>;
+  //courtsGroup$: Observable<CourtGroup[]>;
   userId = '';
   user$: Observable<UserInterface | null>;
   selectedCourtId: string | null = null;
@@ -45,7 +45,7 @@ export class CourtGroupOwnerComponent implements OnInit{
     private authService: AuthService
   ) {
     this.user$ = store.pipe(select(selectCurrentUser));
-    this.courtsGroup$ = this.store.select(selectAllCourtGroups);
+    //this.courtsGroup$ = this.store.select(selectAllCourtGroups);
     this.courtGroupCreated$ = this.store.select(selectCourtGroupCreated);
     this.pagedResponse$ = this.store.select(selectCourtGroupPagedResponse);
   }
@@ -62,12 +62,13 @@ export class CourtGroupOwnerComponent implements OnInit{
       }
     );
 
-    this.courtsGroup$.subscribe(courtGroups => {
-      this.courtGroups = courtGroups;
-      if (courtGroups && courtGroups.length > 0) {
-        this.selectedCourtId = courtGroups[0].id; // Set the first court as selected by default
-      }
-    });
+    // this.courtsGroup$.subscribe(courtGroups => {
+    //   this.courtGroups = courtGroups;
+    //   if (courtGroups && courtGroups.length > 0) {
+    //     this.selectedCourtId = courtGroups[0].id;
+    //
+    //   }
+    // });
 
     this.courtGroupCreated$.subscribe((created) => {
       if (created) {
@@ -77,6 +78,10 @@ export class CourtGroupOwnerComponent implements OnInit{
 
     this.pagedResponse$.subscribe(pagedResponse => {
       if (pagedResponse) {
+        this.courtGroups = pagedResponse.items;
+        if (this.courtGroups && this.courtGroups.length > 0) {
+          this.selectedCourtId = this.courtGroups[0].id;
+        }
         this.totalItems = pagedResponse.totalCount;
         this.totalPages = pagedResponse.totalPages;
       }

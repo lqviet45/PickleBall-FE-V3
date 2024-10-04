@@ -10,11 +10,12 @@ import { LoginComponent } from '@org/login';
 import { ManagerManagementOwnerComponent } from './manager-management-owner/manager-management-owner.component';
 import { CourtGroupOwnerComponent } from './court-group-owner/court-group-owner.component';
 import { CourtGroupRevenueComponent } from './court-group-revenue/court-group-revenue.component';
+import { ProductManagementComponent } from './product-management/product-management.component';
 
 @Component({
   selector: 'lib-owner',
   standalone: true,
-  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent, LoginComponent, ManagerManagementOwnerComponent, CourtGroupOwnerComponent, CourtGroupRevenueComponent],
+  imports: [CommonModule, MatDrawerContainer, SidenavOwnerComponent, HeaderOwnerComponent, OverviewOwnerComponent, MatDrawer, MatDrawerContent, CourtManagementOwnerComponent, LoginComponent, ManagerManagementOwnerComponent, CourtGroupOwnerComponent, CourtGroupRevenueComponent, ProductManagementComponent],
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss',
 })
