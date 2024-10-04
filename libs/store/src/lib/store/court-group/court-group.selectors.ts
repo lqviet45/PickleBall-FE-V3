@@ -35,4 +35,9 @@ export const selectCourtGroupPagedResponse = createSelector(
   (state) => state.pagedResponse
 );
 
+export const selectCourtGroupLoading = createSelector(
+  selectCourtGroupState,
+  (state) => state.isLoading
+);
+
 

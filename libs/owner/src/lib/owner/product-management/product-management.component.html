@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-3">
+      <label for="courtGroup" class="form-label">Chọn sân quận</label>
+      <select id="courtGroup" class="form-select" [(ngModel)]="selectedCourtGroup" (change)="onCourtGroupChange()">
+        <option *ngFor="let courtGroup of courtsGroup$ | async" [value]="courtGroup.id">
+          {{ courtGroup.name }}
+        </option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="productType" class="form-label">Loại giày</label>
+      <select id="productType" class="form-select">
+        <option value="Giay">Giày</option>
+        <!-- Add more product types if necessary -->
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label for="productCount" class="form-label">Số lượng các loại giày</label>
+      <input id="productCount" type="text" class="form-control" value="50" readonly>
+    </div>
+    <div class="col-md-3 d-flex justify-content-end">
+      <button class="btn btn-primary mt-4 mr-4 btn-add-product" (click)="openAddProductModal()">+ Thêm</button>
+    </div>
+  </div>
+
+  <div class="row mt-5" *ngIf="(products$ | async) as products">
+    <div class="col-md-12 text-center" *ngIf="!products.length">
+      <p class="text-muted">Không có sản phẩm nào cho sân được chọn.</p>
+    </div>
+
+    <div class="col-md-3 mb-4" *ngFor="let product of products">
+      <div class="card h-100 position-relative">
+        <div class="icon-overlay">
+          <i class="fas fa-edit update-icon" (click)="onUpdateProduct(product)"></i>
+          <i class="fas fa-trash delete-icon" (click)="onDeleteProduct(product)"></i>
+        </div>
+        <img [src]="product.imageUrl || 'https://firebasestorage.googleapis.com/v0/b/pickleball-fe.appspot.com/o/courtGroups%2F1719582708399_depositphotos_247872612-stock-illustration-no-image-available-icon-vector.jpg?alt=media&token=1865834a-bca5-47bc-b107-0d3fec008efc'"
+             class="card-img-top product-image"
+             alt="{{ product.productName }}">
+        <div class="card-body">
+          <h5 class="card-title text-truncate">{{ product.productName }}</h5>
+          <p class="card-text text-truncate">{{ product.description }}</p>
+          <div class="d-flex justify-content-between">
+            <span class="text-muted">Còn hàng: {{ product.quantity }}</span>
+<!--            <span class="text-muted">Đã bán: {{ product.sold }}</span>-->
+          </div>
+          <p class="card-text text-primary fw-bold mt-2">{{ product.price | currency }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
