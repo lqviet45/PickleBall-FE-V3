@@ -13,7 +13,7 @@ import {
   CourtYardEffects, courtYardReducer,
   BookingsEffects, bookingsReducer,
   revenuesReducer, RevenuesEffects,
-  slotsReducer, SlotsEffects, authInterceptor, registerReducer, RegisterEffects
+  slotsReducer, SlotsEffects, authInterceptor, registerReducer, RegisterEffects, ProductEffects, productReducer
 } from '@org/store';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -54,6 +54,7 @@ export const appConfig: ApplicationConfig = {
         revenues: revenuesReducer,
         slots: slotsReducer,
         register: registerReducer,
+        products: productReducer,
       }),
       EffectsModule.forRoot([
         CourtGroupEffects,
@@ -64,6 +65,7 @@ export const appConfig: ApplicationConfig = {
         RevenuesEffects,
         SlotsEffects,
         RegisterEffects,
+        ProductEffects
       ]),
       StoreDevtoolsModule.instrument({ maxAge: 25, }),
       HighchartsChartModule

@@ -14,18 +14,6 @@ export class CourtGroupEffects {
     private courtGroupService: CourtGroupService
   ) {}
 
-  // loadCourtGroups$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(CourtGroupActions.loadCourtGroups),
-  //     mergeMap(() =>
-  //       this.courtGroupService.getCourtGroups().pipe(
-  //         map(courtGroups => CourtGroupActions.loadCourtGroupsSuccess({ courtGroups })),
-  //         catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
-  //       )
-  //     )
-  //   )
-  // );
-
   loadCourtGroups$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CourtGroupActions.loadCourtGroups),

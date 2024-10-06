@@ -120,7 +120,7 @@ export class CourtManagementSidenavComponent implements OnInit, OnChanges {
   onCourtSelected(court: string) {
     this.selectedCourtId = court;
     this.courtSelected.emit(court);
-    //console.log(court);
+    console.log(court);
   }
 
 

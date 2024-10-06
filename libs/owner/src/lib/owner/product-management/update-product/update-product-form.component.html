@@ -1,0 +1,92 @@
+<div class="container product-form mt-5">
+  <form [formGroup]="updateProductForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+
+      <div class="card-header d-flex justify-content-center col-md-12 mb-3">
+        <h4>Update Product: {{ updateProductForm.get('productName')?.value }}</h4>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group mb-3 product-name">
+          <label for="productName" class="form-label">Product Name</label>
+          <input
+            type="text"
+            id="productName"
+            class="form-control custom-input"
+            formControlName="productName"
+            placeholder="Enter product name"
+          />
+        </div>
+
+        <div class="form-group mb-3 product-quantity">
+          <label for="quantity" class="form-label">Quantity</label>
+          <input
+            type="number"
+            id="quantity"
+            class="form-control custom-input"
+            formControlName="quantity"
+            placeholder="Enter quantity"
+          />
+        </div>
+
+        <div class="form-group mb-3 product-price">
+          <label for="price" class="form-label">Price</label>
+          <input
+            type="number"
+            id="price"
+            class="form-control custom-input"
+            formControlName="price"
+            placeholder="Enter product price"
+          />
+        </div>
+      </div>
+
+      <div class="col-md-6 product-image">
+        <label for="productImage" class="form-label">Image of Product</label>
+        <div class="border border-primary p-4 text-center custom-file-upload">
+          <input
+            type="file"
+            id="productImage"
+            class="form-control-file custom-file-input"
+            (change)="onFileSelected($event)"
+            hidden
+          />
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            (click)="triggerFileInput()"
+          >
+            Choose File
+          </button>
+        </div>
+        <img *ngIf="imageUrl" [src]="imageUrl" class="img-thumbnail mt-3 custom-image-preview" alt="Uploaded Product Image" />
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="form-group mb-3 col-md-12 additional-description">
+        <label for="additionalDescription" class="form-label">Description</label>
+        <textarea
+          id="additionalDescription"
+          class="form-control custom-textarea"
+          formControlName="description"
+          rows="3"
+          placeholder="Enter product description"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group mb-3 col-md-6 court-group">
+        <button type="button" class="btn btn-danger w-100 custom-submit" (click)="onCancel()">Cancel</button>
+      </div>
+
+      <div class="form-group mb-3 col-md-6 submit-button">
+        <button type="submit" class="btn btn-primary w-100 custom-submit" [disabled]="updateProductForm.invalid">
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
