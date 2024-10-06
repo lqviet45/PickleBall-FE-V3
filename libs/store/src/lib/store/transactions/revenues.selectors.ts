@@ -7,6 +7,10 @@ export const selectRevenuesData = createSelector(
   selectRevenuesState,
   (state: RevenuesState) => state.data
 );
+export const selectRevenuesData2 = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.adminRevenue
+);
 
 export const selectRevenuesLoading = createSelector(
   selectRevenuesState,

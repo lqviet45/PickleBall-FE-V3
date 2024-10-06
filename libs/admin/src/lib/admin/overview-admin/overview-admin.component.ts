@@ -1,19 +1,17 @@
-  import { Component } from '@angular/core';
+  import { Component, OnInit } from '@angular/core';
   import { CommonModule, NgOptimizedImage } from '@angular/common';
   import { HighchartsChartModule } from 'highcharts-angular';
   import { MatIcon } from '@angular/material/icon';
   import * as Highcharts from 'highcharts';
   import { Observable } from 'rxjs';
   import {
-    CurrentRevenue,
-    RevenueResponse,
-    selectCurrentRevenue, selectCurrentUser,
-    selectRevenuesData, selectRevenuesError,
-    selectRevenuesLoading, loadCurrentRevenue,
-    loadRevenues,
-    UserInterface
-  } from '@org/store';
-  import { Store } from '@ngrx/store';
+  RevenueResponse,
+  selectRevenuesData, selectRevenuesError,
+  selectRevenuesLoading,
+  loadAllOwnerRevenueByMonth, selectRevenuesData2, AdminRevenueResponse
+} from '@org/store';
+  import { select, Store } from '@ngrx/store';
+  import { data } from 'autoprefixer';
 
   @Component({
     selector: 'lib-overview-admin',
@@ -22,69 +20,53 @@
     templateUrl: './overview-admin.component.html',
     styleUrl: './overview-admin.component.scss',
   })
-  export class OverviewAdminComponent {
-    revenues$: Observable<RevenueResponse | null>;
-    currentRevenue$: Observable<CurrentRevenue | null>;
+  export class OverviewAdminComponent implements OnInit{
+    revenues$: Observable<AdminRevenueResponse | null>;
     loading$: Observable<boolean>;
     error$: Observable<any>;
-    chooseMonth: string
-    chooseYear : string
+    chooseMonth: number;
+    chooseYear: number;
     chooseMonthYear: string;
-    ownerId = '';
-    owner$: Observable<UserInterface | null>;
     chartOptions!: Highcharts.Options;
     columnChartOptions!: Highcharts.Options;
+    lineChartOptions!: Highcharts.Options;
     Highcharts: typeof Highcharts = Highcharts;
-    totalDayRevenue = 0;
-    totalMonthRevenue = 0;
-    playerCountOfMonth = 0;
-    constructor(
-      private store: Store
-    ) {
-      this.currentRevenue$ = this.store.select(selectCurrentRevenue);
-      this.revenues$ = this.store.select(selectRevenuesData);
+
+    constructor(private store: Store) {
+      this.revenues$ = this.store.select(selectRevenuesData2);
       this.loading$ = this.store.select(selectRevenuesLoading);
       this.error$ = this.store.select(selectRevenuesError);
-      this.owner$ = this.store.select(selectCurrentUser);
 
       const now = new Date();
-      this.chooseMonth = ('0' + (now.getMonth() + 1)).slice(-2);
-      this.chooseYear = now.getFullYear().toString();
+      this.chooseMonth = now.getMonth() + 1;
+      this.chooseYear = now.getFullYear();
       this.chooseMonthYear = `${this.chooseYear}-${this.chooseMonth}`;
       this.initializeChart();
     }
+
+    // Use ngOnInit to call API when the component initializes
+    ngOnInit(): void {
+      this.loadRevenues();  // Dispatch the action to load revenues
+    }
+
     onMonthChange(event: Event): void {
       const input = event.target as HTMLInputElement;
-      if (input.value) {
-        const [year, month] = input.value.split('-');
-        this.chooseYear = year;
-        this.chooseMonth = month;
-        this.loadRevenues();
+
+      // Parse the input value to get the year and month (assuming YYYY-MM format)
+      const [year, month] = input.value.split('-').map(Number);
+
+      if (year && month) {
+        this.chooseYear = year; // Update chooseYear
+        this.chooseMonth = month; // Update chooseMonth
+        this.loadRevenues(); // Fetch the revenues for the new month and year
       }
     }
 
     private loadRevenues(): void {
-      this.store.dispatch(loadRevenues({ ownerId: this.ownerId, month: this.chooseMonth, year: this.chooseYear }));
+      // Dispatch the action to load revenues based on the selected month and year
+      this.store.dispatch(loadAllOwnerRevenueByMonth({ month: this.chooseMonth, year: this.chooseYear }));
     }
 
-    private formatNumber(value: number): string {
-      if (value >= 1e9) {
-        return (value / 1e9).toFixed(1) + 'B';
-      } else if (value >= 1e6) {
-        return (value / 1e6).toFixed(1) + 'M';
-      } else if (value >= 1e3) {
-        return (value / 1e3).toFixed(1) + 'K';
-      }
-      return value.toString();
-    }
-
-    getFormattedTotalMonthRevenue(): string {
-      return this.formatNumber(this.totalMonthRevenue);
-    }
-
-    getFormattedTotalDayRevenue(): string {
-      return this.formatNumber(this.totalDayRevenue);
-    }
     private initializeChart(): void {
       this.chartOptions = {
         chart: {
@@ -126,6 +108,7 @@
           layout: 'horizontal',
         },
       };
+
       this.columnChartOptions = {
         chart: {
           type: 'column', // Set chart type to column
@@ -133,7 +116,7 @@
           borderRadius: 10,
         },
         title: {
-          text: 'Monthly Revenue Comparison',
+          text: 'Total Players from 6:00 to 20:00', // Change title to reflect players
           style: {
             color: '#333333',
             fontSize: '20px',
@@ -141,29 +124,162 @@
           },
         },
         xAxis: {
-          categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], // Fake data categories
+          categories: ['6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'], // Time slots
+          title: {
+            text: 'Time of Day', // Label for xAxis
+            style: {
+              color: '#333333',
+              fontSize: '16px'
+            }
+          },
+          labels: {
+            style: {
+              color: '#333333',
+              fontSize: '14px'
+            }
+          }
         },
         yAxis: {
           min: 0,
           title: {
-            text: 'Revenue',
+            text: 'Number of Players', // Change label to Number of Players
+            style: {
+              color: '#333333',
+              fontSize: '16px'
+            }
           },
+          labels: {
+            format: '{value}', // Format for the yAxis labels
+            style: {
+              color: '#333333',
+              fontSize: '14px'
+            }
+          }
         },
         series: [{
           type: 'column',
-          name: 'Revenue',
-          data: [1000, 2000, 1500, 3000], // Fake revenue data
+          name: 'Players',
+          data: [25, 50, 20, 15, 10, 50, 40, 20], // Fake data for number of players in each time slot
+          color: '#1E90FF' // Color for the columns
         }],
         tooltip: {
           headerFormat: '<b>{point.x}</b><br>',
-          pointFormat: '{series.name}: {point.y}<br/>',
+          pointFormat: '{series.name}: {point.y} players<br/>', // Tooltip format for players
         },
         legend: {
           align: 'right',
           layout: 'vertical',
           verticalAlign: 'middle',
           borderWidth: 0,
-        },
+        }
       };
+
+      this.revenues$.subscribe(response => {
+        if (response) {
+          const weeks = response.value.map(r => r.week);
+          const revenueData = response.value.map(item => item.totalRevenue);
+
+          this.lineChartOptions = {
+            chart: {
+              backgroundColor: '#f4f4f4',
+              borderRadius: 10,
+            },
+            title: {
+              text: 'Weekly Revenue',
+              style: {
+                color: '#333333',
+                fontSize: '20px',
+                fontWeight: 'bold'
+              }
+            },
+            xAxis: {
+              categories: weeks,
+              title: {
+                text: 'Week',
+                style: {
+                  color: '#333333',
+                  fontSize: '16px'
+                }
+              },
+              labels: {
+                style: {
+                  color: '#333333',
+                  fontSize: '14px'
+                }
+              }
+            },
+            yAxis: [{
+              title: {
+                text: 'Revenue (VND)',
+                style: {
+                  color: '#1E90FF',
+                  fontSize: '16px'
+                }
+              },
+              labels: {
+                format: '{value}',
+                style: {
+                  color: '#1E90FF',
+                  fontSize: '14px'
+                }
+              }
+            }, {
+              title: {
+                text: 'Players',
+                style: {
+                  color: '#FF6347',
+                  fontSize: '16px'
+                }
+              },
+              labels: {
+                format: '{value}',
+                style: {
+                  color: '#FF6347',
+                  fontSize: '14px'
+                }
+              },
+              opposite: true
+            }],
+            series: [{
+              name: 'Revenue',
+              data: revenueData,
+              type: 'line',
+              color: '#1E90FF',
+              lineWidth: 2,
+              marker: {
+                enabled: true,
+                radius: 4,
+                fillColor: '#1E90FF'
+              }
+            }, {
+              name: 'Players',
+              data: [], // You need to provide data for players
+              type: 'line',
+              color: '#FF6347',
+              lineWidth: 2,
+              marker: {
+                enabled: true,
+                radius: 4,
+                fillColor: '#FF6347'
+              },
+              yAxis: 1
+            }],
+            legend: {
+              itemStyle: {
+                color: '#333333',
+                fontSize: '14px'
+              }
+            },
+            tooltip: {
+              shared: true,
+              backgroundColor: '#ffffff',
+              borderColor: '#cccccc',
+              style: {
+                color: '#333333'
+              }
+            }
+          }
+        }
+      });
     }
   }
