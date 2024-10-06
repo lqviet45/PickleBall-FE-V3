@@ -88,6 +88,10 @@ export class CourtYardManagementComponent implements OnInit {
       }
     });
   }
+  onSelectCourtGroup(selectedGroup: CourtGroup): void {
+    this.selectedCourtGroup = selectedGroup;
+    this.loadCourtYards();
+  }
 
   loadCourtYards(): void {
     if (this.selectedCourtGroup) {

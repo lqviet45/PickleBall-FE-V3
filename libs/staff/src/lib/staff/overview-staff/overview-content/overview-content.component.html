@@ -16,15 +16,15 @@
       <tbody>
       <ng-container *ngIf="filterStatus === 'Pending'; else otherStatus">
         <tr *ngIf="filteredBookings.length === 0">
-          <td colspan="7" class="no-bookings">No pending bookings found.</td>
+          <td colspan="10" class="no-bookings">No pending bookings found.</td>
         </tr>
         <tr *ngFor="let booking of filteredBookings" class="booking-row">
           <td class="booking-cell" data-label="ID">
             <div class="booking-user">{{ booking.user.fullName }}</div>
-            <div class="booking-time">{{ booking.createdOnUtc }}</div>
           </td>
           <td class="booking-cell" data-label="Email">
-            <mat-icon>email</mat-icon> {{ booking.user.email }}
+            <mat-icon>email</mat-icon>
+            {{ booking.user.email }}
           </td>
           <td class="booking-cell" data-label="Date">
             <mat-icon>schedule</mat-icon> {{ booking.date.dateWorking }}
@@ -34,9 +34,6 @@
           </td>
           <td class="booking-cell" data-label="Players">
             <mat-icon>person</mat-icon> {{ booking.numberOfPlayers }}
-          </td>
-          <td class="booking-cell" [ngClass]="getStatusClass(booking.bookingStatus)" data-label="Status">
-            {{ booking.bookingStatus }}
           </td>
           <td class="booking-cell" data-label="Actions">
             <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="booking.bookingStatus === 'Pending'">
@@ -71,14 +68,11 @@
           <td class="booking-cell" data-label="Players">
             <mat-icon>person</mat-icon> {{ booking.numberOfPlayers }}
           </td>
-          <td class="booking-cell" [ngClass]="getStatusClass(booking.bookingStatus)" data-label="Status">
-            {{ booking.bookingStatus }}
-          </td>
         </tr>
       </ng-template>
       </tbody>
     </table>
-    <mat-paginator [length]="totalBookings" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+    <lib-pagination [totalBookings]="totalBookings" [pageSize]="pageSize" (pageChange)="onPageChange($event)"></lib-pagination>
   </ng-container>
   <ng-template #noBookings>
     <div>No bookings found</div>

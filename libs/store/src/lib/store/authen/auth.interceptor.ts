@@ -7,7 +7,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const excludedRoutes = [
     '/api/register',
     '/api/forgot-password',
-    '/api/'
   ];
 
   // Check if the request URL matches any of the excluded routes

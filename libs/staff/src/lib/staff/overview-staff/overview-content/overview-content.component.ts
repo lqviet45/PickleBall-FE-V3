@@ -15,7 +15,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmBookingComponent } from './approve-booking/confirm-booking.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
+import { PagingComponent } from './paging';
 
 @Component({
   selector: 'lib-overview-content',
@@ -29,7 +30,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
     MatMenu,
     MatMenuItem,
     MatMenuTrigger,
-    MatPaginator
+    MatPaginator,
+    PagingComponent
   ],
   templateUrl: './overview-content.component.html',
   styleUrls: ['./overview-content.component.scss'],
@@ -40,7 +42,7 @@ export class OverviewContentComponent implements OnChanges {
   filteredBookings: Booking[] = [];
   error$: Observable<any>;
   filterStatus: 'Pending' | 'Confirmed' | 'Completed' | 'Cancelled' = 'Pending';
-  pageSize = 6; // Adjust page size to 6 per page
+  pageSize = 4; // Adjust page size to 6 per page
   pageNumber = 0;
   totalBookings = 20;
 
@@ -64,9 +66,8 @@ export class OverviewContentComponent implements OnChanges {
     this.loadBookings();
   }
 
-  onPageChange(event: PageEvent): void {
-    this.pageNumber = event.pageIndex;
-    this.pageSize = event.pageSize;
+  onPageChange(pageNumber: number): void {
+    this.pageNumber = pageNumber;
     this.loadBookings();
   }
 
@@ -109,7 +110,7 @@ export class OverviewContentComponent implements OnChanges {
       case 'Completed':
         return 'status-completed';
       case 'Cancelled':
-        return 'status-cancelled';
+        return 'status -cancelled';
       default:
         return '';
     }
