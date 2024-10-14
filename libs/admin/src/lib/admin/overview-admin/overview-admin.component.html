@@ -8,7 +8,15 @@
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
           <div class="statistic-box-content_description">Month Revenues</div>
-          <div class="statistic-box-content_money">5000</div>
+          <div class="statistic-box-content_money">{{ totalRevenue | currency: 'VND' }}</div>
+          <div class="flex">
+            <mat-icon class="text-bg-success">trending_up</mat-icon>
+            <span class="icon-increasing statistic-box-content_description">
+            Increasing {{ totalRevenue }}
+          </span>
+
+          </div>
+
         </div>
         <div class="statistic-box-img">
           <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +33,7 @@
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
           <div class="statistic-box-content_description">Today Revenues</div>
-          <div class="statistic-box-content_money">200</div>
+          <div class="statistic-box-content_money">api này chưa có</div>
 
         </div>
         <div class="statistic-box-img">
@@ -43,7 +51,7 @@
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
           <div class="statistic-box-content_description">Total Players</div>
-          <div class="statistic-box-content_money">150</div>
+          <div class="statistic-box-content_money">{{ totalUsers }}</div>
 
         </div>
         <div class="statistic-box-icon">
@@ -71,7 +79,13 @@
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
           <div class="statistic-box-content_description">Total Bookings</div>
-          <div class="statistic-box-content_money">75</div>
+          <div class="statistic-box-content_money">{{ totalBookings }}</div>
+          <div class="statistic-box-content_description">
+            <mat-icon class="text-bg-success">trending_up</mat-icon>
+            <span class="icon-increasing statistic-box-content_description">
+            Increase {{ totalBookings }} than last
+          </span>
+          </div>
         </div>
         <div class="statistic-box-icon">
           <div class="booking-icon">

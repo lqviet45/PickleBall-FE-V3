@@ -72,8 +72,8 @@ export class OverviewOwnerComponent implements OnInit{
 
         this.currentRevenue$.subscribe(currentRevenue => {
           if (currentRevenue) {
-            this.totalDayRevenue = currentRevenue.totalDayRevenue;
-            this.totalMonthRevenue = currentRevenue.totalMonthRevenue;
+            this.totalDayRevenue = currentRevenue.totalDayRevenue * 95 / 100;
+            this.totalMonthRevenue = currentRevenue.totalMonthRevenue * 95 / 100;
             this.playerCountOfMonth = currentRevenue.playerCountOfMonth;
           }
         })
