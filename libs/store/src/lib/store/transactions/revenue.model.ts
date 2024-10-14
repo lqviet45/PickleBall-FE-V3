@@ -26,7 +26,11 @@ export interface CurrentRevenue {
 }
 
 export interface AdminRevenueResponse {
-  value: any[];
+  value: {
+    weeks: any[],
+    totalRevenue: number,
+    totalBookings: number,
+  }
   valueType: string;
   status: string;
   isSuccess: boolean;

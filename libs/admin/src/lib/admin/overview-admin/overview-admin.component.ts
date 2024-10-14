@@ -5,13 +5,11 @@
   import * as Highcharts from 'highcharts';
   import { Observable } from 'rxjs';
   import {
-  RevenueResponse,
-  selectRevenuesData, selectRevenuesError,
+    selectRevenuesError,
   selectRevenuesLoading,
   loadAllOwnerRevenueByMonth, selectRevenuesData2, AdminRevenueResponse
 } from '@org/store';
-  import { select, Store } from '@ngrx/store';
-  import { data } from 'autoprefixer';
+  import { Store } from '@ngrx/store';
 
   @Component({
     selector: 'lib-overview-admin',
@@ -176,8 +174,9 @@
 
       this.revenues$.subscribe(response => {
         if (response) {
-          const weeks = response.value.map(r => r.week);
-          const revenueData = response.value.map(item => item.totalRevenue);
+          const weeks = response.value.weeks.map(r => r.week);
+          const revenueData = response.value.weeks.map(item => item.totalRevenue);
+          const bookingData = response.value.weeks.map(r => r.totalBookings);
 
           this.lineChartOptions = {
             chart: {
@@ -252,8 +251,8 @@
                 fillColor: '#1E90FF'
               }
             }, {
-              name: 'Players',
-              data: [], // You need to provide data for players
+              name: 'Bookings',
+              data: bookingData,
               type: 'line',
               color: '#FF6347',
               lineWidth: 2,
