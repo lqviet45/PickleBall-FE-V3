@@ -11,8 +11,11 @@
 
 .footer__addr {
   flex: 1 1 30%;
+  display: flex;
+  flex-direction: column ;
   margin-right: 1.25em;
   margin-bottom: 2em;
+
 }
 
 .footer__logo {

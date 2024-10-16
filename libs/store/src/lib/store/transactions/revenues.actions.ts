@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { AdminRevenueResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
+import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from '../court-group/court-group.model';
 
@@ -59,6 +59,19 @@ export const loadAllOwnerRevenueByMonthSuccess = createAction(
 
 export const loadAllOwnerRevenueByMonthFailure = createAction(
   '[Revenues] Load All Owner\'s Revenue By Month Failure',
+  props<{ error: any }>()
+);
+export const loadAllOwnerRevenueByToday = createAction(
+  '[Revenues] Load All Owner\'s Revenue By Today',
+);
+
+export const loadAllOwnerRevenueByTodaySuccess = createAction(
+  '[Revenues] Load All Owner\'s Revenue By Month Today',
+  props<{ data: AdminRevenueTodayResponse }>()
+);
+
+export const loadAllOwnerRevenueByTodayFailure = createAction(
+  '[Revenues] Load All Owner\'s Revenue By Today Failure',
   props<{ error: any }>()
 );
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AdminRevenueResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
+import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -29,5 +29,9 @@ export class RevenuesService {
     const url = `${this.adminRevenueUrl}/owner-revenue?Month=${month}&Year=${year}`;
     const params = { Month: month, Year: year };
     return this.http.get<AdminRevenueResponse>(url, {params});
+  }
+  getAllOwnerRevenueByToday(): Observable<AdminRevenueTodayResponse> {
+    const url = `${this.adminRevenueUrl}/owner-revenue-today`;
+    return this.http.get<AdminRevenueTodayResponse>(url);
   }
 }

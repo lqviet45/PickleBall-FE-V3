@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as RevenuesActions from './revenues.actions';
-import { AdminRevenueResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
+import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from '../court-group/court-group.model';
 
@@ -12,6 +12,7 @@ export interface RevenuesState {
   pageResponse: PagedResponse<CourtGroup> | null;
   courtGroup: CourtGroup[];
   adminRevenue: AdminRevenueResponse | null;
+  adminRevenueToday: AdminRevenueTodayResponse | null;
 }
 
 export const initialRevenueState: RevenuesState = {
@@ -22,6 +23,7 @@ export const initialRevenueState: RevenuesState = {
   pageResponse: null,
   courtGroup: [],
   adminRevenue: null,
+  adminRevenueToday: null,
 };
 
 export const revenuesReducer = createReducer(
@@ -38,4 +40,7 @@ export const revenuesReducer = createReducer(
   on(RevenuesActions.loadAllOwnerRevenueByMonth, state => ({ ...state, loading: true })),
   on(RevenuesActions.loadAllOwnerRevenueByMonthSuccess, (state, { data }) => ({ ...state, adminRevenue: data, loading: false })),
   on(RevenuesActions.loadAllOwnerRevenueByMonthFailure, (state, { error }) => ({ ...state, error, loading: false })),
+  on(RevenuesActions.loadAllOwnerRevenueByToday, state => ({ ...state, loading: true })),
+  on(RevenuesActions.loadAllOwnerRevenueByTodaySuccess, (state, { data }) => ({ ...state, adminRevenueToday: data, loading: false })),
+  on(RevenuesActions.loadAllOwnerRevenueByTodayFailure, (state, { error }) => ({ ...state, error, loading: false })),
 );

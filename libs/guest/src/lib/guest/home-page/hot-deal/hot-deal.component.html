@@ -6,9 +6,13 @@
           <img *ngIf="court.medias?.length" [src]="court.medias?.[0]?.mediaUrl ?? ''" [alt]="court.name">
         </div>
         <div class="card-content">
-          <h2>{{ court.name }}</h2>
+          <div class="d-flex justify-content-between w-full">
+            <h2>{{ court.name }}</h2>
+            <h2>{{ court.price | currency: 'VND' }}</h2>
+          </div>
+
           <p>{{ court.location }}</p>
-          <p>{{ court.price }}</p>
+
         </div>
         <div class="btn-booking-section">
           <button class="btn-booking">Đặt sân</button>

@@ -40,3 +40,17 @@ export interface AdminRevenueResponse {
   errors: any[];
   validationErrors: any[];
 }
+export interface AdminRevenueTodayResponse {
+  value: {
+    todayRevenue: number,
+    todayBookings: number,
+  }
+  valueType: string;
+  status: string;
+  isSuccess: boolean;
+  successMessage: string;
+  correlationId: string;
+  location: string;
+  errors: any[];
+  validationErrors: any[];
+}

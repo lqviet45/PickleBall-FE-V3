@@ -56,7 +56,7 @@ export class SearchCourtGroupComponent implements OnInit{
   selectedCity = '';
   cities$: Observable<string[]>;
   nop: string[] = ['2', '3', '4'];
-  pageSize = 6;
+  pageSize = 8;
   totalCourtGroups = 18;
 
   constructor(private store: Store<{ city: CityState, courtGroups: { courtGroups: CourtGroup[], error: any } }>) {
@@ -77,7 +77,7 @@ export class SearchCourtGroupComponent implements OnInit{
       name: this.searchQuery || '',
       cityName: this.selectedCity || '',
       pageNumber: 1,
-      pageSize: 6
+      pageSize: 8
     }));
   }
   onPageChange(event: PageEvent) {

@@ -18,7 +18,7 @@ export class CourtGroupEffects {
     this.actions$.pipe(
       ofType(CourtGroupActions.loadCourtGroups),
       mergeMap(action =>
-        this.courtGroupService.getCourtGroups(action.pageNumber, action.pageSize).pipe(
+        this.courtGroupService.getCourtGroups(8, 1).pipe(
           map((response: PagedResponse<CourtGroup>) => CourtGroupActions.loadCourtGroupsSuccess({ pagedResponse: response })),
           catchError(error => of(CourtGroupActions.loadCourtGroupsFailure({ error })))
         )
@@ -54,7 +54,7 @@ export class CourtGroupEffects {
     this.actions$.pipe(
       ofType(CourtGroupActions.searchCourtGroups),
       mergeMap(({ name, cityName, pageNumber, pageSize }) =>
-        this.courtGroupService.searchCourtGroups(name, cityName, pageNumber, pageSize).pipe(
+        this.courtGroupService.searchCourtGroups(name, cityName, pageNumber, 8).pipe(
           map(pagedResponse => CourtGroupActions.searchCourtGroupsSuccess({ pagedResponse })),
           catchError(error => of(CourtGroupActions.searchCourtGroupsFailure({ error })))
         )

@@ -7,7 +7,12 @@ import { Observable } from 'rxjs';
 import {
   selectRevenuesError,
   selectRevenuesLoading,
-  loadAllOwnerRevenueByMonth, selectRevenuesData2, AdminRevenueResponse, UserService
+  loadAllOwnerRevenueByMonth,
+  selectRevenuesData2,
+  AdminRevenueResponse,
+  UserService,
+  AdminRevenueTodayResponse,
+  selectRevenuesData3, loadAllOwnerRevenueByToday
 } from '@org/store';
 import { Store } from '@ngrx/store';
 
@@ -20,6 +25,7 @@ import { Store } from '@ngrx/store';
 })
 export class OverviewAdminComponent implements OnInit {
   revenues$: Observable<AdminRevenueResponse | null>;
+  revenuesToday$: Observable<AdminRevenueTodayResponse | null>;
   loading$: Observable<boolean>;
   error$: Observable<any>;
   chooseMonth: number;
@@ -32,12 +38,14 @@ export class OverviewAdminComponent implements OnInit {
   totalRevenue = 0;
   totalBookings = 0;
   totalUsers = 0;
+  totalRevenueToday = 0;
+  totalBookingsToday = 0;
 
   constructor(private store: Store, private userService: UserService) {
     this.revenues$ = this.store.select(selectRevenuesData2);
     this.loading$ = this.store.select(selectRevenuesLoading);
     this.error$ = this.store.select(selectRevenuesError);
-
+    this.revenuesToday$ = this.store.select(selectRevenuesData3);
     const now = new Date();
     this.chooseMonth = now.getMonth() + 1;
     this.chooseYear = now.getFullYear();
@@ -48,18 +56,20 @@ export class OverviewAdminComponent implements OnInit {
 
   // Use ngOnInit to call API when the component initializes
   ngOnInit(): void {
-    this.loadRevenues();  // Dispatch the action to load revenues
+    this.loadRevenues();
     this.revenues$.subscribe(response => {
       if (response) {
         this.totalRevenue = response.value.totalRevenue * 5 / 100; // Adjust based on your data structure
         this.totalBookings = response.value.totalBookings; // Adjust based on your data structure
-
-        const weeks = response.value.weeks.map(r => r.week);
-        const revenueData = response.value.weeks.map(item => item.totalRevenue);
-        const bookingData = response.value.weeks.map(r => r.totalBookings);
-
-        // Existing line chart options code
+        console.log(this.totalRevenue, '2')
         this.initializeChart();
+      }
+    });
+    this.loadRevenuesToday();
+    this.revenuesToday$.subscribe(response => {
+      if (response) {
+        this.totalRevenueToday = response.value.todayRevenue * 5 / 100; // Adjust based on your data structure
+        this.totalBookingsToday = response.value.todayBookings; // Adjust based on your data structure
       }
     });
   }
@@ -91,6 +101,11 @@ export class OverviewAdminComponent implements OnInit {
   private loadRevenues(): void {
     // Dispatch the action to load revenues based on the selected month and year
     this.store.dispatch(loadAllOwnerRevenueByMonth({ month: this.chooseMonth, year: this.chooseYear }));
+  }
+
+  private loadRevenuesToday(): void {
+    // Dispatch the action to load revenues based on the selected month and year
+    this.store.dispatch(loadAllOwnerRevenueByToday());
   }
 
   private initializeChart(): void {
