@@ -1,0 +1,76 @@
+:host {
+  display: flex;
+}
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5; /* Adjust background color as needed */
+}
+
+.image-container img {
+  width: 50vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.login-container {
+  width: 50vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 90%;
+  height: 90%;
+  padding: 10px;
+  background-color: #E6F8B3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form .error {
+  padding: 16px;
+  color: white;
+  background-color: red;
+}
+
+.word-input{
+  padding: 5px 5px; /* Adjust the padding as needed */
+  width: 100%;
+  background-color: white;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+.btn-login{
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: #08222F;
+  color: #ADE603;
+  width: 100%;
+  padding: 10px 10px;
+}
+
+.return-home {
+  position: relative;
+}
+
+.return-home-arrow {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+}
+.download-word{
+  font-size: 2em;
+  font-family: 'Inter', sans-serif;
+}
+.download-btn{
+  background-color: #08222F;
+  color: white;
+  border-radius: 10px;
+  margin-top: 1em;
+}

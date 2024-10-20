@@ -25,7 +25,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { HotDealComponent } from '../hot-deal/hot-deal.component';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'lib-search-court-group',
   standalone: true,
@@ -64,7 +64,6 @@ export class SearchCourtGroupComponent implements OnInit{
 
   ngOnInit() {
     this.store.dispatch(loadCities());
-    // Trigger search with default values on page load
     this.onSearch();
   }
 
