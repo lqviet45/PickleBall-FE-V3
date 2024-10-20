@@ -55,9 +55,6 @@ export class SearchCourtGroupComponent implements OnInit{
   searchQuery = '';
   selectedCity = '';
   cities$: Observable<string[]>;
-  nop: string[] = ['2', '3', '4'];
-  pageSize = 8;
-  totalCourtGroups = 18;
 
   constructor(private store: Store<{ city: CityState, courtGroups: { courtGroups: CourtGroup[], error: any } }>) {
     this.cities$ = this.store.select(state => state.city.cities);
@@ -72,21 +69,11 @@ export class SearchCourtGroupComponent implements OnInit{
   }
 
   onSearch() {
-    // Dispatch the search action with current search query, selected city, and pagination settings
     this.store.dispatch(searchCourtGroups({
       name: this.searchQuery || '',
       cityName: this.selectedCity || '',
       pageNumber: 1,
       pageSize: 8
-    }));
-  }
-  onPageChange(event: PageEvent) {
-    const pageIndex = event.pageIndex;
-    this.store.dispatch(searchCourtGroups({
-      name: this.searchQuery,
-      cityName: this.selectedCity,
-      pageNumber: pageIndex + 1,
-      pageSize: this.pageSize
     }));
   }
 }

@@ -18,6 +18,7 @@
       "@org/admin": ["libs/admin/src/index.ts"],
       "@org/forgot-password": ["libs/forgot-password/src/index.ts"],
       "@org/guest": ["libs/guest/src/index.ts"],
+      "@org/landing-page": ["libs/landing-page/src/index.ts"],
       "@org/login": ["libs/login/src/index.ts"],
       "@org/owner": ["libs/owner/src/index.ts"],
       "@org/register": ["libs/register/src/index.ts"],

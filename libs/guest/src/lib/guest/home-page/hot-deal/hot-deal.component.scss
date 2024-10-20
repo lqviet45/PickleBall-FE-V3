@@ -72,12 +72,22 @@
   background-color: #08222F;
   color: #ADE603;
 }
+.link-download{
+  text-decoration: none;
+  color: #ADE603;
+}
 
 .btn-booking-section {
   display: flex;
   justify-content: center;
+  bottom: 0;
 }
-
+.location{
+  height: 2.5em;
+}
+.court-name{
+  height: 2em
+}
 @media screen and (max-width: 1200px) {
   .card {
     width: calc(50% - 30px);

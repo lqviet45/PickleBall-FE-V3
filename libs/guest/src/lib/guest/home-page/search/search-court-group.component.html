@@ -14,6 +14,4 @@
 
 <div class="result" *ngIf="courtGroups$ | async as courtGroups">
   <lib-hot-deal [courtGroups]="courtGroups" [error]="error$ | async"></lib-hot-deal>
-  <mat-paginator [length]="totalCourtGroups" [pageSize]="pageSize" [pageSizeOptions]="[8]" (page)="onPageChange($event)">
-  </mat-paginator>
 </div>

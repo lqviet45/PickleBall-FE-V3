@@ -13,6 +13,6 @@ export class IntroduceComponent {
   constructor(private route: Router) {
   }
   onRegister(): void{
-    this.route.navigate(['/register']);
+    this.route.navigate(['/landing-page']);
   }
 }

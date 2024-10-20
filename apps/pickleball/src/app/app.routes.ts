@@ -38,4 +38,8 @@ export const appRoutes: Route[] = [
     path: 'user/:firebaseId',
     loadComponent: () => import('@org/user').then(m => m.UserComponent),
   },
+  {
+    path: 'landing-page',
+    loadComponent: () => import('@org/landing-page').then(m => m.LandingPageComponent),
+  },
 ];
