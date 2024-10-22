@@ -47,10 +47,6 @@ export class LoginComponent {
     this.authService
       .login(rawForm.email, rawForm.password)
       .subscribe({
-        next: () => {
-          // Handle successful login, e.g., navigate to the dashboard
-          this.router.navigate(['/owner']);
-        },
         error: (error) => {
           // Check for specific Firebase error codes
           if (error.code === 'auth/user-not-found') {

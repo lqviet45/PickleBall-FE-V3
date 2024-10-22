@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatButton } from '@angular/material/button';
@@ -87,7 +87,6 @@ export class OverviewHeaderComponent implements OnInit {
   onSelectCourtGroup(selectedGroup: CourtGroup): void {
     this.selectedCourtGroup = selectedGroup;
     this.emitCourtGroupId(selectedGroup.id);
-    console.log(this.selectedCourtGroup, 'courtGroupId');
   }
 
   private emitCourtGroupId(courtGroupId: string): void {

@@ -24,3 +24,33 @@ export interface CurrentRevenue {
   totalMonthRevenue: number;
   playerCountOfMonth: number;
 }
+
+export interface AdminRevenueResponse {
+  value: {
+    weeks: any[],
+    totalRevenue: number,
+    totalBookings: number,
+  }
+  valueType: string;
+  status: string;
+  isSuccess: boolean;
+  successMessage: string;
+  correlationId: string;
+  location: string;
+  errors: any[];
+  validationErrors: any[];
+}
+export interface AdminRevenueTodayResponse {
+  value: {
+    todayRevenue: number,
+    todayBookings: number,
+  }
+  valueType: string;
+  status: string;
+  isSuccess: boolean;
+  successMessage: string;
+  correlationId: string;
+  location: string;
+  errors: any[];
+  validationErrors: any[];
+}

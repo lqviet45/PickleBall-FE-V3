@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormField, MatFormFieldModule, MatHint, MatLabel } from '@angular/material/form-field';
 import {MatOption, MatSelect} from "@angular/material/select";
@@ -11,7 +11,7 @@ import {
   MatDatepickerModule,
   MatDatepickerToggle
 } from '@angular/material/datepicker';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store} from '@ngrx/store';
 import {
   CityState,
@@ -25,7 +25,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
 import { MatIconButton } from '@angular/material/button';
 import { HotDealComponent } from '../hot-deal/hot-deal.component';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 @Component({
   selector: 'lib-search-court-group',
   standalone: true,
@@ -55,9 +55,6 @@ export class SearchCourtGroupComponent implements OnInit{
   searchQuery = '';
   selectedCity = '';
   cities$: Observable<string[]>;
-  nop: string[] = ['2', '3', '4'];
-  pageSize = 8;
-  totalCourtGroups = 30;
 
   constructor(private store: Store<{ city: CityState, courtGroups: { courtGroups: CourtGroup[], error: any } }>) {
     this.cities$ = this.store.select(state => state.city.cities);
@@ -67,18 +64,15 @@ export class SearchCourtGroupComponent implements OnInit{
 
   ngOnInit() {
     this.store.dispatch(loadCities());
+    this.onSearch();
   }
 
   onSearch() {
-    this.store.dispatch(searchCourtGroups({ name: this.searchQuery, cityName: this.selectedCity, pageNumber: 1, pageSize: this.pageSize }));
-  }
-  onPageChange(event: PageEvent) {
-    const pageIndex = event.pageIndex;
     this.store.dispatch(searchCourtGroups({
-      name: this.searchQuery,
-      cityName: this.selectedCity,
-      pageNumber: pageIndex + 1,
-      pageSize: this.pageSize
+      name: this.searchQuery || '',
+      cityName: this.selectedCity || '',
+      pageNumber: 1,
+      pageSize: 8
     }));
   }
 }

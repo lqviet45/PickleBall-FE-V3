@@ -12,6 +12,7 @@ import { Booking } from '../booking/booking.model';
 export class UserService {
   private baseUrl = 'https://pickleballapp.azurewebsites.net/api/users';
 
+  private countUrl = 'https://pickleballapp.azurewebsites.net/api/total-user';
   constructor(private http: HttpClient) {}
 
   getUserProfile(firebaseId: string): Observable<UserInterface> {
@@ -55,5 +56,10 @@ export class UserService {
     const url = `${this.baseUrl}/role?Role=${role}`;
     return this.http.get<{ value: UserInterface[] }>(url)
       .pipe(map(response => response.value));
+  }
+  countAllUsers(): Observable<any> {
+    const url = `${this.countUrl}`;
+    return this.http.get(url)
+      .pipe(map(response => response));
   }
 }

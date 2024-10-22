@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { map, Observable } from 'rxjs';
-import { CourtGroup, selectAllCourtGroups, selectCourtGroupError } from '@org/store';
-import { Store } from '@ngrx/store';
+import { CourtGroup } from '@org/store';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'lib-hot-deal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './hot-deal.component.html',
   styleUrl: './hot-deal.component.scss',
 })

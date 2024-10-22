@@ -14,14 +14,6 @@
   border-bottom: 1px solid #ccc; /* Add border between rows */
 }
 
-.booking-id-cell {
-  padding: 1em;
-  text-align: center;
-  vertical-align: middle;
-  background-color: yellow;
-  color: blue;
-}
-
 .booking-name-cell {
   padding: 1em;
   text-align: left;
@@ -29,7 +21,7 @@
 }
 
 .booking-cell {
-  padding: 1em;
+  padding: 0.6em;
   vertical-align: middle;
   text-align: left; /* Align text to the left */
 }
@@ -50,6 +42,7 @@
 .booking-user {
   font-size: 1.5em;
   font-weight: bold;
+  color: #ADE603;
 }
 
 .booking-time {
@@ -90,23 +83,6 @@
 .filter-options span.active {
   font-weight: bold;
   color: black; /* Color when active */
-}
-
-/* Booking status colors */
-.status-pending {
-  color: black;
-}
-
-.status-confirmed {
-  color: blue;
-}
-
-.status-completed {
-  color: green;
-}
-
-.status-cancelled {
-  color: red;
 }
 
 /* Media Queries for Responsiveness */

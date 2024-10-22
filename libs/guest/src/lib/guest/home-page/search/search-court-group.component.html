@@ -1,23 +1,17 @@
 <div class="search-bar">
-  <input class="search-input" matInput placeholder="Nhập tên sân" [(ngModel)]="searchQuery">
+  <input class="search-input w-60" matInput placeholder="Nhập tên sân" [(ngModel)]="searchQuery">
 
-  <mat-form-field>
-    <mat-select placeholder="Tỉnh/Thành" [(ngModel)]="selectedCity">
-      <mat-option *ngFor="let option of (cities$ | async)" [value]="option">{{ option }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div>
+    <select class="py-2 px-5" [(ngModel)]="selectedCity">
+      <option value="" disabled selected>Tỉnh/Thành</option>
+      <option *ngFor="let option of (cities$ | async)" [value]="option">{{ option }}</option>
+    </select>
+  </div>
 
-  <mat-form-field>
-    <mat-select placeholder="Số người chơi">
-      <mat-option *ngFor="let option of nop" [value]="option">{{ option }}</mat-option>
-    </mat-select>
-  </mat-form-field>
 
   <button (click)="onSearch()" class="btn-search">Tìm kiếm</button>
 </div>
 
 <div class="result" *ngIf="courtGroups$ | async as courtGroups">
   <lib-hot-deal [courtGroups]="courtGroups" [error]="error$ | async"></lib-hot-deal>
-  <mat-paginator [length]="totalCourtGroups" [pageSize]="pageSize" [pageSizeOptions]="[8]" (page)="onPageChange($event)">
-  </mat-paginator>
 </div>

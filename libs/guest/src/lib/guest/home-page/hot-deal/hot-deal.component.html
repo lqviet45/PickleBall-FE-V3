@@ -6,12 +6,22 @@
           <img *ngIf="court.medias?.length" [src]="court.medias?.[0]?.mediaUrl ?? ''" [alt]="court.name">
         </div>
         <div class="card-content">
-          <h2>{{ court.name }}</h2>
-          <p>{{ court.location }}</p>
-          <p>{{ court.price }}</p>
+          <div class="d-flex w-full">
+            <h2 class="court-name">{{ court.name }}</h2>
+          </div>
+
+          <p class="location">{{ court.location }}</p>
+          <div class="d-flex justify-content-end w-full">
+            <h2>{{ court.price | currency: 'VND' }}/h</h2>
+          </div>
+
         </div>
         <div class="btn-booking-section">
-          <button class="btn-booking">Đặt sân</button>
+          <button class="btn-booking">
+            <a class="link-download" routerLink="/landing-page">
+              Đặt sân
+            </a>
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CurrentRevenue, RevenueResponse } from './revenue.model';
+import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { map } from 'rxjs/operators';
 export class RevenuesService {
 
   private baseUrl = 'https://pickleballapp.azurewebsites.net/api/users';
+  private adminRevenueUrl = 'https://pickleballapp.azurewebsites.net/api/transactions'
 
   constructor(private http: HttpClient) {}
 
@@ -24,5 +25,13 @@ export class RevenuesService {
     return this.http.get<{value: CurrentRevenue}>(url)
       .pipe(map(response => response.value));
   }
-
+  getAllOwnerRevenueByMonth(month: number, year: number): Observable<AdminRevenueResponse> {
+    const url = `${this.adminRevenueUrl}/owner-revenue?Month=${month}&Year=${year}`;
+    const params = { Month: month, Year: year };
+    return this.http.get<AdminRevenueResponse>(url, {params});
+  }
+  getAllOwnerRevenueByToday(): Observable<AdminRevenueTodayResponse> {
+    const url = `${this.adminRevenueUrl}/owner-revenue-today`;
+    return this.http.get<AdminRevenueTodayResponse>(url);
+  }
 }
