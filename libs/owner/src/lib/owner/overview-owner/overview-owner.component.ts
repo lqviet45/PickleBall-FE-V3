@@ -5,12 +5,8 @@ import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
-  AdminRevenueTodayResponse,
-  CurrentRevenue, loadCurrentRevenue, loadOwnerTodayRevenue,
-  loadRevenues, loadSingleOwnerRevenue, OwnerRevenueResponse, OwnerRevenueTodayResponse,
-  RevenueResponse, selectCurrentRevenue,
+  loadOwnerTodayRevenue, loadSingleOwnerRevenue, OwnerRevenueResponse, OwnerRevenueTodayResponse,
   selectCurrentUser, selectOwnerRevenue, selectOwnerTodayRevenue,
-  selectRevenuesData,
   selectRevenuesError,
   selectRevenuesLoading, UserInterface
 } from '@org/store';
