@@ -1,5 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
+import {
+  AdminRevenueResponse,
+  AdminRevenueTodayResponse,
+  CurrentRevenue, OwnerRevenueResponse,
+  OwnerRevenueTodayResponse,
+  RevenueResponse
+} from './revenue.model';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from '../court-group/court-group.model';
 
@@ -75,4 +81,32 @@ export const loadAllOwnerRevenueByTodayFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadOwnerTodayRevenue = createAction(
+  '[Revenues] Load Owner Today Revenue',
+  props<{ ownerId: string }>()
+);
 
+export const loadOwnerTodayRevenueSuccess = createAction(
+  '[Revenues] Load Owner Today Revenue Success',
+  props<{ data: OwnerRevenueTodayResponse }>()
+);
+
+export const loadOwnerTodayRevenueFailure = createAction(
+  '[Revenues] Load Owner Today Revenue Failure',
+  props<{ error: any }>()
+);
+
+export const loadSingleOwnerRevenue = createAction(
+  '[Revenues] Load Single Owner Revenues',
+  props<{ ownerId: string; month: string; year: string }>()
+);
+
+export const loadSingleOwnerRevenueSuccess = createAction(
+  '[Revenues] Load Single Owner Revenues Success',
+  props<{ data: OwnerRevenueResponse }>()
+);
+
+export const loadSingleOwnerRevenueFailure = createAction(
+  '[Revenues] Load Single Owner Revenue Failure',
+  props<{ error: any }>()
+);
