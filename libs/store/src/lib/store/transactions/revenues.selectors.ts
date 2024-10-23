@@ -40,3 +40,13 @@ export const selectCourtGroupWithRevenue = createSelector(
   selectRevenuesState,
   (state: RevenuesState) => state.courtGroup
 )
+
+export const selectOwnerTodayRevenue = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.ownerRevenueToday
+)
+
+export const selectOwnerRevenue = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.ownerRevenue
+)

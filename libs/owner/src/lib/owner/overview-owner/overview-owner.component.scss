@@ -14,15 +14,14 @@
 
 .statistic-box {
   flex: 1;
-  min-width: 250px; /* Ensures boxes don't get too small */
   min-height: 10vh;
   margin: 8px;
   padding: 16px;
-  background-color: var(--white-color); /* Background color */
-  border: 1px solid #ddd; /* Border */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
-  text-align: center; /* Center text */
+  background-color: var(--white-color);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,7 +50,18 @@
   font-weight: 400;
 }
 
-.statistic-box-content_money, .statistic-box-content_description {
+.statistic-box-content_linedown {
+  font-size: 1rem;
+  font-weight: 500;
+  color: black;
+}
+.statistic-box-content_linedown2 {
+  font-size: 0.6rem;
+  font-weight: 400;
+}
+
+.statistic-box-content_money,
+.statistic-box-content_description {
   color: var(--primary-color);
 }
 
@@ -137,6 +147,7 @@
   margin: 0; /* Ensure no default margin */
   border-top: 1px solid #ccc; /* Solid line with gray color */
 }
+
 
 
 /* Responsive adjustments */

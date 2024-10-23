@@ -1,6 +1,12 @@
 import { createReducer, on } from '@ngrx/store';
 import * as RevenuesActions from './revenues.actions';
-import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
+import {
+  AdminRevenueResponse,
+  AdminRevenueTodayResponse,
+  CurrentRevenue, OwnerRevenueResponse,
+  OwnerRevenueTodayResponse,
+  RevenueResponse
+} from './revenue.model';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from '../court-group/court-group.model';
 
@@ -13,6 +19,8 @@ export interface RevenuesState {
   courtGroup: CourtGroup[];
   adminRevenue: AdminRevenueResponse | null;
   adminRevenueToday: AdminRevenueTodayResponse | null;
+  ownerRevenueToday: OwnerRevenueTodayResponse | null;
+  ownerRevenue: OwnerRevenueResponse | null;
 }
 
 export const initialRevenueState: RevenuesState = {
@@ -24,6 +32,8 @@ export const initialRevenueState: RevenuesState = {
   courtGroup: [],
   adminRevenue: null,
   adminRevenueToday: null,
+  ownerRevenueToday: null,
+  ownerRevenue: null
 };
 
 export const revenuesReducer = createReducer(
@@ -43,4 +53,10 @@ export const revenuesReducer = createReducer(
   on(RevenuesActions.loadAllOwnerRevenueByToday, state => ({ ...state, loading: true })),
   on(RevenuesActions.loadAllOwnerRevenueByTodaySuccess, (state, { data }) => ({ ...state, adminRevenueToday: data, loading: false })),
   on(RevenuesActions.loadAllOwnerRevenueByTodayFailure, (state, { error }) => ({ ...state, error, loading: false })),
+  on(RevenuesActions.loadOwnerTodayRevenue, state => ({ ...state, loading: true })),
+  on(RevenuesActions.loadOwnerTodayRevenueSuccess, (state, { data }) => ({ ...state, ownerRevenueToday: data, loading: false })),
+  on(RevenuesActions.loadOwnerTodayRevenueFailure, (state, { error }) => ({ ...state, error, loading: false })),
+  on(RevenuesActions.loadSingleOwnerRevenue, state => ({ ...state, loading: true })),
+  on(RevenuesActions.loadSingleOwnerRevenueSuccess, (state, { data }) => ({ ...state, ownerRevenue: data, loading: false })),
+  on(RevenuesActions.loadSingleOwnerRevenueFailure, (state, { error }) => ({ ...state, error, loading: false })),
 );

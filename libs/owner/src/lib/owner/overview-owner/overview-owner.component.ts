@@ -5,10 +5,11 @@ import { MatIcon } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import {
-  CurrentRevenue, loadCurrentRevenue,
-  loadRevenues,
+  AdminRevenueTodayResponse,
+  CurrentRevenue, loadCurrentRevenue, loadOwnerTodayRevenue,
+  loadRevenues, loadSingleOwnerRevenue, OwnerRevenueResponse, OwnerRevenueTodayResponse,
   RevenueResponse, selectCurrentRevenue,
-  selectCurrentUser,
+  selectCurrentUser, selectOwnerRevenue, selectOwnerTodayRevenue,
   selectRevenuesData,
   selectRevenuesError,
   selectRevenuesLoading, UserInterface
@@ -25,8 +26,8 @@ import * as Highcharts from 'highcharts';
 })
 export class OverviewOwnerComponent implements OnInit{
 
-  revenues$: Observable<RevenueResponse | null>;
-  currentRevenue$: Observable<CurrentRevenue | null>;
+  revenues$: Observable<OwnerRevenueResponse | null>;
+  revenuesToday$: Observable<OwnerRevenueTodayResponse | null>;
   loading$: Observable<boolean>;
   error$: Observable<any>;
   chooseMonth: string
@@ -36,14 +37,14 @@ export class OverviewOwnerComponent implements OnInit{
   owner$: Observable<UserInterface | null>;
   chartOptions!: Highcharts.Options;
   Highcharts: typeof Highcharts = Highcharts;
-  totalDayRevenue = 0;
-  totalMonthRevenue = 0;
-  playerCountOfMonth = 0;
+  totalRevenueToday = 0;
+  totalBookingsToday = 0;
+  monthRevenue = 0;
   constructor(
     private store: Store
   ) {
-    this.currentRevenue$ = this.store.select(selectCurrentRevenue);
-    this.revenues$ = this.store.select(selectRevenuesData);
+    this.revenuesToday$ = this.store.select(selectOwnerTodayRevenue);
+    this.revenues$ = this.store.select(selectOwnerRevenue);
     this.loading$ = this.store.select(selectRevenuesLoading);
     this.error$ = this.store.select(selectRevenuesError);
     this.owner$ = this.store.select(selectCurrentUser);
@@ -70,11 +71,11 @@ export class OverviewOwnerComponent implements OnInit{
           }
         });
 
-        this.currentRevenue$.subscribe(currentRevenue => {
-          if (currentRevenue) {
-            this.totalDayRevenue = currentRevenue.totalDayRevenue * 95 / 100;
-            this.totalMonthRevenue = currentRevenue.totalMonthRevenue * 95 / 100;
-            this.playerCountOfMonth = currentRevenue.playerCountOfMonth;
+        this.revenuesToday$.subscribe(response => {
+          if (response) {
+            this.totalRevenueToday = response.value.todayRevenue * 95 / 100;
+            this.totalBookingsToday = response.value.todayBookings;
+            this.monthRevenue = response.value.monthRevenue * 95 / 100;
           }
         })
 
@@ -93,11 +94,11 @@ export class OverviewOwnerComponent implements OnInit{
   }
 
   private loadRevenues(): void {
-    this.store.dispatch(loadRevenues({ ownerId: this.ownerId, month: this.chooseMonth, year: this.chooseYear }));
+    this.store.dispatch(loadSingleOwnerRevenue({ ownerId: this.ownerId, month: this.chooseMonth, year: this.chooseYear }));
   }
 
   private loadCurrentRevenue(): void {
-    this.store.dispatch(loadCurrentRevenue({ ownerId: this.ownerId }));
+    this.store.dispatch(loadOwnerTodayRevenue({ ownerId: this.ownerId }));
   }
 
   private formatNumber(value: number): string {
@@ -112,18 +113,18 @@ export class OverviewOwnerComponent implements OnInit{
   }
 
   getFormattedTotalMonthRevenue(): string {
-    return this.formatNumber(this.totalMonthRevenue);
+    return this.formatNumber(this.monthRevenue);
   }
 
   getFormattedTotalDayRevenue(): string {
-    return this.formatNumber(this.totalDayRevenue);
+    return this.formatNumber(this.totalRevenueToday);
   }
 
 
-  private updateChart(data: RevenueResponse): void {
+  private updateChart(data: OwnerRevenueResponse): void {
     const weeks = data.value.weeks.map((week, index) => `Week ${index + 1}`);
-    const revenueData = data.value.weeks.map(week => week.totalRevenue);
-    const playersData = data.value.weeks.map(week => week.playerCount);
+    const revenueData = data.value.weeks.map(week => week.totalRevenue * 95 / 100);
+    const BookingData = data.value.weeks.map(week => week.totalBookings);
 
     this.chartOptions = {
       chart: {
@@ -131,7 +132,7 @@ export class OverviewOwnerComponent implements OnInit{
         borderRadius: 10,
       },
       title: {
-        text: 'Weekly Revenue & Players',
+        text: 'Weekly Revenue & Bookings',
         style: {
           color: '#333333',
           fontSize: '20px',
@@ -171,7 +172,7 @@ export class OverviewOwnerComponent implements OnInit{
         }
       }, {
         title: {
-          text: 'Players',
+          text: 'Bookings',
           style: {
             color: '#FF6347',
             fontSize: '16px'
@@ -198,8 +199,8 @@ export class OverviewOwnerComponent implements OnInit{
           fillColor: '#1E90FF'
         }
       }, {
-        name: 'Players',
-        data: playersData,
+        name: 'Bookings',
+        data: BookingData,
         type: 'line',
         color: '#FF6347',
         lineWidth: 2,

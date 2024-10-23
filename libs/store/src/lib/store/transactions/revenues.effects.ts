@@ -4,7 +4,13 @@ import { catchError, map, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { RevenuesService } from './revenues.service';
 import * as RevenuesActions from './revenues.actions';
-import { AdminRevenueResponse, AdminRevenueTodayResponse, CurrentRevenue, RevenueResponse } from './revenue.model';
+import {
+  AdminRevenueResponse,
+  AdminRevenueTodayResponse,
+  CurrentRevenue, OwnerRevenueResponse,
+  OwnerRevenueTodayResponse,
+  RevenueResponse
+} from './revenue.model';
 import { CourtGroupService } from '../court-group/court-group.services';
 
 @Injectable()
@@ -63,6 +69,30 @@ export class RevenuesEffects {
         this.revenuesService.getAllOwnerRevenueByToday().pipe(
           map((data: AdminRevenueTodayResponse) => RevenuesActions.loadAllOwnerRevenueByTodaySuccess({ data })),
           catchError(error => of(RevenuesActions.loadAllOwnerRevenueByTodayFailure({ error })))
+        )
+      )
+    )
+  );
+
+  loadOwnerRevenuesToday$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RevenuesActions.loadOwnerTodayRevenue),
+      mergeMap(action =>
+        this.revenuesService.getOwnerRevenuesToday(action.ownerId).pipe(
+          map((data: OwnerRevenueTodayResponse) => RevenuesActions.loadOwnerTodayRevenueSuccess({ data })),
+          catchError(error => of(RevenuesActions.loadOwnerTodayRevenueFailure({ error })))
+        )
+      )
+    )
+  );
+
+  loadSingleOwnerRevenues$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RevenuesActions.loadSingleOwnerRevenue),
+      mergeMap(action =>
+        this.revenuesService.getOwnerMonthlyRevenuesV2(action.ownerId, action.month, action.year).pipe(
+          map((data: OwnerRevenueResponse) => RevenuesActions.loadSingleOwnerRevenueSuccess({ data })),
+          catchError(error => of(RevenuesActions.loadSingleOwnerRevenueFailure({ error })))
         )
       )
     )
