@@ -1,7 +1,7 @@
 export interface Week {
-  week: string;
-  totalRevenue: number;
-  playerCount: number;
+  week: string
+  totalRevenue: number
+  playerCount: number
 }
 
 export interface RevenueResponse {
@@ -53,4 +53,42 @@ export interface AdminRevenueTodayResponse {
   location: string;
   errors: any[];
   validationErrors: any[];
+}
+
+export interface OwnerRevenueTodayResponse {
+  value: {
+    monthRevenue: number
+    todayRevenue: number
+    todayBookings: number
+  }
+  valueType: string;
+  status: string;
+  isSuccess: boolean;
+  successMessage: string;
+  correlationId: string;
+  location: string;
+  errors: any[];
+  validationErrors: any[];
+}
+
+export interface OwnerRevenueResponse {
+  value: {
+    weeks: Week2[],
+    totalRevenue: number,
+    totalBookings: number,
+  }
+  valueType: string;
+  status: string;
+  isSuccess: boolean;
+  successMessage: string;
+  correlationId: string;
+  location: string;
+  errors: any[];
+  validationErrors: any[];
+}
+
+export interface Week2 {
+  week: string
+  totalRevenue: number
+  totalBookings: number
 }
