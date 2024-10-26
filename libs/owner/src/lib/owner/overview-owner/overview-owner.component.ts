@@ -18,16 +18,16 @@ import * as Highcharts from 'highcharts';
   standalone: true,
   imports: [CommonModule, RouterLink, NgOptimizedImage, MatIcon, HighchartsChartModule],
   templateUrl: './overview-owner.component.html',
-  styleUrl: './overview-owner.component.scss',
+  styleUrl: './overview-owner.component.scss'
 })
-export class OverviewOwnerComponent implements OnInit{
+export class OverviewOwnerComponent implements OnInit {
 
   revenues$: Observable<OwnerRevenueResponse | null>;
   revenuesToday$: Observable<OwnerRevenueTodayResponse | null>;
   loading$: Observable<boolean>;
   error$: Observable<any>;
-  chooseMonth: string
-  chooseYear : string
+  chooseMonth: string;
+  chooseYear: string;
   chooseMonthYear: string;
   ownerId = '';
   owner$: Observable<UserInterface | null>;
@@ -36,6 +36,9 @@ export class OverviewOwnerComponent implements OnInit{
   totalRevenueToday = 0;
   totalBookingsToday = 0;
   monthRevenue = 0;
+  monthBooking: number | undefined = 0;
+  monthProducts: number | undefined = 0;
+
   constructor(
     private store: Store
   ) {
@@ -51,33 +54,36 @@ export class OverviewOwnerComponent implements OnInit{
     this.chooseMonthYear = `${this.chooseYear}-${this.chooseMonth}`;
 
   }
-    ngOnInit(): void {
 
-      this.owner$.subscribe(user => {
-        if (user && user.id) {
-          this.ownerId = user?.id || '';
-          //this.store.dispatch(loadRevenues({ ownerId: this.ownerId, month: this.month, year: this.year }));
-          this.loadRevenues();
-          this.loadCurrentRevenue();
+  ngOnInit(): void {
+
+    this.owner$.subscribe(user => {
+      if (user && user.id) {
+        this.ownerId = user?.id || '';
+        //this.store.dispatch(loadRevenues({ ownerId: this.ownerId, month: this.month, year: this.year }));
+        this.loadRevenues();
+        this.loadCurrentRevenue();
+      }
+
+      this.revenues$.subscribe(data => {
+        if (data) {
+          this.updateChart(data);
         }
-
-        this.revenues$.subscribe(data => {
-          if (data) {
-            this.updateChart(data);
-          }
-        });
-
-        this.revenuesToday$.subscribe(response => {
-          if (response) {
-            this.totalRevenueToday = response.value.todayRevenue * 95 / 100;
-            this.totalBookingsToday = response.value.todayBookings;
-            this.monthRevenue = response.value.monthRevenue * 95 / 100;
-          }
-        })
-
+        this.monthBooking = data?.value.totalBookings
+        this.monthProducts = data?.value.totalProducts
       });
 
-    }
+      this.revenuesToday$.subscribe(response => {
+        if (response) {
+          this.totalRevenueToday = response.value.todayRevenue * 95 / 100;
+          this.totalBookingsToday = response.value.todayBookings;
+          this.monthRevenue = response.value.monthRevenue * 95 / 100;
+        }
+      });
+
+    });
+
+  }
 
   onMonthChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -90,7 +96,11 @@ export class OverviewOwnerComponent implements OnInit{
   }
 
   private loadRevenues(): void {
-    this.store.dispatch(loadSingleOwnerRevenue({ ownerId: this.ownerId, month: this.chooseMonth, year: this.chooseYear }));
+    this.store.dispatch(loadSingleOwnerRevenue({
+      ownerId: this.ownerId,
+      month: this.chooseMonth,
+      year: this.chooseYear
+    }));
   }
 
   private loadCurrentRevenue(): void {
@@ -125,7 +135,7 @@ export class OverviewOwnerComponent implements OnInit{
     this.chartOptions = {
       chart: {
         backgroundColor: '#f4f4f4',
-        borderRadius: 10,
+        borderRadius: 10
       },
       title: {
         text: 'Weekly Revenue & Bookings',

@@ -49,7 +49,10 @@
   font-size: 1rem; /* Adjust font size as needed */
   font-weight: 400;
 }
-
+.statistic-box-content_description1 {
+  font-size: 0.8rem; /* Adjust font size as needed */
+  font-weight: 400;
+}
 .statistic-box-content_linedown {
   font-size: 1rem;
   font-weight: 500;
@@ -61,7 +64,8 @@
 }
 
 .statistic-box-content_money,
-.statistic-box-content_description {
+.statistic-box-content_description,
+.statistic-box-content_description1{
   color: var(--primary-color);
 }
 

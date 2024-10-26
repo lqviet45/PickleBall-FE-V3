@@ -1,25 +1,24 @@
 import { Component, EventEmitter, HostListener, inject, OnInit, Output } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { AuthService, loadUser, UserInterface, UserState } from '@org/store';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
-import { TransactionViewOwnerComponent } from '../transaction-view-owner/transaction-view-owner.component';
-
+import { TransactionAdminComponent } from '../transaction-admin/transaction-admin.component';
 
 @Component({
-  selector: 'lib-header-owner',
+  selector: 'lib-header-admin',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatIconModule, NgOptimizedImage, MatButton, MatIconButton, MatInput, MatMenuTrigger, MatMenu, MatMenuItem, TransactionViewOwnerComponent],
-  templateUrl: './header-owner.component.html',
-  styleUrl: './header-owner.component.scss',
+  imports: [CommonModule, MatButton, MatIcon, MatIconButton, MatInput, MatMenu, MatMenuItem, MatToolbar, MatToolbarRow, TransactionAdminComponent, MatMenuTrigger],
+  templateUrl: './header-admin.component.html',
+  styleUrl: './header-admin.component.scss',
 })
-export class HeaderOwnerComponent implements OnInit{
+export class HeaderAdminComponent implements OnInit{
   authService = inject(AuthService);
   router = inject(Router);
   user$: Observable<UserInterface | null>;

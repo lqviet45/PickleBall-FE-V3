@@ -10,6 +10,7 @@ import { MatListItem, MatNavList } from '@angular/material/list';
 import { ManageAccountComponent } from './manage-account/manage-account.component';
 import { ViewCourtgroupComponent } from './view-courtgroup/view-courtgroup.component';
 import { OverviewAdminComponent } from './overview-admin/overview-admin.component';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
 
 @Component({
   selector: 'lib-admin',
@@ -23,7 +24,7 @@ import { OverviewAdminComponent } from './overview-admin/overview-admin.componen
     MatDrawer,
     MatDrawerContainer,
     MatDrawerContent,
-    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent, ViewCourtgroupComponent, OverviewAdminComponent
+    HeaderOwnerComponent, SidenavAdminComponent, ManageAccountComponent, ViewCourtgroupComponent, OverviewAdminComponent, HeaderAdminComponent
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',

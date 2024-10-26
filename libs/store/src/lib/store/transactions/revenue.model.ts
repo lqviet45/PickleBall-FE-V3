@@ -7,6 +7,7 @@ export interface Week {
 export interface RevenueResponse {
   value: {
     weeks: Week[];
+
   };
   valueType: string;
   status: string;
@@ -28,8 +29,9 @@ export interface CurrentRevenue {
 export interface AdminRevenueResponse {
   value: {
     weeks: any[],
-    totalRevenue: number,
-    totalBookings: number,
+    totalRevenue: number;
+    totalBookings: number;
+    totalProducts: number
   }
   valueType: string;
   status: string;
@@ -76,6 +78,7 @@ export interface OwnerRevenueResponse {
     weeks: Week2[],
     totalRevenue: number,
     totalBookings: number,
+    totalProducts: number
   }
   valueType: string;
   status: string;
@@ -91,4 +94,10 @@ export interface Week2 {
   week: string
   totalRevenue: number
   totalBookings: number
+}
+export interface Transaction{
+  amount: number;
+  fullName: string;
+  courtGroupName: string;
+  createdOnUtc: string
 }

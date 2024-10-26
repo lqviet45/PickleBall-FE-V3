@@ -9,9 +9,10 @@ import {
   AdminRevenueTodayResponse,
   CurrentRevenue, OwnerRevenueResponse,
   OwnerRevenueTodayResponse,
-  RevenueResponse
+  RevenueResponse, Transaction
 } from './revenue.model';
 import { CourtGroupService } from '../court-group/court-group.services';
+import { PagedResponse } from '../PagedResponse.model';
 
 @Injectable()
 export class RevenuesEffects {
@@ -93,6 +94,28 @@ export class RevenuesEffects {
         this.revenuesService.getOwnerMonthlyRevenuesV2(action.ownerId, action.month, action.year).pipe(
           map((data: OwnerRevenueResponse) => RevenuesActions.loadSingleOwnerRevenueSuccess({ data })),
           catchError(error => of(RevenuesActions.loadSingleOwnerRevenueFailure({ error })))
+        )
+      )
+    )
+  );
+  loadOwnerTransaction$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RevenuesActions.loadOwnerTransaction),
+      mergeMap(action =>
+        this.revenuesService.getTransactionByCourtGroupId(action.courtGroupId, action.pageNumber, action.pageSize).pipe(
+          map((data: PagedResponse<Transaction>) => RevenuesActions.loadOwnerTransactionSuccess({ data })),
+          catchError(error => of(RevenuesActions.loadOwnerTransactionFailure({ error })))
+        )
+      )
+    )
+  );
+  loadTransaction$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RevenuesActions.loadTransaction),
+      mergeMap(action =>
+        this.revenuesService.getTransaction(action.pageNumber, action.pageSize).pipe(
+          map((data: PagedResponse<Transaction>) => RevenuesActions.loadOwnerTransactionSuccess({ data })),
+          catchError(error => of(RevenuesActions.loadOwnerTransactionFailure({ error })))
         )
       )
     )

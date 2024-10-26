@@ -1,0 +1,23 @@
+<div *ngIf="loading$ | async; else content">
+  <p>Loading transactions...</p>
+</div>
+
+<ng-template #content>
+  <div *ngIf="error$ | async as error">
+    <p>Error: {{ error }}</p>
+  </div>
+
+  <div class="transaction-list text-black" *ngIf="(transactions$ | async)?.length; else noData">
+    <div class="transaction-item" *ngFor="let transaction of transactions$ | async">
+      <p>
+        {{ transaction.createdOnUtc | date: 'yyyy-MM-dd HH:mm:ss' }}
+        {{ transaction.fullName }} đã chuyển khoản cho bạn
+        {{ transaction.amount * 95/100 | currency:'VND' }}
+      </p>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <p>No transactions available.</p>
+  </ng-template>
+</ng-template>

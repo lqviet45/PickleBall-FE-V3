@@ -4,7 +4,7 @@ import {
   AdminRevenueTodayResponse,
   CurrentRevenue, OwnerRevenueResponse,
   OwnerRevenueTodayResponse,
-  RevenueResponse
+  RevenueResponse, Transaction
 } from './revenue.model';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from '../court-group/court-group.model';
@@ -108,5 +108,33 @@ export const loadSingleOwnerRevenueSuccess = createAction(
 
 export const loadSingleOwnerRevenueFailure = createAction(
   '[Revenues] Load Single Owner Revenue Failure',
+  props<{ error: any }>()
+);
+export const loadOwnerTransaction = createAction(
+  '[Transaction] Load Owner Transaction',
+  props<{ courtGroupId: string; pageNumber: number; pageSize: number }>()
+);
+
+export const loadOwnerTransactionSuccess = createAction(
+  '[Transaction] Load Owner Transaction Success',
+  props<{ data: PagedResponse<Transaction> }>()
+);
+
+export const loadOwnerTransactionFailure = createAction(
+  '[Transaction] Load Owner Transaction Failure',
+  props<{ error: any }>()
+);
+export const loadTransaction = createAction(
+  '[Transaction] Load Transaction',
+  props<{ pageNumber: number; pageSize: number }>()
+);
+
+export const loadTransactionSuccess = createAction(
+  '[Transaction] Load Transaction Success',
+  props<{ data: PagedResponse<Transaction> }>()
+);
+
+export const loadTransactionFailure = createAction(
+  '[Transaction] Load Transaction Failure',
   props<{ error: any }>()
 );

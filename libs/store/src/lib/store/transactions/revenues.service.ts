@@ -6,9 +6,10 @@ import {
   AdminRevenueTodayResponse,
   CurrentRevenue, OwnerRevenueResponse,
   OwnerRevenueTodayResponse,
-  RevenueResponse
+  RevenueResponse, Transaction
 } from './revenue.model';
 import { map } from 'rxjs/operators';
+import { PagedResponse } from '../PagedResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class RevenuesService {
 
   private baseUrl = 'https://pickleballapp.azurewebsites.net/api/users';
   private adminRevenueUrl = 'https://pickleballapp.azurewebsites.net/api/transactions'
+  private transactionUrl = 'https://pickleballapp.azurewebsites.net/api/court-groups'
 
   constructor(private http: HttpClient) {}
 
@@ -51,5 +53,32 @@ export class RevenuesService {
     const params = { Month: month, Year: year, OwnerId: ownerId };
     return this.http.get<OwnerRevenueResponse>(url, { params });
   }
-
+  getTransactionByCourtGroupId(courtGroupId: string, pageNumber: number, pageSize: number): Observable<PagedResponse<Transaction>> {
+    const url = `${this.transactionUrl}/${courtGroupId}/transactions`;
+    const params = { pageNumber: pageNumber.toString(), pageSize: pageSize.toString() };
+    return this.http.get<{ value: PagedResponse<Transaction> }>(url, { params }).pipe(
+      map(response => {
+        if (response?.value?.items) {
+          return response.value;
+        } else {
+          console.warn('Empty or unexpected API response:', response);
+          throw new Error('Empty response or unexpected structure');
+        }
+      })
+    );
+  }
+  getTransaction(pageNumber: number, pageSize: number): Observable<PagedResponse<Transaction>> {
+    const url = `${this.adminRevenueUrl}`;
+    const params = { pageNumber: pageNumber, pageSize: pageSize };
+    return this.http.get<{ value: PagedResponse<Transaction> }>(url, { params }).pipe(
+      map(response => {
+        if (response?.value?.items) {
+          return response.value;
+        } else {
+          console.warn('Empty or unexpected API response:', response);
+          throw new Error('Empty response or unexpected structure');
+        }
+      })
+    );
+  }
 }

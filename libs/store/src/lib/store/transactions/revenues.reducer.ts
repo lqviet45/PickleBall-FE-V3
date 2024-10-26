@@ -5,10 +5,12 @@ import {
   AdminRevenueTodayResponse,
   CurrentRevenue, OwnerRevenueResponse,
   OwnerRevenueTodayResponse,
-  RevenueResponse
+  RevenueResponse, Transaction
 } from './revenue.model';
 import { PagedResponse } from '../PagedResponse.model';
 import { CourtGroup } from '../court-group/court-group.model';
+import { PageEvent } from '@angular/material/paginator';
+import * as fromActions from '../booking/booking.actions';
 
 export interface RevenuesState {
   data: RevenueResponse | null;
@@ -21,6 +23,8 @@ export interface RevenuesState {
   adminRevenueToday: AdminRevenueTodayResponse | null;
   ownerRevenueToday: OwnerRevenueTodayResponse | null;
   ownerRevenue: OwnerRevenueResponse | null;
+  transactionPageResponse: PagedResponse<Transaction> | null
+  transaction: Transaction[]
 }
 
 export const initialRevenueState: RevenuesState = {
@@ -33,7 +37,9 @@ export const initialRevenueState: RevenuesState = {
   adminRevenue: null,
   adminRevenueToday: null,
   ownerRevenueToday: null,
-  ownerRevenue: null
+  ownerRevenue: null,
+  transaction: [],
+  transactionPageResponse: null
 };
 
 export const revenuesReducer = createReducer(
@@ -59,4 +65,18 @@ export const revenuesReducer = createReducer(
   on(RevenuesActions.loadSingleOwnerRevenue, state => ({ ...state, loading: true })),
   on(RevenuesActions.loadSingleOwnerRevenueSuccess, (state, { data }) => ({ ...state, ownerRevenue: data, loading: false })),
   on(RevenuesActions.loadSingleOwnerRevenueFailure, (state, { error }) => ({ ...state, error, loading: false })),
+  on(RevenuesActions.loadOwnerTransaction, state => ({ ...state, loading: true })),
+  on(RevenuesActions.loadOwnerTransactionSuccess, (state, { data }) => ({
+    ...state,
+    transaction: data.items,
+    loading: false
+  })),
+  on(RevenuesActions.loadOwnerTransactionFailure, (state, { error }) => ({ ...state, error, loading: false })),
+  on(RevenuesActions.loadTransaction, state => ({ ...state, loading: true })),
+  on(RevenuesActions.loadTransactionSuccess, (state, { data }) => ({
+    ...state,
+    transaction: data.items,
+    loading: false
+  })),
+  on(RevenuesActions.loadTransactionFailure, (state, { error }) => ({ ...state, error, loading: false })),
 );

@@ -50,3 +50,11 @@ export const selectOwnerRevenue = createSelector(
   selectRevenuesState,
   (state: RevenuesState) => state.ownerRevenue
 )
+export const selectOwnerTransaction = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.transaction
+)
+export const selectTransaction = createSelector(
+  selectRevenuesState,
+  (state: RevenuesState) => state.transaction
+)

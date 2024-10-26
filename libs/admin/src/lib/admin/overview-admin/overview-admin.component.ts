@@ -40,6 +40,7 @@ export class OverviewAdminComponent implements OnInit {
   totalUsers = 0;
   totalRevenueToday = 0;
   totalBookingsToday = 0;
+  totalProducts = 0;
 
   constructor(private store: Store, private userService: UserService) {
     this.revenues$ = this.store.select(selectRevenuesData2);
@@ -61,7 +62,7 @@ export class OverviewAdminComponent implements OnInit {
       if (response) {
         this.totalRevenue = response.value.totalRevenue * 5 / 100; // Adjust based on your data structure
         this.totalBookings = response.value.totalBookings; // Adjust based on your data structure
-        console.log(this.totalRevenue, '2')
+        this.totalProducts  = response.value.totalProducts
         this.initializeChart();
       }
     });
