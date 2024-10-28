@@ -97,7 +97,7 @@ export interface Week2 {
 }
 export interface Transaction{
   amount: number;
-  fullName: string;
+  userName: string;
   courtGroupName: string;
   createdOnUtc: string
 }
