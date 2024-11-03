@@ -36,8 +36,8 @@ export class OverviewOwnerComponent implements OnInit {
   totalRevenueToday = 0;
   totalBookingsToday = 0;
   monthRevenue = 0;
-  monthBooking: number | undefined = 0;
-  monthProducts: number | undefined = 0;
+  monthBooking = 0;
+  monthProducts = 0;
 
   constructor(
     private store: Store
@@ -68,9 +68,9 @@ export class OverviewOwnerComponent implements OnInit {
       this.revenues$.subscribe(data => {
         if (data) {
           this.updateChart(data);
+          this.monthBooking = data?.value.totalBookings
+          this.monthProducts = data?.value.totalProducts
         }
-        this.monthBooking = data?.value.totalBookings
-        this.monthProducts = data?.value.totalProducts
       });
 
       this.revenuesToday$.subscribe(response => {
@@ -130,7 +130,7 @@ export class OverviewOwnerComponent implements OnInit {
   private updateChart(data: OwnerRevenueResponse): void {
     const weeks = data.value.weeks.map((week, index) => `Week ${index + 1}`);
     const revenueData = data.value.weeks.map(week => week.totalRevenue * 95 / 100);
-    const BookingData = data.value.weeks.map(week => week.totalBookings);
+    const BookingData = data.value.weeks.map(week => week.totalBookings + this.monthProducts) ;
 
     this.chartOptions = {
       chart: {
@@ -178,7 +178,7 @@ export class OverviewOwnerComponent implements OnInit {
         }
       }, {
         title: {
-          text: 'Bookings',
+          text: 'Transaction',
           style: {
             color: '#FF6347',
             fontSize: '16px'
@@ -205,7 +205,7 @@ export class OverviewOwnerComponent implements OnInit {
           fillColor: '#1E90FF'
         }
       }, {
-        name: 'Bookings',
+        name: 'Transaction',
         data: BookingData,
         type: 'line',
         color: '#FF6347',

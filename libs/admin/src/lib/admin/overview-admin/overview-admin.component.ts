@@ -220,7 +220,7 @@ export class OverviewAdminComponent implements OnInit {
       if (response) {
         const weeks = response.value.weeks.map(r => r.week);
         const revenueData = response.value.weeks.map(item => item.totalRevenue * 5 / 100);
-        const bookingData = response.value.weeks.map(r => r.totalBookings);
+        const bookingData = response.value.weeks.map(item => item.totalBookings + item.totalProducts);
 
         this.lineChartOptions = {
           chart: {
@@ -268,7 +268,7 @@ export class OverviewAdminComponent implements OnInit {
             }
           }, {
             title: {
-              text: 'Players',
+              text: 'Transaction',
               style: {
                 color: '#FF6347',
                 fontSize: '16px'
@@ -295,7 +295,7 @@ export class OverviewAdminComponent implements OnInit {
               fillColor: '#1E90FF'
             }
           }, {
-            name: 'Bookings',
+            name: 'Transaction',
             data: bookingData,
             type: 'line',
             color: '#FF6347',

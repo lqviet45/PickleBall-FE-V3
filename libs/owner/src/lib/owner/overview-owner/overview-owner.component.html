@@ -10,9 +10,9 @@
           <div class="statistic-box-content_description">Month Revenues</div>
           <div class="statistic-box-content_money">{{ monthRevenue | currency: 'VND' }}</div>
           <div class="flex">
-            <mat-icon class="text-bg-success">trending_up</mat-icon>
+            <mat-icon class="text-bg-danger">trending_down</mat-icon>
             <span class="statistic-box-content_description1">
-            Increasing <span> {{ monthRevenue | currency: 'VND' }}</span> than last month
+            Increasing <span> {{ 1874350 - monthRevenue | currency: 'VND' }}</span> than last month
           </span>
           </div>
 
@@ -57,7 +57,7 @@
     <div class="col-md-4 statistic-box">
       <div class="statistic-box-content">
         <div class="statistic-box-content_text">
-          <div class="statistic-box-content_money">Purchasing volume</div>
+          <div class="statistic-box-content_money">Total transaction: {{this.monthProducts+ this.monthBooking}}</div>
           <div class="statistic-box-content_description">Booking: {{this.monthBooking}}</div>
           <div class="statistic-box-content_description">Product: {{this.monthProducts}}</div>
 
